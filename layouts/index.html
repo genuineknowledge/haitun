@@ -1,0 +1,89 @@
+{{ define "main" }}
+
+{{ $owner := .Site.Params.github.owner }}
+{{ $repo := .Site.Params.github.repo }}
+{{ $asset := .Site.Params.github.assetName }}
+{{ $downloadURL := printf "https://github.com/%s/%s/releases/latest/download/%s" $owner $repo $asset }}
+{{ $releasesURL := printf "https://github.com/%s/%s/releases" $owner $repo }}
+
+<!-- ===================== Hero ===================== -->
+<section class="hero">
+  <div class="container hero-inner">
+    <img class="hero-logo" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
+    <div class="badge">本地运行 · 隐私优先</div>
+    <h1 class="hero-title">{{ .Site.Params.tagline }}</h1>
+    <p class="hero-sub">{{ .Site.Params.description }}</p>
+    <div class="hero-cta">
+      <a class="btn btn-lg" id="download" href="{{ $downloadURL }}">
+        ↓ 下载 Windows 安装包
+      </a>
+      <a class="btn btn-ghost btn-lg" href="{{ $releasesURL }}">查看所有版本</a>
+    </div>
+    <p class="muted hero-meta">免费 · 支持 Windows 10/11 · 持续更新</p>
+  </div>
+  <div class="hero-glow"></div>
+</section>
+
+<!-- ===================== Features ===================== -->
+<section class="section" id="features">
+  <div class="container">
+    <h2 class="section-title">它能为你做什么</h2>
+    <p class="section-sub">把繁琐、重复、易错的工作交给 Haitun Agent。</p>
+    <div class="grid">
+      {{ range hugo.Data.features.items }}
+      <div class="card">
+        <div class="card-icon">{{ .icon }}</div>
+        <h3>{{ .title }}</h3>
+        <p class="muted">{{ .desc }}</p>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- ===================== How it works ===================== -->
+<section class="section section-alt" id="how">
+  <div class="container">
+    <h2 class="section-title">三步开始使用</h2>
+    <div class="steps">
+      {{ range hugo.Data.steps.items }}
+      <div class="step">
+        <div class="step-num">{{ .num }}</div>
+        <div>
+          <h3>{{ .title }}</h3>
+          <p class="muted">{{ .desc }}</p>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+    <div class="center">
+      <a class="btn btn-lg" href="{{ $downloadURL }}">↓ 立即下载</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section class="section" id="faq">
+  <div class="container container-narrow">
+    <h2 class="section-title">常见问题</h2>
+    <div class="faq">
+      {{ range hugo.Data.faq.items }}
+      <details class="faq-item">
+        <summary>{{ .q }}</summary>
+        <p class="muted">{{ .a }}</p>
+      </details>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- ===================== Download CTA ===================== -->
+<section class="section cta-final">
+  <div class="container center">
+    <h2 class="section-title">准备好了吗？</h2>
+    <p class="section-sub">几分钟即可上手，立即下载体验。</p>
+    <a class="btn btn-lg" href="{{ $downloadURL }}">↓ 下载 {{ .Site.Params.brand }}</a>
+  </div>
+</section>
+
+{{ end }}

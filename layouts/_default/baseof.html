@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Locale | default "zh-CN" }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ .Site.Title }} · {{ .Site.Params.tagline }}</title>
+  <meta name="description" content="{{ .Site.Params.description }}">
+  <link rel="icon" href="{{ "favicon.ico" | relURL }}" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  {{ $style := resources.Get "css/main.css" | resources.Minify }}
+  <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="logo" href="{{ "/" | relURL }}">
+        <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">{{ .Site.Params.brand }}
+      </a>
+      <nav class="nav-links">
+        <a href="#features">功能</a>
+        <a href="#how">如何使用</a>
+        <a href="#faq">常见问题</a>
+        <a class="btn btn-sm" href="#download">下载</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    {{ block "main" . }}{{ end }}
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="logo"><img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">{{ .Site.Params.brand }}</div>
+        <p class="muted">{{ .Site.Params.description }}</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/{{ .Site.Params.github.owner }}/{{ .Site.Params.github.repo }}">GitHub</a>
+        <a href="mailto:{{ .Site.Params.contactEmail }}">联系我们</a>
+      </div>
+    </div>
+    <div class="container muted copyright">© {{ .Site.Params.year }} {{ .Site.Params.brand }}. 保留所有权利。</div>
+  </footer>
+</body>
+</html>

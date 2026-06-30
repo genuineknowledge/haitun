@@ -1,0 +1,31 @@
+# ============================================================
+# Hugo 站点配置
+# 部署到 GitHub Pages 时，把 baseURL 改成你的实际地址：
+#   - 项目站点: https://<用户名>.github.io/<仓库名>/
+#   - 用户/组织站点或自定义域名: https://your-domain.com/
+# ============================================================
+baseURL: "https://genuineknowledge.github.io/haitun/"
+locale: "zh-CN"
+title: "Haitun Agent"
+# 关闭用不到的输出类型
+disableKinds:
+  - taxonomy
+  - term
+  - rss
+
+params:
+  # —— 品牌 ——
+  brand: "Haitun Agent"
+  tagline: "你的本地 AI 助手，把重复工作交给它"
+  description: "Haitun Agent 是一款运行在本地的智能体，自动化你的日常任务，让你专注真正重要的事。"
+
+  # —— 下载（指向 GitHub Releases 的最新版）——
+  # 把下面的 owner/repo 换成你的仓库；assetName 换成你发布的安装包文件名
+  github:
+    owner: "genuineknowledge"
+    repo: "haitun"
+    assetName: "HaitunAgent_Setup.exe"
+
+  # —— 页脚 ——
+  year: "2026"
+  contactEmail: "team@example.com"
