@@ -37,6 +37,9 @@ jobs:
       - name: 配置 Pages
         id: pages
         uses: actions/configure-pages@v5
+        with:
+          # 仓库未手动开启 Pages 时，自动启用（避免 "Get Pages site failed"）
+          enablement: true
 
       - name: 构建站点
         # baseURL 由 Pages 自动注入，确保资源路径正确
