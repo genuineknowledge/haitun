@@ -20,6 +20,11 @@
         <a href="#features">功能</a>
         <a href="#how">如何使用</a>
         <a href="#faq">常见问题</a>
+        <!-- 主题切换按钮 -->
+        <button id="themeToggle" class="theme-toggle" aria-label="切换明暗主题">
+          <span class="icon-sun">☀️</span>
+          <span class="icon-moon">🌙</span>
+        </button>
         <a class="btn btn-sm" href="#download">下载</a>
       </nav>
     </div>
@@ -42,5 +47,28 @@
     </div>
     <div class="container muted copyright">© {{ .Site.Params.year }} {{ .Site.Params.brand }}. 保留所有权利。</div>
   </footer>
+
+  <!-- 主题切换脚本 -->
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('haitun-theme');
+    
+    // 初始化主题：读取本地存储的选择
+    if (savedTheme === 'light') {
+      document.body.setAttribute('data-theme', 'light');
+    }
+
+    // 点击切换主题，同时保存偏好
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = document.body.getAttribute('data-theme');
+      if (currentTheme === 'light') {
+        document.body.removeAttribute('data-theme');
+        localStorage.setItem('haitun-theme', 'dark');
+      } else {
+        document.body.setAttribute('data-theme', 'light');
+        localStorage.setItem('haitun-theme', 'light');
+      }
+    });
+  </script>
 </body>
 </html>
