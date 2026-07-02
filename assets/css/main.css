@@ -261,21 +261,50 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
 }
 .step h3 { font-size: 19px; margin-bottom: 4px; }
 
-/* —— FAQ —— */
-.faq { display: flex; flex-direction: column; gap: 12px; }
+/* —— FAQ 极简列表样式 —— */
+.faq {
+  display: flex;
+  flex-direction: column;
+  max-width: 900px;
+  margin: 0 auto;
+}
 .faq-item {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 12px; padding: 18px 22px;
-  box-shadow: var(--card-shadow);
-  transition: background 0.3s ease, border-color 0.3s ease;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  padding: 22px 0;
+  transition: border-color 0.2s;
 }
 .faq-item summary {
-  cursor: pointer; font-weight: 600; font-size: 16px;
-  list-style: none; display: flex; justify-content: space-between; align-items: center;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 17px;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: color 0.2s;
 }
-.faq-item summary::after { content: "+"; color: var(--accent-2); font-size: 22px; }
-.faq-item[open] summary::after { content: "−"; }
-.faq-item p { margin-top: 12px; color: var(--muted); }
+.faq-item summary:hover {
+  color: var(--accent);
+}
+.faq-item summary::after {
+  content: "+";
+  color: var(--muted);
+  font-size: 24px;
+  font-weight: 300;
+  transition: transform 0.2s, color 0.2s;
+}
+.faq-item[open] summary::after {
+  content: "−";
+}
+.faq-item p {
+  margin-top: 16px;
+  color: var(--muted);
+  line-height: 1.7;
+  padding-bottom: 4px;
+}
 
 /* —— 最终 CTA —— */
 .cta-final { background: var(--bg-alt); border-top: 1px solid var(--border); transition: background 0.3s ease; }
@@ -300,4 +329,51 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   .hero { padding: 70px 0 60px; }
   .section { padding: 60px 0; }
   .spec-card { padding: 24px; }
+}
+
+/* —— 核心能力卡片（对标 Tabby 大图标风格） —— */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+.feature-card {
+  text-align: center;
+  padding: 32px 20px;
+  border-radius: var(--radius);
+  transition: transform 0.2s, background 0.2s;
+}
+.feature-card:hover {
+  transform: translateY(-4px);
+  background: var(--bg-alt);
+}
+.feature-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  background: var(--bg-alt);
+  border-radius: 20px;
+  transition: background 0.2s;
+}
+.feature-card h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+.feature-card p {
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* —— 响应式适配 —— */
+@media (max-width: 960px) {
+  .feature-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .feature-grid { grid-template-columns: 1fr; }
+  .faq-item summary { font-size: 16px; }
 }
