@@ -1,0 +1,41 @@
+# data/requirements.yaml
+title: 运行配置要求
+subtitle: 不同场景适配不同配置，满足从轻量试用至重度自动化的全需求
+
+tiers:
+  - name: 最低配置
+    desc: 满足基础运行需求，适合轻量任务试用
+    items:
+      - label: 操作系统
+        value: Windows 10/11、主流 Linux 发行版、macOS 13+
+      - label: CPU
+        value: 4 核 64 位处理器
+      - label: 内存
+        value: 8GB RAM
+      - label: 存储空间
+        value: 2GB 可用空间
+      - label: 显卡
+        value: 集成显卡即可
+      - label: 网络
+        value: 可稳定访问所选 AI provider 的网络
+      - label: 运行环境
+        value: Python >= 3.14、uv
+
+  - name: 推荐配置
+    desc: 流畅运行复杂工作流，推荐日常长期使用
+    recommended: true
+    items:
+      - label: 操作系统
+        value: Windows 11、Ubuntu 24.04+/Debian 13+、macOS 14+
+      - label: CPU
+        value: 6-8 核 64 位处理器
+      - label: 内存
+        value: 16GB RAM 或更高
+      - label: 存储空间
+        value: 5GB 以上可用空间，建议 SSD
+      - label: 显卡
+        value: 集成显卡即可；Web Console 使用现代浏览器硬件加速更佳
+      - label: 网络
+        value: 低延迟、稳定的网络连接
+      - label: 运行环境
+        value: Python >= 3.14、uv，建议使用项目独立虚拟环境
