@@ -30,7 +30,7 @@
     <h2 class="section-title">它能为你做什么</h2>
     <p class="section-sub">把繁琐、重复、易错的工作交给 Haitun Agent。</p>
     <div class="grid">
-      {{ range hugo.Data.features.items }}
+      {{ range .Site.Data.features.items }}
       <div class="card">
         <div class="card-icon">{{ .icon }}</div>
         <h3>{{ .title }}</h3>
@@ -46,7 +46,7 @@
   <div class="container">
     <h2 class="section-title">三步开始使用</h2>
     <div class="steps">
-      {{ range hugo.Data.steps.items }}
+      {{ range .Site.Data.steps.items }}
       <div class="step">
         <div class="step-num">{{ .num }}</div>
         <div>
@@ -62,12 +62,37 @@
   </div>
 </section>
 
+<!-- ===================== 运行配置要求 ===================== -->
+<section class="section" id="requirements">
+  <div class="container">
+    <h2 class="section-title">运行配置要求</h2>
+    <p class="section-sub">不同场景适配不同配置，满足从轻量试用至重度自动化的全需求</p>
+    
+    <div class="requirements-grid">
+      {{ range .Site.Data.requirements.tiers }}
+      <div class="spec-card {{ if .recommended }}recommended{{ end }}">
+        <h3>{{ .name }}</h3>
+        <p class="muted center" style="margin-bottom: 20px; font-size: 14px;">{{ .desc }}</p>
+        <ul class="spec-list">
+          {{ range .items }}
+          <li class="spec-item">
+            <span class="spec-label">{{ .label }}</span>
+            <span class="spec-value">{{ .value }}</span>
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
 <!-- ===================== FAQ ===================== -->
 <section class="section" id="faq">
   <div class="container container-narrow">
     <h2 class="section-title">常见问题</h2>
     <div class="faq">
-      {{ range hugo.Data.faq.items }}
+      {{ range .Site.Data.faq.items }}
       <details class="faq-item">
         <summary>{{ .q }}</summary>
         <p class="muted">{{ .a }}</p>
