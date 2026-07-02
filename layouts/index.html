@@ -24,15 +24,15 @@
   <div class="hero-glow"></div>
 </section>
 
-<!-- ===================== Features ===================== -->
+<!-- ===================== 核心能力 ===================== -->
 <section class="section" id="features">
   <div class="container">
-    <h2 class="section-title">它能为你做什么</h2>
-    <p class="section-sub">把繁琐、重复、易错的工作交给 Haitun Agent。</p>
-    <div class="grid">
+    <h2 class="section-title">{{ .Site.Data.features.title }}</h2>
+    <p class="section-sub">{{ .Site.Data.features.subtitle }}</p>
+    <div class="feature-grid">
       {{ range .Site.Data.features.items }}
-      <div class="card">
-        <div class="card-icon">{{ .icon }}</div>
+      <div class="feature-card">
+        <div class="feature-icon">{{ .icon }}</div>
         <h3>{{ .title }}</h3>
         <p class="muted">{{ .desc }}</p>
       </div>
@@ -41,26 +41,8 @@
   </div>
 </section>
 
-<!-- ===================== How it works ===================== -->
-<section class="section section-alt" id="how">
-  <div class="container">
-    <h2 class="section-title">三步开始使用</h2>
-    <div class="steps">
-      {{ range .Site.Data.steps.items }}
-      <div class="step">
-        <div class="step-num">{{ .num }}</div>
-        <div>
-          <h3>{{ .title }}</h3>
-          <p class="muted">{{ .desc }}</p>
-        </div>
-      </div>
-      {{ end }}
-    </div>
-  </div>
-</section>
-
 <!-- ===================== 运行配置要求 ===================== -->
-<section class="section" id="requirements">
+<section class="section section-alt" id="requirements">
   <div class="container">
     <h2 class="section-title">运行配置要求</h2>
     <p class="section-sub">不同场景适配不同配置，满足从轻量试用至重度自动化的全需求</p>
@@ -99,12 +81,28 @@
   </div>
 </section>
 
-<!-- ===================== Download CTA ===================== -->
-<section class="section cta-final">
-  <div class="container center">
-    <h2 class="section-title">准备好了吗？</h2>
-    <p class="section-sub">几分钟即可上手，立即下载体验。</p>
-    <a class="btn btn-lg" href="{{ $downloadURL }}">↓ 下载 {{ .Site.Params.brand }}</a>
+<!-- ===================== 快速开始（三步+下载合并） ===================== -->
+<section class="section section-alt" id="start">
+  <div class="container">
+    <h2 class="section-title">三步开启本地智能助手</h2>
+    <p class="section-sub">无需复杂配置，几分钟即可上手使用</p>
+    
+    <div class="steps">
+      {{ range .Site.Data.steps.items }}
+      <div class="step">
+        <div class="step-num">{{ .num }}</div>
+        <div>
+          <h3>{{ .title }}</h3>
+          <p class="muted">{{ .desc }}</p>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+    
+    <div class="center" style="margin-top: 48px;">
+      <a class="btn btn-lg" href="{{ $downloadURL }}">↓ 下载 Haitun Agent</a>
+      <p class="muted" style="margin-top: 16px; font-size: 14px;">免费开源 · 支持 Windows 10/11 · 持续更新</p>
+    </div>
   </div>
 </section>
 
