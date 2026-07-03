@@ -59,9 +59,13 @@ params:
 
 ## 部署说明
 本项目通过 GitHub Actions 自动构建并部署到 GitHub Pages：
-1.仓库 Settings → Pages → Build and deployment → Source 选择 GitHub Actions
-2.向 main 分支推送代码后，.github/workflows/deploy.yml 将自动触发构建与部署
-3.部署完成后站点自动更新，可在 Actions 面板查看部署状态与日志
+
+1. 仓库 Settings → Pages → Build and deployment → Source 选择 GitHub Actions
+2. 向 main 分支推送代码后，.github/workflows/deploy.yml 将自动触发构建与部署
+3. 部署完成后站点自动更新，可在 Actions 面板查看部署状态与日志
+   ```bash
+   hugo server
+
 
 
 ## 相关仓库
