@@ -18,8 +18,6 @@ tiers:
         value: 集成显卡即可
       - label: 网络
         value: 可稳定访问所选 AI provider 的网络
-      - label: 运行环境
-        value: Python >= 3.14、uv
 
   - name: 推荐配置
     desc: 流畅运行复杂工作流，推荐日常长期使用
@@ -37,5 +35,3 @@ tiers:
         value: 集成显卡即可；Web Console 使用现代浏览器硬件加速更佳
       - label: 网络
         value: 低延迟、稳定的网络连接
-      - label: 运行环境
-        value: Python >= 3.14、uv，建议使用项目独立虚拟环境
