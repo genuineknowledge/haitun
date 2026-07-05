@@ -13,12 +13,12 @@
     <h1 class="hero-title">{{ .Site.Params.tagline }}</h1>
     <p class="hero-sub">{{ .Site.Params.description }}</p>
     <div class="hero-cta">
-      <a class="btn btn-lg" id="download" href="{{ $downloadURL }}">
-        ↓ 下载 Windows 安装包
+      <a class="btn btn-lg" id="download-hero" href="{{ $downloadURL }}">
+        免费开始使用
       </a>
       <a class="btn btn-ghost btn-lg" href="{{ $releasesURL }}">查看所有版本</a>
     </div>
-    <p class="muted hero-meta">免费 · 支持 Windows 10/11 · 持续更新</p>
+    <p class="muted hero-meta">免费开源 · 支持 Windows 10/11 · 持续更新</p>
   </div>
   <div class="hero-glow"></div>
 </section>
@@ -80,8 +80,27 @@
   </div>
 </section>
 
+<!-- ===================== 开发者社群 ===================== -->
+<section class="section section-alt" id="community">
+  <div class="container center">
+    <h2 class="section-title">开发者社群</h2>
+    <p class="section-sub">参与插件生态建设，交流使用经验，共同推进产品迭代</p>
+    <div class="community-wrap">
+      <div class="community-qrcode">
+        <!-- 替换为实际二维码图片路径，放到 static 文件夹即可 -->
+        <img src="{{ "community_qr.png" | relURL }}" alt="开发者交流群二维码">
+        <p class="muted" style="margin-top: 12px; font-size: 14px;">扫码加入开发者交流群</p>
+      </div>
+      <div class="community-links">
+        <a class="btn btn-ghost" href="https://github.com/{{ $owner }}/{{ $repo }}/issues">提交反馈与建议</a>
+        <a class="btn btn-ghost" href="https://github.com/{{ $owner }}/{{ $repo }}">参与插件生态开发</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===================== 快速开始（三步+下载合并） ===================== -->
-<section class="section section-alt" id="start">
+<section class="section" id="start">
   <div class="container">
     <h2 class="section-title">三步开启本地智能助手</h2>
     <p class="section-sub">无需复杂配置，几分钟即可上手使用</p>
@@ -99,7 +118,7 @@
     </div>
     
     <div class="center" style="margin-top: 48px;">
-      <a class="btn btn-lg" href="{{ $downloadURL }}">↓ 下载 Haitun Agent</a>
+      <a class="btn btn-lg" href="{{ $downloadURL }}">免费开始使用</a>
       <p class="muted" style="margin-top: 16px; font-size: 14px;">免费开源 · 支持 Windows 10/11 · 持续更新</p>
     </div>
   </div>
