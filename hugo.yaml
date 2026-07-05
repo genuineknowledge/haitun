@@ -14,10 +14,8 @@ disableKinds:
   - rss
 
 params:
-  # —— 品牌 ——
-  brand: "Haitun Agent"
-  tagline: "你的本地 AI 助手，把重复工作交给它"
-  description: "Haitun Agent 是一款运行在本地的智能体，自动化你的日常任务，让你专注真正重要的事。"
+  tagline: "你的本地 AI 智能体，自动完成长程复杂任务"
+  description: "全程本地运行、数据隐私可控，支持长上下文稳定执行与持续自进化，把繁琐重复的工作交给它，专注真正重要的事。"
 
   # —— 下载（指向 GitHub Releases 的最新版）——
   # 把下面的 owner/repo 换成你的仓库；assetName 换成你发布的安装包文件名
