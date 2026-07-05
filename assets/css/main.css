@@ -379,3 +379,37 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   .feature-grid { grid-template-columns: 1fr; }
   .faq-item summary { font-size: 16px; }
 }
+/* 强制按钮文字为白色，提升对比度，解决看不清的问题 */
+.btn {
+  color: #ffffff !important;
+  font-weight: 600;
+}
+
+/* —— 开发者社群板块样式 —— */
+.community-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+.community-qrcode img {
+  width: 160px;
+  height: 160px;
+  border-radius: 12px;
+  background: #fff;
+  padding: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+.community-links {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (max-width: 560px) {
+  .community-qrcode img {
+    width: 140px;
+    height: 140px;
+  }
+}
