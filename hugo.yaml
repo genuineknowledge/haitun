@@ -4,7 +4,7 @@
 #   - 项目站点: https://<用户名>.github.io/<仓库名>/
 #   - 用户/组织站点或自定义域名: https://your-domain.com/
 # ============================================================
-baseURL: "https://genuineknowledge.github.io/haitun/"
+baseURL: "https://www.genuine-knowledge.com/haitun/"
 locale: "zh-CN"
 title: "Haitun Agent"
 # 关闭用不到的输出类型
