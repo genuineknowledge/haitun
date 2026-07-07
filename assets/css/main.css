@@ -379,8 +379,9 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   .feature-grid { grid-template-columns: 1fr; }
   .faq-item summary { font-size: 16px; }
 }
-/* 强制按钮文字为白色，提升对比度，解决看不清的问题 */
-.btn {
+
+/* 仅主按钮强制白色文字，幽灵按钮保留主题色自适应明暗 */
+.btn:not(.btn-ghost) {
   color: #ffffff !important;
   font-weight: 600;
 }
