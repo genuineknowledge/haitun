@@ -5,15 +5,14 @@
 {{ $asset := .Site.Params.github.assetName }}
 {{ $downloadURL := printf "https://github.com/%s/%s/releases/latest/download/%s" $owner $repo $asset }}
 {{ $releasesURL := printf "https://github.com/%s/%s/releases" $owner $repo }}
-{{ $githubRepo := "https://github.com/genuineknowledge/psi-agent" }}
-{{ $pypiURL := "https://pypi.org/project/psi-agent/" }}
+{{ $githubRepo := printf "https://github.com/%s/%s" $owner $repo }}
 
 <!-- ===================== Hero ===================== -->
 <section class="hero">
   <div class="container hero-inner">
     <img class="hero-logo" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
     <h1 class="hero-title">
-      <span style="font-weight:700;color:#2588f0;">HaiTun</span> 本地AI智能体<br>
+      <span style="font-weight:700;color:var(--accent-2);">HaiTun</span> 本地AI智能体<br>
       自动处理全流程复杂任务
     </h1>
     <div class="hero-sub">
@@ -41,7 +40,7 @@
       <a class="btn btn-ghost btn-lg" href="{{ $releasesURL }}" target="_blank">查看所有版本</a>
     </div>
 
-    <!-- 终端快速安装模块（替换原底部说明文字） -->
+    <!-- 终端快速安装模块 -->
     <div class="hero-terminal">
       <div class="terminal-header">
         <span class="terminal-title">终端快速安装</span>
@@ -136,7 +135,7 @@
         <p class="muted" style="margin-top: 12px; font-size: 14px;">扫码加入开发者交流群</p>
       </div>
       <div class="community-links">
-        <a class="btn btn-ghost" href="https://github.com/{{ $owner }}/{{ $repo }}/issues" target="_blank">提交反馈与建议</a>
+        <a class="btn btn-ghost" href="{{ $githubRepo }}/issues" target="_blank">提交反馈与建议</a>
         <a class="btn btn-ghost" href="{{ $githubRepo }}" target="_blank">参与插件生态开发</a>
       </div>
     </div>
