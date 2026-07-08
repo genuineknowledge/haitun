@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.Language.LanguageCode | default "zh-CN" }}">
+<html lang="{{ .Site.LanguageCode | default "zh-CN" }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +18,7 @@
         <span class="logo-text">{{ .Site.Params.brand }}</span>
       </div>
       <nav class="nav-links">
-        <!-- 功能、配置、FAQ 全部指向 /detail/ 详情页锚点 -->
+        <!-- 详情页锚点链接，relURL自动拼接/haitun/前缀 -->
         <a href="{{ "/haitun/detail/" | relURL }}#features">功能</a>
         <a href="{{ "/haitun/detail/" | relURL }}#requirements">配置要求</a>
         <a href="{{ "/haitun/detail/" | relURL }}#faq">常见问题</a>
@@ -26,8 +26,8 @@
           <span class="icon-sun">☀️</span>
           <span class="icon-moon">🌙</span>
         </button>
-        <!-- 下载中心 = 当前首页根路径 /haitun/ -->
-        <a class="btn btn-sm" href="{{ "/" | relURL }}">下载中心</a>
+        <!-- 首页下载中心 -->
+        <a class="btn btn-sm" href="{{ "/haitun" | relURL }}">下载中心</a>
       </nav>
     </div>
   </header>
@@ -95,7 +95,7 @@
         }
       });
 
-      // 首页主下载按钮自动跳转对应系统
+      // 主下载按钮自动匹配系统下载链接
       const heroDownloadBtn = document.getElementById('hero-download-main');
       if (heroDownloadBtn) {
         heroDownloadBtn.addEventListener('click', (e) => {
@@ -105,7 +105,7 @@
         });
       }
 
-      // 终端命令切换
+      // 终端命令切换逻辑
       const tabs = document.querySelectorAll('.terminal-tab');
       const cmdBox = document.getElementById('terminal-command');
       const copyBtn = document.getElementById('copyCommandBtn');
@@ -128,7 +128,7 @@
             copyBtn.innerHTML = '<span style="font-size:12px;">已复制</span>';
             setTimeout(() => copyBtn.innerHTML = originHtml, 1500);
           } catch (err) {
-            console.error('复制失败', err);
+            console.error('复制命令失败', err);
           }
         });
       }
