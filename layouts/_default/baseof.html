@@ -12,10 +12,10 @@
 <body>
   <header class="nav">
     <div class="container nav-inner">
-      <div class="logo">
+      <a href="{{ "/" | relURL }}" class="logo">
         <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
         <span class="logo-text">{{ .Site.Params.brand }}</span>
-      </div>
+      </a>
       <nav class="nav-links">
         <a href="{{ "/" | relURL }}#features">功能</a>
         <a href="{{ "/" | relURL }}#requirements">配置要求</a>
@@ -24,7 +24,6 @@
           <span class="icon-sun">☀️</span>
           <span class="icon-moon">🌙</span>
         </button>
-        <!-- 右上角下载中心：跳转独立下载页 -->
         <a class="btn btn-sm" href="{{ "/download" | relURL }}">下载中心</a>
       </nav>
     </div>
