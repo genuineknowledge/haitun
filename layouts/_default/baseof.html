@@ -290,29 +290,29 @@
   </footer>
 
   <script>
-    // 终端命令切换 + 复制功能
+    // 终端命令切换 + 一键复制
 document.addEventListener('DOMContentLoaded', () => {
   const tabs = document.querySelectorAll('.terminal-tab');
-  const cmdEl = document.getElementById('terminal-cmd');
-  const copyBtn = document.getElementById('copyCmdBtn');
+  const commandEl = document.getElementById('terminal-command');
+  const copyBtn = document.getElementById('copyCommandBtn');
 
-  // 切换系统命令
+  // 切换系统标签
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       tabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
-      cmdEl.textContent = tab.dataset.cmd;
+      commandEl.textContent = tab.dataset.cmd;
     });
   });
 
   // 一键复制命令
   copyBtn.addEventListener('click', async () => {
     try {
-      await navigator.clipboard.writeText(cmdEl.textContent);
-      const originalHTML = copyBtn.innerHTML;
+      await navigator.clipboard.writeText(commandEl.textContent);
+      const originalIcon = copyBtn.innerHTML;
       copyBtn.innerHTML = '<span style="font-size:12px;">已复制</span>';
       setTimeout(() => {
-        copyBtn.innerHTML = originalHTML;
+        copyBtn.innerHTML = originalIcon;
       }, 1500);
     } catch (err) {
       console.error('复制失败', err);
