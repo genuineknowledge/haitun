@@ -414,3 +414,10 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
     height: 140px;
   }
 }
+
+.hero-title {
+  line-height: 1.3;
+}
+.hero-sub p {
+  line-height: 1.6;
+}
