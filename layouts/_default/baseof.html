@@ -10,7 +10,7 @@
   {{ $style := resources.Get "css/main.css" | resources.Minify }}
   <link rel="stylesheet" href="{{ $style.RelPermalink }}">
   <style>
-    /* 导航弹性布局修复，保证左右排版不换行 */
+    /* 导航弹性布局，保证左右排版不换行 */
     .nav-inner {
       display: flex;
       align-items: center;
@@ -29,7 +29,7 @@
       align-items: center;
       gap: 32px;
     }
-    /* 页脚logo样式，鼠标不显示点击手型 */
+    /* 页脚logo样式，无点击手型 */
     .footer .logo {
       display: flex;
       align-items: center;
@@ -41,7 +41,7 @@
 <body>
   <header class="nav">
     <div class="container nav-inner">
-      <!-- 顶部Logo：无链接，不跳转 -->
+      <!-- 顶部菜单栏Logo：无跳转链接 -->
       <div class="logo">
         <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
         <span class="logo-text">{{ .Site.Params.brand }}</span>
@@ -55,7 +55,12 @@
           <span class="icon-sun">☀️</span>
           <span class="icon-moon">🌙</span>
         </button>
-        <a class="btn btn-sm" href="#start">下载</a>
+        <!-- 下载按钮：直接跳转最新安装包，新窗口打开 -->
+        {{ $owner := .Site.Params.github.owner }}
+        {{ $repo := .Site.Params.github.repo }}
+        {{ $asset := .Site.Params.github.assetName }}
+        {{ $downloadURL := printf "https://github.com/%s/%s/releases/latest/download/%s" $owner $repo $asset }}
+        <a class="btn btn-sm" href="{{ $downloadURL }}" target="_blank">下载</a>
       </nav>
     </div>
   </header>
@@ -67,7 +72,7 @@
   <footer class="footer">
     <div class="container footer-inner">
       <div>
-        <!-- 页脚Logo：移除a标签，不再跳转首页 -->
+        <!-- 页脚Logo：无跳转链接 -->
         <div class="logo">
           <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
           <span class="logo-text">{{ .Site.Params.brand }}</span>
@@ -100,6 +105,12 @@
         localStorage.setItem('haitun-theme', 'dark');
       } else {
         document.body.setAttribute('data-theme', 'light');
+        localStorage.setItem('haitun-theme', 'light');
+      }
+    });
+  </script>
+</body>
+</html>
         localStorage.setItem('haitun-theme', 'light');
       }
     });
