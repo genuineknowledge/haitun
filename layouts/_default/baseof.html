@@ -10,7 +10,7 @@
   {{ $style := resources.Get "css/main.css" | resources.Minify }}
   <link rel="stylesheet" href="{{ $style.RelPermalink }}">
   <style>
-    /* 导航弹性布局，保证左右排版不换行 */
+    /* 导航布局 */
     .nav-inner {
       display: flex;
       align-items: center;
@@ -29,19 +29,124 @@
       align-items: center;
       gap: 32px;
     }
-    /* 页脚logo样式，无点击手型 */
+    /* 页脚logo */
     .footer .logo {
       display: flex;
       align-items: center;
       gap: 8px;
       cursor: default;
     }
+
+    /* Hero下载按钮下拉样式 */
+    .download-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .download-dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: 8px;
+      min-width: 260px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-4px);
+      transition: all 0.2s ease;
+      z-index: 100;
+      overflow: hidden;
+    }
+    .download-dropdown:hover .download-dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .download-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      cursor: pointer;
+      color: #1f2937;
+      text-decoration: none;
+      font-size: 14px;
+      transition: background 0.15s;
+    }
+    .download-option:hover {
+      background: #f3f4f6;
+    }
+    .download-option.current {
+      color: #2588f0;
+      font-weight: 500;
+    }
+    .download-option .badge {
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: #e6f0ff;
+      color: #2588f0;
+    }
+
+    /* 下载专区三卡片布局 */
+    .download-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr 1fr;
+      gap: 24px;
+      margin-top: 40px;
+      align-items: stretch;
+    }
+    .download-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 32px 24px;
+      text-align: center;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .download-card:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      transform: translateY(-2px);
+    }
+    .download-card.featured {
+      border-color: #2588f0;
+      box-shadow: 0 4px 16px rgba(37, 136, 240, 0.15);
+    }
+    .download-card-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+    .download-card h3 {
+      font-size: 24px;
+      margin: 0 0 8px;
+      color: #1f2937;
+    }
+    .download-card .system-note {
+      color: #6b7280;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+    .download-card .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* 响应式适配 */
+    @media (max-width: 900px) {
+      .download-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
   <header class="nav">
     <div class="container nav-inner">
-      <!-- 顶部菜单栏Logo：无跳转链接 -->
+      <!-- 顶部Logo：无跳转 -->
       <div class="logo">
         <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
         <span class="logo-text">{{ .Site.Params.brand }}</span>
@@ -55,12 +160,8 @@
           <span class="icon-sun">☀️</span>
           <span class="icon-moon">🌙</span>
         </button>
-        <!-- 下载按钮：直接跳转最新安装包，新窗口打开 -->
-        {{ $owner := .Site.Params.github.owner }}
-        {{ $repo := .Site.Params.github.repo }}
-        {{ $asset := .Site.Params.github.assetName }}
-        {{ $downloadURL := printf "https://github.com/%s/%s/releases/latest/download/%s" $owner $repo $asset }}
-        <a class="btn btn-sm" href="{{ $downloadURL }}" target="_blank">下载</a>
+        <!-- 右上角下载：跳转到页面下载专区 -->
+        <a class="btn btn-sm" href="#download">下载</a>
       </nav>
     </div>
   </header>
@@ -72,7 +173,7 @@
   <footer class="footer">
     <div class="container footer-inner">
       <div>
-        <!-- 页脚Logo：无跳转链接 -->
+        <!-- 页脚Logo：无跳转 -->
         <div class="logo">
           <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
           <span class="logo-text">{{ .Site.Params.brand }}</span>
@@ -92,12 +193,12 @@
     const themeToggle = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('haitun-theme');
     
-    // 初始化主题：读取本地存储的选择
+    // 初始化主题
     if (savedTheme === 'light') {
       document.body.setAttribute('data-theme', 'light');
     }
 
-    // 点击切换主题，同时保存偏好
+    // 点击切换
     themeToggle.addEventListener('click', () => {
       const currentTheme = document.body.getAttribute('data-theme');
       if (currentTheme === 'light') {
@@ -108,10 +209,39 @@
         localStorage.setItem('haitun-theme', 'light');
       }
     });
-  </script>
-</body>
-</html>
-        localStorage.setItem('haitun-theme', 'light');
+
+    // 系统识别 + 自动下载逻辑
+    function detectOS() {
+      const ua = navigator.userAgent;
+      if (/Windows/i.test(ua)) return 'windows';
+      if (/Mac OS X|Macintosh/i.test(ua)) return 'mac';
+      if (/Linux/i.test(ua)) return 'linux';
+      return 'windows';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const os = detectOS();
+      // 给对应选项加「当前设备」标记
+      document.querySelectorAll('.download-option').forEach(el => {
+        if (el.dataset.os === os) {
+          el.classList.add('current');
+          const badge = document.createElement('span');
+          badge.className = 'badge';
+          badge.textContent = '当前设备';
+          el.appendChild(badge);
+        }
+      });
+
+      // Hero主按钮点击：自动触发当前系统下载
+      const heroDownloadBtn = document.getElementById('hero-download-main');
+      if (heroDownloadBtn) {
+        heroDownloadBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const target = document.querySelector(`.download-option[data-os="${os}"]`);
+          if (target) {
+            window.open(target.href, '_blank');
+          }
+        });
       }
     });
   </script>
