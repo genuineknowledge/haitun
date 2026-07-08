@@ -20,7 +20,7 @@
       <p style="margin-top: 12px;">交付繁琐重复自动化工作，让你聚焦核心高价值事务</p>
     </div>
     <div class="hero-cta">
-      <!-- 带下拉的下载按钮 -->
+      <!-- 带下拉的下载按钮：三系统完整选项 -->
       <div class="download-dropdown">
         <a class="btn btn-lg" id="hero-download-main" href="{{ $downloadURL }}">
           免费开始使用
@@ -119,13 +119,27 @@
   </div>
 </section>
 
-<!-- ===================== 下载专区（原三步模块改造） ===================== -->
+<!-- ===================== 下载+三步上手模块 ===================== -->
 <section class="section" id="download">
   <div class="container">
     <h2 class="section-title">三步开启本地智能助手</h2>
     <p class="section-sub">无需复杂配置，几分钟即可上手使用</p>
     
-    <div class="download-grid">
+    <!-- 保留原有三步使用流程指引 -->
+    <div class="steps">
+      {{ range .Site.Data.steps.items }}
+      <div class="step">
+        <div class="step-num">{{ .num }}</div>
+        <div>
+          <h3>{{ .title }}</h3>
+          <p class="muted">{{ .desc }}</p>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+    
+    <!-- 新增：多系统下载卡片（对应第一步「下载并安装」） -->
+    <div class="download-grid" style="margin-top: 56px;">
       <!-- macOS 卡片（左） -->
       <div class="download-card">
         <div class="download-card-icon">🍎</div>
@@ -151,7 +165,7 @@
       </div>
     </div>
 
-    <div class="center" style="margin-top: 48px;">
+    <div class="center" style="margin-top: 40px;">
       <p class="muted" style="font-size: 14px;">免费开源 · 持续更新</p>
     </div>
   </div>
