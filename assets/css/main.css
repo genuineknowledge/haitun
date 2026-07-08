@@ -1,6 +1,5 @@
 /* ============================================================
    Haitun Agent 落地页样式 —— 支持明暗双主题切换
-   配色变量集中在 :root，默认深色主题，添加 data-theme="light" 切换亮色
    ============================================================ */
 :root {
   /* 深色主题（默认） */
@@ -117,8 +116,6 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   border: 1px solid var(--border); box-shadow: none;
 }
 .btn-ghost:hover { border-color: var(--accent); box-shadow: none; }
-
-/* 仅主按钮强制白色文字，幽灵按钮保留主题色自适应明暗 */
 .btn:not(.btn-ghost) {
   color: #ffffff !important;
   font-weight: 600;
@@ -356,7 +353,7 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
 }
 .card h3 { font-size: 19px; margin-bottom: 10px; }
 
-/* —— 核心能力卡片（大图标风格） —— */
+/* —— 核心能力卡片 —— */
 .feature-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -513,7 +510,7 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   color: var(--muted);
 }
 
-/* —— FAQ 极简列表样式 —— */
+/* —— FAQ 样式 —— */
 .faq {
   display: flex;
   flex-direction: column;
@@ -558,7 +555,7 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   padding-bottom: 4px;
 }
 
-/* —— 开发者社群板块样式 —— */
+/* —— 开发者社群板块 —— */
 .community-wrap {
   display: flex;
   flex-direction: column;
@@ -653,7 +650,6 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   overflow: hidden;
   background: linear-gradient(135deg, #0a0b14 0%, #1e1b4b 50%, #4338ca 100%);
 }
-/* 科技感网格背景 */
 .download-page-hero::before {
   content: "";
   position: absolute;
@@ -665,7 +661,6 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
   pointer-events: none;
 }
-/* 发光光晕 */
 .download-page-hero::after {
   content: "";
   position: absolute;
@@ -774,9 +769,6 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   opacity: 0.9;
 }
 
-/* —— 最终 CTA —— */
-.cta-final { background: var(--bg-alt); border-top: 1px solid var(--border); transition: background 0.3s ease; }
-
 /* —— 页脚 —— */
 .footer { border-top: 1px solid var(--border); padding: 50px 0 30px; background: var(--bg); transition: background 0.3s ease; }
 .footer-inner { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; margin-bottom: 30px; }
@@ -793,23 +785,11 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
 @media (max-width: 900px) {
   .grid { grid-template-columns: 1fr 1fr; }
   .requirements-grid { grid-template-columns: 1fr; }
-  .steps-compact {
-    flex-direction: column;
-    gap: 16px;
-  }
-  .download-grid {
-    grid-template-columns: 1fr;
-  }
-  .download-page-title {
-    font-size: 32px;
-  }
-  .main-download-btn {
-    padding: 16px 40px;
-    font-size: 18px;
-  }
-  .platform-list {
-    gap: 24px;
-  }
+  .steps-compact { flex-direction: column; gap: 16px; }
+  .download-grid { grid-template-columns: 1fr; }
+  .download-page-title { font-size: 32px; }
+  .main-download-btn { padding: 16px 40px; font-size: 18px; }
+  .platform-list { gap: 24px; }
 }
 @media (max-width: 860px) {
   .nav-links a:not(.btn) { display: none; }
@@ -821,8 +801,5 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   .section { padding: 60px 0; }
   .spec-card { padding: 24px; }
   .faq-item summary { font-size: 16px; }
-  .community-qrcode img {
-    width: 140px;
-    height: 140px;
-  }
+  .community-qrcode img { width: 140px; height: 140px; }
 }
