@@ -36,21 +36,18 @@
       cursor: default;
     }
 
-    /* ========== 核心修复：强制解除 Hero 区域裁切 ========== */
+    /* ========== Hero 下拉菜单（首页用） ========== */
     .hero,
     .hero-inner,
     .hero-cta,
     .hero-glow {
       overflow: visible !important;
     }
-
-    /* ========== 重写：下载下拉菜单 ========== */
     .download-dropdown {
       position: relative;
       display: inline-block;
       z-index: 99999 !important;
     }
-
     .download-dropdown-menu {
       position: absolute;
       top: calc(100% + 8px);
@@ -67,13 +64,11 @@
       z-index: 99999 !important;
       overflow: hidden;
     }
-
     .download-dropdown:hover .download-dropdown-menu {
       opacity: 1;
       visibility: visible;
       pointer-events: auto;
     }
-
     .download-option {
       display: flex;
       align-items: center;
@@ -84,21 +79,17 @@
       font-size: 15px;
       line-height: 1.4;
       transition: background 0.15s;
-      border: none;
       width: 100%;
       box-sizing: border-box;
       text-align: left;
     }
-
     .download-option:hover {
       background: #f3f4f6;
     }
-
     .download-option.current {
       color: #2588f0;
       font-weight: 600;
     }
-
     .download-option .badge {
       flex-shrink: 0;
       font-size: 12px;
@@ -108,6 +99,102 @@
       color: #2588f0;
       margin-left: 16px;
       font-weight: 500;
+    }
+
+    /* ========== 首页终端安装模块 ========== */
+    .hero-terminal {
+      margin-top: 36px;
+      width: 100%;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+    }
+    .terminal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .terminal-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #374151;
+    }
+    .terminal-tip {
+      font-size: 12px;
+      color: #9ca3af;
+    }
+    .terminal-tabs {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .terminal-tab {
+      background: transparent;
+      border: none;
+      padding: 8px 14px;
+      font-size: 13px;
+      color: #6b7280;
+      cursor: pointer;
+      border-radius: 6px 6px 0 0;
+      transition: all 0.15s;
+    }
+    .terminal-tab.active {
+      color: #2588f0;
+      background: rgba(37, 136, 240, 0.08);
+      font-weight: 500;
+    }
+    .terminal-code-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-top: none;
+      border-radius: 0 0 10px 10px;
+      padding: 14px 18px;
+      font-family: 'JetBrains Mono', Consolas, Monaco, monospace;
+      font-size: 14px;
+      color: #1f2937;
+    }
+    .terminal-code-box code {
+      flex: 1;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    .copy-btn {
+      flex-shrink: 0;
+      background: transparent;
+      border: none;
+      color: #6b7280;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 6px;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .copy-btn:hover {
+      color: #2588f0;
+      background: #e6f0ff;
+    }
+    .terminal-footer {
+      margin: 10px 0 0;
+      font-size: 12px;
+      color: #9ca3af;
+      text-align: center;
+    }
+    .terminal-footer code {
+      font-family: inherit;
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #4b5563;
     }
 
     /* ========== 下载专区三卡片 ========== */
@@ -194,7 +281,137 @@
       color: #6b7280;
     }
 
-    /* ========== 暗色模式完整适配 ========== */
+    /* ========== 下载中心页面专属样式 ========== */
+    .download-page-hero {
+      position: relative;
+      min-height: calc(100vh - 80px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #2563eb 100%);
+    }
+    /* 科技感网格背景 */
+    .download-page-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+      pointer-events: none;
+    }
+    /* 发光光晕 */
+    .download-page-hero::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(37, 136, 240, 0.3) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .download-page-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: #fff;
+      padding: 40px 20px;
+    }
+    .download-page-logo {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 24px;
+      filter: drop-shadow(0 8px 24px rgba(0,0,0,0.3));
+    }
+    .download-page-title {
+      font-size: 48px;
+      font-weight: 700;
+      margin: 0 0 12px;
+      line-height: 1.2;
+    }
+    .download-page-subtitle {
+      font-size: 18px;
+      opacity: 0.85;
+      margin: 0 0 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .main-download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 20px 60px;
+      font-size: 22px;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(135deg, #6b5cff 0%, #2588f0 100%);
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 0 12px 40px rgba(37, 136, 240, 0.4);
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+    .main-download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 48px rgba(37, 136, 240, 0.5);
+    }
+    .main-download-btn svg {
+      width: 28px;
+      height: 28px;
+    }
+    .download-version-info {
+      margin-top: 16px;
+      font-size: 14px;
+      opacity: 0.75;
+    }
+    .download-more-link {
+      display: inline-block;
+      margin-top: 12px;
+      color: #fff;
+      opacity: 0.85;
+      font-size: 15px;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.3);
+      transition: all 0.2s;
+    }
+    .download-more-link:hover {
+      opacity: 1;
+      border-color: rgba(255,255,255,0.8);
+    }
+    .platform-list {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      margin-top: 60px;
+      flex-wrap: wrap;
+    }
+    .platform-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      transition: all 0.2s;
+      font-size: 15px;
+    }
+    .platform-item:hover {
+      color: #fff;
+      transform: translateY(-2px);
+    }
+    .platform-item-icon {
+      font-size: 28px;
+      opacity: 0.9;
+    }
+
+    /* ========== 暗色模式适配 ========== */
     body:not([data-theme="light"]) .download-dropdown-menu {
       background: #1f2937;
       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
@@ -213,7 +430,6 @@
       background: #1e3a5f;
       color: #60a5fa;
     }
-
     body:not([data-theme="light"]) .download-card {
       background: #1f2937;
       border-color: #374151;
@@ -228,12 +444,46 @@
     body:not([data-theme="light"]) .download-card .system-note {
       color: #9ca3af;
     }
-
     body:not([data-theme="light"]) .step-compact h4 {
       color: #f9fafb;
     }
     body:not([data-theme="light"]) .step-compact p {
       color: #9ca3af;
+    }
+    body:not([data-theme="light"]) .terminal-title {
+      color: #e5e7eb;
+    }
+    body:not([data-theme="light"]) .terminal-tip {
+      color: #6b7280;
+    }
+    body:not([data-theme="light"]) .terminal-tabs {
+      border-color: #374151;
+    }
+    body:not([data-theme="light"]) .terminal-tab {
+      color: #9ca3af;
+    }
+    body:not([data-theme="light"]) .terminal-tab.active {
+      color: #60a5fa;
+      background: rgba(96, 165, 250, 0.15);
+    }
+    body:not([data-theme="light"]) .terminal-code-box {
+      background: #1f2937;
+      border-color: #374151;
+      color: #e5e7eb;
+    }
+    body:not([data-theme="light"]) .copy-btn {
+      color: #9ca3af;
+    }
+    body:not([data-theme="light"]) .copy-btn:hover {
+      color: #60a5fa;
+      background: #1e3a5f;
+    }
+    body:not([data-theme="light"]) .terminal-footer {
+      color: #6b7280;
+    }
+    body:not([data-theme="light"]) .terminal-footer code {
+      background: #374151;
+      color: #d1d5db;
     }
 
     /* ========== 响应式 ========== */
@@ -244,6 +494,16 @@
       .steps-compact {
         flex-direction: column;
         gap: 16px;
+      }
+      .download-page-title {
+        font-size: 32px;
+      }
+      .main-download-btn {
+        padding: 16px 40px;
+        font-size: 18px;
+      }
+      .platform-list {
+        gap: 24px;
       }
     }
   </style>
@@ -256,14 +516,15 @@
         <span class="logo-text">{{ .Site.Params.brand }}</span>
       </div>
       <nav class="nav-links">
-        <a href="#features">功能</a>
-        <a href="#requirements">配置要求</a>
-        <a href="#faq">常见问题</a>
+        <a href="{{ "/" | relURL }}#features">功能</a>
+        <a href="{{ "/" | relURL }}#requirements">配置要求</a>
+        <a href="{{ "/" | relURL }}#faq">常见问题</a>
         <button id="themeToggle" class="theme-toggle" aria-label="切换明暗主题">
           <span class="icon-sun">☀️</span>
           <span class="icon-moon">🌙</span>
         </button>
-        <a class="btn btn-sm" href="#download">下载</a>
+        <!-- 右上角下载中心：跳转独立下载页 -->
+        <a class="btn btn-sm" href="{{ "/download" | relURL }}">下载中心</a>
       </nav>
     </div>
   </header>
@@ -290,35 +551,6 @@
   </footer>
 
   <script>
-    // 终端命令切换 + 一键复制
-document.addEventListener('DOMContentLoaded', () => {
-  const tabs = document.querySelectorAll('.terminal-tab');
-  const commandEl = document.getElementById('terminal-command');
-  const copyBtn = document.getElementById('copyCommandBtn');
-
-  // 切换系统标签
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      commandEl.textContent = tab.dataset.cmd;
-    });
-  });
-
-  // 一键复制命令
-  copyBtn.addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(commandEl.textContent);
-      const originalIcon = copyBtn.innerHTML;
-      copyBtn.innerHTML = '<span style="font-size:12px;">已复制</span>';
-      setTimeout(() => {
-        copyBtn.innerHTML = originalIcon;
-      }, 1500);
-    } catch (err) {
-      console.error('复制失败', err);
-    }
-  });
-});
     // 主题切换
     const themeToggle = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('haitun-theme');
@@ -336,19 +568,19 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // 系统识别（更严谨的判断顺序）
+    // 系统识别
     function detectOS() {
       const ua = navigator.userAgent.toLowerCase();
-      if (/windows win/.test(ua)) return 'windows';
-      if (/mac os macintosh/.test(ua)) return 'mac';
-      if (/linux x11 ubuntu debian fedora/.test(ua)) return 'linux';
+      if (/windows|win/.test(ua)) return 'windows';
+      if (/mac os|macintosh/.test(ua)) return 'mac';
+      if (/linux|x11|ubuntu|debian|fedora/.test(ua)) return 'linux';
       return 'windows';
     }
 
     document.addEventListener('DOMContentLoaded', () => {
       const os = detectOS();
 
-      // 给对应选项加「当前设备」标记
+      // 首页下拉菜单标记当前设备
       document.querySelectorAll('.download-option').forEach(el => {
         if (el.dataset.os === os) {
           el.classList.add('current');
@@ -359,7 +591,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
-      // Hero 主按钮点击：自动跳转到对应系统下载
+      // Hero 主按钮点击自动匹配下载
       const heroDownloadBtn = document.getElementById('hero-download-main');
       if (heroDownloadBtn) {
         heroDownloadBtn.addEventListener('click', (e) => {
@@ -367,6 +599,36 @@ document.addEventListener('DOMContentLoaded', () => {
           const target = document.querySelector(`.download-option[data-os="${os}"]`);
           if (target) {
             window.open(target.href, '_blank');
+          }
+        });
+      }
+
+      // 终端命令切换 + 复制
+      const tabs = document.querySelectorAll('.terminal-tab');
+      const commandEl = document.getElementById('terminal-command');
+      const copyBtn = document.getElementById('copyCommandBtn');
+      
+      if (tabs.length && commandEl) {
+        tabs.forEach(tab => {
+          tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            commandEl.textContent = tab.dataset.cmd;
+          });
+        });
+      }
+      
+      if (copyBtn && commandEl) {
+        copyBtn.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(commandEl.textContent);
+            const originalIcon = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<span style="font-size:12px;">已复制</span>';
+            setTimeout(() => {
+              copyBtn.innerHTML = originalIcon;
+            }, 1500);
+          } catch (err) {
+            console.error('复制失败', err);
           }
         });
       }
