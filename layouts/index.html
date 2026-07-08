@@ -6,6 +6,7 @@
 {{ $downloadURL := printf "https://github.com/%s/%s/releases/latest/download/%s" $owner $repo $asset }}
 {{ $releasesURL := printf "https://github.com/%s/%s/releases" $owner $repo }}
 {{ $githubRepo := "https://github.com/genuineknowledge/psi-agent" }}
+{{ $installScript := "https://raw.githubusercontent.com/genuineknowledge/psi-agent/main/install.sh" }}
 
 <!-- ===================== Hero ===================== -->
 <section class="hero">
@@ -20,7 +21,7 @@
       <p style="margin-top: 12px;">交付繁琐重复自动化工作，让你聚焦核心高价值事务</p>
     </div>
     <div class="hero-cta">
-      <!-- 三系统下拉：macOS / Windows / Linux 完整三项 -->
+      <!-- 带下拉的下载按钮：三系统完整选项 -->
       <div class="download-dropdown">
         <a class="btn btn-lg" id="hero-download-main" href="{{ $downloadURL }}">
           免费开始使用
@@ -39,7 +40,24 @@
       </div>
       <a class="btn btn-ghost btn-lg" href="{{ $releasesURL }}" target="_blank">查看所有版本</a>
     </div>
-    <p class="muted hero-meta">免费开源 · 支持 Windows 10/11 · 持续更新</p>
+
+    <!-- 终端安装模块（替换原 hero-meta） -->
+    <div class="hero-terminal">
+      <div class="terminal-label">终端一键安装</div>
+      <div class="terminal-tabs">
+        <button class="terminal-tab active" data-cmd="curl -fsSL {{ $installScript }} | bash">macOS / Linux</button>
+        <button class="terminal-tab" data-cmd="irm {{ $installScript }} | iex">Windows</button>
+      </div>
+      <div class="terminal-box">
+        <code id="terminal-cmd">curl -fsSL {{ $installScript }} | bash</code>
+        <button class="copy-btn" id="copyCmdBtn" title="复制命令">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
   </div>
   <div class="hero-glow"></div>
 </section>
@@ -119,7 +137,7 @@
   </div>
 </section>
 
-<!-- ===================== 下载+三步上手模块 ===================== -->
+<!-- ===================== 下载+三步上手模块（紧凑版） ===================== -->
 <section class="section" id="download">
   <div class="container">
     <h2 class="section-title">下载并开启本地智能助手</h2>
@@ -140,6 +158,7 @@
     
     <!-- 三系统下载卡片 -->
     <div class="download-grid">
+      <!-- macOS 卡片（左） -->
       <div class="download-card">
         <div class="download-card-icon">🍎</div>
         <h3>macOS</h3>
@@ -147,6 +166,7 @@
         <a class="btn btn-ghost" href="{{ $githubRepo }}" target="_blank">前往 GitHub 获取</a>
       </div>
 
+      <!-- Windows 卡片（中，突出推荐） -->
       <div class="download-card featured">
         <div class="download-card-icon">🪟</div>
         <h3>Windows</h3>
@@ -154,6 +174,7 @@
         <a class="btn btn-lg" href="{{ $downloadURL }}" target="_blank">立即下载</a>
       </div>
 
+      <!-- Linux 卡片（右） -->
       <div class="download-card">
         <div class="download-card-icon">🐧</div>
         <h3>Linux</h3>
