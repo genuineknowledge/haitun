@@ -41,13 +41,14 @@
     .download-dropdown {
       position: relative;
       display: inline-block;
+      z-index: 999;
     }
     .download-dropdown-menu {
       position: absolute;
       top: 100%;
       left: 0;
       margin-top: 8px;
-      min-width: 260px;
+      min-width: 280px;
       background: #fff;
       border-radius: 12px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.12);
@@ -55,7 +56,7 @@
       visibility: hidden;
       transform: translateY(-4px);
       transition: all 0.2s ease;
-      z-index: 100;
+      z-index: 9999;
       overflow: hidden;
     }
     .download-dropdown:hover .download-dropdown-menu {
@@ -135,10 +136,90 @@
       justify-content: center;
     }
 
+    /* 紧凑三步流程 */
+    .steps-compact {
+      display: flex;
+      gap: 32px;
+      margin-bottom: 32px;
+    }
+    .step-compact {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .step-compact-num {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2588f0, #6b5cff);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      margin-top: 2px;
+    }
+    .step-compact h4 {
+      margin: 0 0 4px;
+      font-size: 16px;
+      color: #1f2937;
+    }
+    .step-compact p {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #6b7280;
+    }
+
+    /* ========== 暗色模式适配 ========== */
+    body:not([data-theme="light"]) .download-dropdown-menu {
+      background: #1f2937;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    body:not([data-theme="light"]) .download-option {
+      color: #e5e7eb;
+    }
+    body:not([data-theme="light"]) .download-option:hover {
+      background: #374151;
+    }
+    body:not([data-theme="light"]) .download-option .badge {
+      background: #1e3a5f;
+      color: #60a5fa;
+    }
+
+    body:not([data-theme="light"]) .download-card {
+      background: #1f2937;
+      border-color: #374151;
+    }
+    body:not([data-theme="light"]) .download-card.featured {
+      border-color: #3b82f6;
+      box-shadow: 0 4px 16px rgba(59, 130, 246, 0.2);
+    }
+    body:not([data-theme="light"]) .download-card h3 {
+      color: #f9fafb;
+    }
+    body:not([data-theme="light"]) .download-card .system-note {
+      color: #9ca3af;
+    }
+
+    body:not([data-theme="light"]) .step-compact h4 {
+      color: #f9fafb;
+    }
+    body:not([data-theme="light"]) .step-compact p {
+      color: #9ca3af;
+    }
+
     /* 响应式适配 */
     @media (max-width: 900px) {
       .download-grid {
         grid-template-columns: 1fr;
+      }
+      .steps-compact {
+        flex-direction: column;
+        gap: 16px;
       }
     }
   </style>
@@ -210,12 +291,12 @@
       }
     });
 
-    // 系统识别 + 自动下载逻辑
+    // 优化系统识别逻辑，确保Linux正确匹配
     function detectOS() {
-      const ua = navigator.userAgent;
-      if (/Windows/i.test(ua)) return 'windows';
-      if (/Mac OS X|Macintosh/i.test(ua)) return 'mac';
-      if (/Linux/i.test(ua)) return 'linux';
+      const ua = navigator.userAgent.toLowerCase();
+      if (/windows/.test(ua)) return 'windows';
+      if (/mac os|macintosh/.test(ua)) return 'mac';
+      if (/linux|x11/.test(ua)) return 'linux';
       return 'windows';
     }
 
