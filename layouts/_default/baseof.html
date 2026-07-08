@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.Locale | default "zh-CN" }}">
+<html lang="{{ .Site.Language.LanguageCode | default "zh-CN" }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ .Title }} · {{ .Site.Params.tagline }}</title>
+  <title>{{ .Title }} | {{ .Site.Title }}</title>
   <meta name="description" content="{{ .Site.Params.description }}">
   <link rel="icon" href="{{ "favicon.ico" | relURL }}" type="image/x-icon">
   {{ $style := resources.Get "css/main.css" | resources.Minify }}
@@ -12,12 +12,13 @@
 <body>
   <header class="nav">
     <div class="container nav-inner">
-      <!-- Logo 纯展示无链接 -->
+      <!-- Logo 纯展示，无跳转链接 -->
       <div class="logo">
         <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
         <span class="logo-text">{{ .Site.Params.brand }}</span>
       </div>
       <nav class="nav-links">
+        <!-- 功能、配置、FAQ 全部指向 /detail/ 详情页锚点 -->
         <a href="{{ "/detail/" | relURL }}#features">功能</a>
         <a href="{{ "/detail/" | relURL }}#requirements">配置要求</a>
         <a href="{{ "/detail/" | relURL }}#faq">常见问题</a>
@@ -25,6 +26,7 @@
           <span class="icon-sun">☀️</span>
           <span class="icon-moon">🌙</span>
         </button>
+        <!-- 下载中心 = 当前首页根路径 /haitun/ -->
         <a class="btn btn-sm" href="{{ "/" | relURL }}">下载中心</a>
       </nav>
     </div>
@@ -44,23 +46,25 @@
         <p class="muted">{{ .Site.Params.description }}</p>
       </div>
       <div class="footer-links">
-        <a href="https://github.com/genuineknowledge/psi-agent" target="_blank">GitHub</a>
-        <a href="http://www.genuine-knowledge.com/" target="_blank">联系我们</a>
+        <a href="https://github.com/genuineknowledge/psi-agent" target="_blank">GitHub 仓库</a>
+        <a href="https://www.genuine-knowledge.com" target="_blank">真知官网</a>
       </div>
     </div>
-    <div class="container muted copyright">© {{ .Site.Params.year }} 合肥真知人工智能应用软件有限公司 保留所有权利。</div>
+    <div class="container muted copyright">
+      © {{ .Site.Params.year }} 合肥真知人工智能应用软件有限公司 保留所有权利。
+    </div>
   </footer>
 
   <script>
-    // 主题切换
+    // 明暗主题持久化
     const themeToggle = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('haitun-theme');
     if (savedTheme === 'light') {
       document.body.setAttribute('data-theme', 'light');
     }
     themeToggle.addEventListener('click', () => {
-      const currentTheme = document.body.getAttribute('data-theme');
-      if (currentTheme === 'light') {
+      const current = document.body.getAttribute('data-theme');
+      if (current === 'light') {
         document.body.removeAttribute('data-theme');
         localStorage.setItem('haitun-theme', 'dark');
       } else {
@@ -69,27 +73,29 @@
       }
     });
 
-    // 系统识别
+    // 系统自动识别
     function detectOS() {
       const ua = navigator.userAgent.toLowerCase();
       if (/windows|win/.test(ua)) return 'windows';
-      if (/mac os|macintosh/.test(ua)) return 'mac';
-      if (/linux|x11|ubuntu|debian|fedora/.test(ua)) return 'linux';
+      if (/mac|macintosh/.test(ua)) return 'mac';
+      if (/linux|x11|ubuntu/.test(ua)) return 'linux';
       return 'windows';
     }
 
     document.addEventListener('DOMContentLoaded', () => {
       const os = detectOS();
-      document.querySelectorAll('.download-option').forEach(el => {
-        if (el.dataset.os === os) {
-          el.classList.add('current');
+      // 下拉菜单标记当前设备
+      document.querySelectorAll('.download-option').forEach(item => {
+        if (item.dataset.os === os) {
+          item.classList.add('current');
           const badge = document.createElement('span');
           badge.className = 'badge';
           badge.textContent = '当前设备';
-          el.appendChild(badge);
+          item.appendChild(badge);
         }
       });
 
+      // 首页主下载按钮自动跳转对应系统
       const heroDownloadBtn = document.getElementById('hero-download-main');
       if (heroDownloadBtn) {
         heroDownloadBtn.addEventListener('click', (e) => {
@@ -99,27 +105,32 @@
         });
       }
 
+      // 终端命令切换
       const tabs = document.querySelectorAll('.terminal-tab');
-      const commandEl = document.getElementById('terminal-command');
+      const cmdBox = document.getElementById('terminal-command');
       const copyBtn = document.getElementById('copyCommandBtn');
-      if (tabs.length && commandEl) {
+      if (tabs.length && cmdBox) {
         tabs.forEach(tab => {
-          tab.onclick = () => {
+          tab.addEventListener('click', () => {
             tabs.forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
-            commandEl.textContent = tab.dataset.cmd;
-          };
+            cmdBox.textContent = tab.dataset.cmd;
+          });
         });
       }
-      if (copyBtn && commandEl) {
-        copyBtn.onclick = async () => {
+
+      // 复制按钮交互
+      if (copyBtn && cmdBox) {
+        copyBtn.addEventListener('click', async () => {
           try {
-            await navigator.clipboard.writeText(commandEl.textContent);
-            const old = copyBtn.innerHTML;
+            await navigator.clipboard.writeText(cmdBox.textContent);
+            const originHtml = copyBtn.innerHTML;
             copyBtn.innerHTML = '<span style="font-size:12px;">已复制</span>';
-            setTimeout(()=>copy.innerHTML=old,1500);
-          } catch (err) {}
-        };
+            setTimeout(() => copyBtn.innerHTML = originHtml, 1500);
+          } catch (err) {
+            console.error('复制失败', err);
+          }
+        });
       }
     });
   </script>
