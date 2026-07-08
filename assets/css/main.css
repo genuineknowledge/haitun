@@ -421,3 +421,128 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
 .hero-sub p {
   line-height: 1.6;
 }
+
+/* ========== 下载模块紧凑化优化 ========== */
+#download {
+  padding: 48px 0;
+}
+
+#download .section-title {
+  margin-bottom: 8px;
+  font-size: 28px;
+}
+
+#download .section-sub {
+  margin-bottom: 28px;
+  font-size: 15px;
+}
+
+/* 横向紧凑三步流程 */
+.steps-compact {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+.step-compact {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.step-compact-num {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2588f0, #6b5cff);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  margin-top: 2px;
+}
+
+.step-compact h4 {
+  margin: 0 0 4px;
+  font-size: 16px;
+  color: #1f2937;
+}
+
+.step-compact p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #6b7280;
+}
+
+/* 缩小版下载卡片 */
+.download-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  gap: 18px;
+  align-items: stretch;
+}
+
+.download-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 24px 20px;
+  text-align: center;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.download-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+
+.download-card.featured {
+  border-color: #2588f0;
+  box-shadow: 0 4px 16px rgba(37, 136, 240, 0.15);
+}
+
+.download-card-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+.download-card h3 {
+  font-size: 20px;
+  margin: 0 0 6px;
+  color: #1f2937;
+}
+
+.download-card .system-note {
+  color: #6b7280;
+  font-size: 13px;
+  margin-bottom: 18px;
+  line-height: 1.4;
+}
+
+.download-card .btn,
+.download-card .btn-ghost {
+  width: 100%;
+  justify-content: center;
+  font-size: 14px;
+  padding: 10px 16px;
+}
+
+/* 移动端适配 */
+@media (max-width: 900px) {
+  .steps-compact {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .download-grid {
+    grid-template-columns: 1fr;
+  }
+}
