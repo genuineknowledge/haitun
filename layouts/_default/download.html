@@ -1,0 +1,83 @@
+{{ define "main" }}
+
+{{ $owner := .Site.Params.github.owner }}
+{{ $repo := .Site.Params.github.repo }}
+{{ $asset := .Site.Params.github.assetName }}
+{{ $downloadURL := printf "https://github.com/%s/%s/releases/latest/download/%s" $owner $repo $asset }}
+{{ $releasesURL := printf "https://github.com/%s/%s/releases" $owner $repo }}
+{{ $githubRepo := printf "https://github.com/%s/%s" $owner $repo }}
+
+<!-- 下载中心主视觉区 -->
+<section class="download-page-hero">
+  <div class="download-page-content">
+    <img class="download-page-logo" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
+    <h1 class="download-page-title">{{ .Site.Params.brand }} 本地AI智能体</h1>
+    <p class="download-page-subtitle">{{ .Site.Params.description }}</p>
+
+    <!-- 主下载按钮（Windows 突出） -->
+    <a class="main-download-btn" href="{{ $downloadURL }}" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+        <polyline points="7 10 12 15 17 10"></polyline>
+        <line x1="12" y1="15" x2="12" y2="3"></line>
+      </svg>
+      Windows 版下载
+    </a>
+
+    <div class="download-version-info">最新版本 · 支持 Windows 10/11 x64（兼容 ARM64）</div>
+    <a class="download-more-link" href="{{ $releasesURL }}" target="_blank">查看所有历史版本 →</a>
+
+    <!-- 多平台入口 -->
+    <div class="platform-list">
+      <a class="platform-item" href="{{ $githubRepo }}" target="_blank">
+        <div class="platform-item-icon">🍎</div>
+        <span>macOS</span>
+      </a>
+      <a class="platform-item" href="{{ $githubRepo }}" target="_blank">
+        <div class="platform-item-icon">🐧</div>
+        <span>Linux</span>
+      </a>
+      <a class="platform-item" href="#terminal-install">
+        <div class="platform-item-icon">⌨️</div>
+        <span>终端安装</span>
+      </a>
+      <a class="platform-item" href="{{ $githubRepo }}" target="_blank">
+        <div class="platform-item-icon">📦</div>
+        <span>源码部署</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 终端安装说明区 -->
+<section class="section" id="terminal-install">
+  <div class="container container-narrow">
+    <h2 class="section-title">开发者终端安装</h2>
+    <p class="section-sub">一行命令快速安装，适合 Python 开发者与服务器部署</p>
+
+    <div class="hero-terminal" style="max-width: 700px; margin: 0 auto;">
+      <div class="terminal-header">
+        <span class="terminal-title">安装命令</span>
+        <span class="terminal-tip">需 Python 3.14+</span>
+      </div>
+      <div class="terminal-tabs">
+        <button class="terminal-tab active" data-cmd="uv tool install psi-agent">macOS / Linux</button>
+        <button class="terminal-tab" data-cmd="uv tool install psi-agent">Windows PowerShell</button>
+      </div>
+      <div class="terminal-code-box">
+        <code id="terminal-command">uv tool install psi-agent</code>
+        <button class="copy-btn" id="copyCommandBtn" title="复制安装命令">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+        </button>
+      </div>
+      <p class="terminal-footer">
+        安装完成后执行 <code>psi-agent gateway</code> 启动 Web 管理界面
+      </p>
+    </div>
+  </div>
+</section>
+
+{{ end }}
