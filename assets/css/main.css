@@ -119,7 +119,7 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
 .btn-ghost:hover { border-color: var(--accent); box-shadow: none; }
 
 /* —— Hero —— */
-.hero { position: relative; padding: 110px 0 90px; overflow: hidden; text-align: center; }
+.hero { position: relative; padding: 110px 0 90px; overflow: visible; text-align: center; }
 .hero-inner { position: relative; z-index: 2; }
 .hero-logo {
   width: 120px;
