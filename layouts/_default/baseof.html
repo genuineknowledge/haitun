@@ -10,7 +10,7 @@
   {{ $style := resources.Get "css/main.css" | resources.Minify }}
   <link rel="stylesheet" href="{{ $style.RelPermalink }}">
   <style>
-    /* 导航布局 */
+    /* ========== 导航布局 ========== */
     .nav-inner {
       display: flex;
       align-items: center;
@@ -29,7 +29,6 @@
       align-items: center;
       gap: 32px;
     }
-    /* 页脚logo */
     .footer .logo {
       display: flex;
       align-items: center;
@@ -37,64 +36,81 @@
       cursor: default;
     }
 
-    /* Hero下载按钮下拉样式 */
+    /* ========== 核心修复：强制解除 Hero 区域裁切 ========== */
+    .hero,
+    .hero-inner,
+    .hero-cta,
+    .hero-glow {
+      overflow: visible !important;
+    }
+
+    /* ========== 重写：下载下拉菜单 ========== */
     .download-dropdown {
       position: relative;
       display: inline-block;
-      z-index: 9999;
+      z-index: 99999 !important;
     }
+
     .download-dropdown-menu {
       position: absolute;
-      top: 100%;
+      top: calc(100% + 8px);
       left: 50%;
-      transform: translateX(-50%) translateY(-4px);
-      margin-top: 8px;
+      transform: translateX(-50%);
       min-width: 320px;
-      background: #fff;
+      background: #ffffff;
       border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
       opacity: 0;
       visibility: hidden;
+      pointer-events: none;
       transition: all 0.2s ease;
-      z-index: 9999;
+      z-index: 99999 !important;
       overflow: hidden;
     }
+
     .download-dropdown:hover .download-dropdown-menu {
       opacity: 1;
       visibility: visible;
-      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
     }
+
     .download-option {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 14px 16px;
-      cursor: pointer;
+      padding: 14px 18px;
       color: #1f2937;
       text-decoration: none;
       font-size: 15px;
-      transition: background 0.15s;
       line-height: 1.4;
-      min-height: 48px;
+      transition: background 0.15s;
+      border: none;
+      width: 100%;
+      box-sizing: border-box;
+      text-align: left;
     }
+
     .download-option:hover {
       background: #f3f4f6;
     }
+
     .download-option.current {
       color: #2588f0;
-      font-weight: 500;
+      font-weight: 600;
     }
+
     .download-option .badge {
       flex-shrink: 0;
       font-size: 12px;
-      padding: 3px 8px;
+      padding: 4px 10px;
       border-radius: 6px;
       background: #e6f0ff;
       color: #2588f0;
-      margin-left: 12px;
+      margin-left: 16px;
+      font-weight: 500;
     }
 
-    /* 下载专区三卡片布局 */
+    /* ========== 下载专区三卡片 ========== */
     .download-grid {
       display: grid;
       grid-template-columns: 1fr 1.2fr 1fr;
@@ -140,7 +156,7 @@
       justify-content: center;
     }
 
-    /* 紧凑三步流程 */
+    /* ========== 紧凑三步流程 ========== */
     .steps-compact {
       display: flex;
       gap: 32px;
@@ -178,16 +194,20 @@
       color: #6b7280;
     }
 
-    /* ========== 暗色模式适配 ========== */
+    /* ========== 暗色模式完整适配 ========== */
     body:not([data-theme="light"]) .download-dropdown-menu {
       background: #1f2937;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+      border: 1px solid #374151;
     }
     body:not([data-theme="light"]) .download-option {
       color: #e5e7eb;
     }
     body:not([data-theme="light"]) .download-option:hover {
       background: #374151;
+    }
+    body:not([data-theme="light"]) .download-option.current {
+      color: #60a5fa;
     }
     body:not([data-theme="light"]) .download-option .badge {
       background: #1e3a5f;
@@ -216,7 +236,7 @@
       color: #9ca3af;
     }
 
-    /* 响应式适配 */
+    /* ========== 响应式 ========== */
     @media (max-width: 900px) {
       .download-grid {
         grid-template-columns: 1fr;
@@ -231,7 +251,6 @@
 <body>
   <header class="nav">
     <div class="container nav-inner">
-      <!-- 顶部Logo：无跳转 -->
       <div class="logo">
         <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
         <span class="logo-text">{{ .Site.Params.brand }}</span>
@@ -240,12 +259,10 @@
         <a href="#features">功能</a>
         <a href="#requirements">配置要求</a>
         <a href="#faq">常见问题</a>
-        <!-- 主题切换按钮 -->
         <button id="themeToggle" class="theme-toggle" aria-label="切换明暗主题">
           <span class="icon-sun">☀️</span>
           <span class="icon-moon">🌙</span>
         </button>
-        <!-- 右上角下载：跳转到页面下载专区 -->
         <a class="btn btn-sm" href="#download">下载</a>
       </nav>
     </div>
@@ -258,7 +275,6 @@
   <footer class="footer">
     <div class="container footer-inner">
       <div>
-        <!-- 页脚Logo：无跳转 -->
         <div class="logo">
           <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
           <span class="logo-text">{{ .Site.Params.brand }}</span>
@@ -273,17 +289,13 @@
     <div class="container muted copyright">© {{ .Site.Params.year }} 合肥真知人工智能应用软件有限公司 保留所有权利。</div>
   </footer>
 
-  <!-- 主题切换脚本 -->
   <script>
+    // 主题切换
     const themeToggle = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('haitun-theme');
-    
-    // 初始化主题
     if (savedTheme === 'light') {
       document.body.setAttribute('data-theme', 'light');
     }
-
-    // 点击切换
     themeToggle.addEventListener('click', () => {
       const currentTheme = document.body.getAttribute('data-theme');
       if (currentTheme === 'light') {
@@ -295,17 +307,18 @@
       }
     });
 
-    // 优化系统识别逻辑，确保Linux正确匹配
+    // 系统识别（更严谨的判断顺序）
     function detectOS() {
       const ua = navigator.userAgent.toLowerCase();
-      if (/windows/.test(ua)) return 'windows';
-      if (/mac os|macintosh/.test(ua)) return 'mac';
-      if (/linux|x11/.test(ua)) return 'linux';
+      if (/windows win/.test(ua)) return 'windows';
+      if (/mac os macintosh/.test(ua)) return 'mac';
+      if (/linux x11 ubuntu debian fedora/.test(ua)) return 'linux';
       return 'windows';
     }
 
     document.addEventListener('DOMContentLoaded', () => {
       const os = detectOS();
+
       // 给对应选项加「当前设备」标记
       document.querySelectorAll('.download-option').forEach(el => {
         if (el.dataset.os === os) {
@@ -317,7 +330,7 @@
         }
       });
 
-      // Hero主按钮点击：自动触发当前系统下载
+      // Hero 主按钮点击：自动跳转到对应系统下载
       const heroDownloadBtn = document.getElementById('hero-download-main');
       if (heroDownloadBtn) {
         heroDownloadBtn.addEventListener('click', (e) => {
