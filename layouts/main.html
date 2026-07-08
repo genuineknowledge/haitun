@@ -1,15 +1,12 @@
 {{ define "main" }}
-
 {{ $owner := .Site.Params.github.owner }}
 {{ $repo := .Site.Params.github.repo }}
 {{ $asset := .Site.Params.github.assetName }}
-{{/* Windows 安装包直链保持原有配置不变 */}}
 {{ $downloadURL := printf "https://github.com/%s/%s/releases/latest/download/%s" $owner $repo $asset }}
-{{/* 仓库与版本页统一替换为 psi-agent */}}
 {{ $githubRepo := "https://github.com/genuineknowledge/psi-agent" }}
 {{ $releasesURL := "https://github.com/genuineknowledge/psi-agent/releases" }}
 
-<!-- ===================== Hero ===================== -->
+<!-- Hero 首屏 -->
 <section class="hero">
   <div class="container hero-inner">
     <img class="hero-logo" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
@@ -22,7 +19,6 @@
       <p style="margin-top: 12px;">交付繁琐重复自动化工作，让你聚焦核心高价值事务</p>
     </div>
     <div class="hero-cta">
-      <!-- 带下拉的桌面端下载按钮 -->
       <div class="download-dropdown">
         <a class="btn btn-lg" id="hero-download-main" href="{{ $downloadURL }}">
           免费开始使用
@@ -42,7 +38,7 @@
       <a class="btn btn-ghost btn-lg" href="{{ $releasesURL }}" target="_blank">查看所有版本</a>
     </div>
 
-    <!-- 终端快速安装模块 -->
+    <!-- 终端安装模块 -->
     <div class="hero-terminal">
       <div class="terminal-header">
         <span class="terminal-title">终端快速安装</span>
@@ -69,7 +65,7 @@
   <div class="hero-glow"></div>
 </section>
 
-<!-- ===================== 核心能力 ===================== -->
+<!-- 核心能力区块 -->
 <section class="section" id="features">
   <div class="container">
     <h2 class="section-title">{{ .Site.Data.features.title }}</h2>
@@ -86,12 +82,11 @@
   </div>
 </section>
 
-<!-- ===================== 运行配置要求 ===================== -->
+<!-- 运行配置要求 -->
 <section class="section section-alt" id="requirements">
   <div class="container">
     <h2 class="section-title">运行配置要求</h2>
     <p class="section-sub">不同场景适配不同配置，满足从轻量试用至重度自动化的全需求</p>
-    
     <div class="requirements-grid">
       {{ range .Site.Data.requirements.tiers }}
       <div class="spec-card {{ if .recommended }}recommended{{ end }}">
@@ -111,7 +106,7 @@
   </div>
 </section>
 
-<!-- ===================== FAQ ===================== -->
+<!-- FAQ 常见问题 -->
 <section class="section" id="faq">
   <div class="container container-narrow">
     <h2 class="section-title">常见问题</h2>
@@ -126,7 +121,7 @@
   </div>
 </section>
 
-<!-- ===================== 开发者社群 ===================== -->
+<!-- 开发者社群 -->
 <section class="section section-alt" id="community">
   <div class="container center">
     <h2 class="section-title">开发者社群</h2>
@@ -144,13 +139,11 @@
   </div>
 </section>
 
-<!-- ===================== 下载+三步上手模块 ===================== -->
+<!-- 下载入口区块 -->
 <section class="section" id="download">
   <div class="container">
     <h2 class="section-title">下载并开启本地智能助手</h2>
     <p class="section-sub">选择对应系统，几分钟内即可完成安装并开始使用</p>
-    
-    <!-- 横向紧凑三步流程 -->
     <div class="steps-compact">
       {{ range .Site.Data.steps.items }}
       <div class="step-compact">
@@ -162,8 +155,6 @@
       </div>
       {{ end }}
     </div>
-    
-    <!-- 三系统下载卡片 -->
     <div class="download-grid">
       <div class="download-card">
         <div class="download-card-icon">🍎</div>
@@ -171,14 +162,12 @@
         <p class="system-note">macOS 12.0+</p>
         <a class="btn btn-ghost" href="{{ $githubRepo }}" target="_blank">前往 GitHub 获取</a>
       </div>
-
       <div class="download-card featured">
         <div class="download-card-icon">🪟</div>
         <h3>Windows</h3>
         <p class="system-note">Windows 10 / 11 x64（兼容 ARM64）</p>
         <a class="btn btn-lg" href="{{ $downloadURL }}" target="_blank">立即下载</a>
       </div>
-
       <div class="download-card">
         <div class="download-card-icon">🐧</div>
         <h3>Linux</h3>
@@ -186,9 +175,8 @@
         <a class="btn btn-ghost" href="{{ $githubRepo }}" target="_blank">前往 GitHub 获取</a>
       </div>
     </div>
-
     <p class="muted center" style="margin-top: 24px; font-size: 14px;">免费开源 · 持续更新</p>
   </div>
 </section>
-
+{{ end }}
 {{ end }}
