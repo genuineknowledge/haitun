@@ -5,6 +5,7 @@
 {{ $asset := .Site.Params.github.assetName }}
 {{ $downloadURL := printf "https://github.com/%s/%s/releases/latest/download/%s" $owner $repo $asset }}
 {{ $releasesURL := printf "https://github.com/%s/%s/releases" $owner $repo }}
+{{ $githubRepo := "https://github.com/genuineknowledge/psi-agent" }}
 
 <!-- ===================== Hero ===================== -->
 <section class="hero">
@@ -15,14 +16,28 @@
       自动处理全流程复杂任务
     </h1>
     <div class="hero-sub">
-      <p>全程本地运行，数据完全私有可控，长上下文稳定执行</p>
+      <p>全程本地运行，数据完全私有可控，长上下文稳定执行，智能体持续自主进化</p>
       <p style="margin-top: 12px;">交付繁琐重复自动化工作，让你聚焦核心高价值事务</p>
     </div>
     <div class="hero-cta">
-      <a class="btn btn-lg" id="download-hero" href="{{ $downloadURL }}">
-        免费开始使用
-      </a>
-      <a class="btn btn-ghost btn-lg" href="{{ $releasesURL }}">查看所有版本</a>
+      <!-- 带下拉的下载按钮 -->
+      <div class="download-dropdown">
+        <a class="btn btn-lg" id="hero-download-main" href="{{ $downloadURL }}">
+          免费开始使用
+        </a>
+        <div class="download-dropdown-menu">
+          <a class="download-option" data-os="mac" href="{{ $githubRepo }}" target="_blank">
+            <span>macOS</span>
+          </a>
+          <a class="download-option" data-os="windows" href="{{ $downloadURL }}" target="_blank">
+            <span>Windows x64（兼容 ARM64）</span>
+          </a>
+          <a class="download-option" data-os="linux" href="{{ $githubRepo }}" target="_blank">
+            <span>Linux</span>
+          </a>
+        </div>
+      </div>
+      <a class="btn btn-ghost btn-lg" href="{{ $releasesURL }}" target="_blank">查看所有版本</a>
     </div>
     <p class="muted hero-meta">免费开源 · 支持 Windows 10/11 · 持续更新</p>
   </div>
@@ -98,33 +113,46 @@
       </div>
       <div class="community-links">
         <a class="btn btn-ghost" href="https://github.com/{{ $owner }}/{{ $repo }}/issues" target="_blank">提交反馈与建议</a>
-        <a class="btn btn-ghost" href="https://github.com/genuineknowledge/psi-agent" target="_blank">参与插件生态开发</a>
+        <a class="btn btn-ghost" href="{{ $githubRepo }}" target="_blank">参与插件生态开发</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===================== 快速开始（三步+下载合并） ===================== -->
-<section class="section" id="start">
+<!-- ===================== 下载专区（原三步模块改造） ===================== -->
+<section class="section" id="download">
   <div class="container">
     <h2 class="section-title">三步开启本地智能助手</h2>
     <p class="section-sub">无需复杂配置，几分钟即可上手使用</p>
     
-    <div class="steps">
-      {{ range .Site.Data.steps.items }}
-      <div class="step">
-        <div class="step-num">{{ .num }}</div>
-        <div>
-          <h3>{{ .title }}</h3>
-          <p class="muted">{{ .desc }}</p>
-        </div>
+    <div class="download-grid">
+      <!-- macOS 卡片（左） -->
+      <div class="download-card">
+        <div class="download-card-icon">🍎</div>
+        <h3>macOS</h3>
+        <p class="system-note">macOS 12.0+</p>
+        <a class="btn btn-ghost" href="{{ $githubRepo }}" target="_blank">前往 GitHub 获取</a>
       </div>
-      {{ end }}
+
+      <!-- Windows 卡片（中，突出推荐） -->
+      <div class="download-card featured">
+        <div class="download-card-icon">🪟</div>
+        <h3>Windows</h3>
+        <p class="system-note">Windows 10 / 11 x64（兼容 ARM64）</p>
+        <a class="btn btn-lg" href="{{ $downloadURL }}" target="_blank">立即下载</a>
+      </div>
+
+      <!-- Linux 卡片（右） -->
+      <div class="download-card">
+        <div class="download-card-icon">🐧</div>
+        <h3>Linux</h3>
+        <p class="system-note">主流 Linux 发行版</p>
+        <a class="btn btn-ghost" href="{{ $githubRepo }}" target="_blank">前往 GitHub 获取</a>
+      </div>
     </div>
-    
+
     <div class="center" style="margin-top: 48px;">
-      <a class="btn btn-lg" href="{{ $downloadURL }}">免费开始使用</a>
-      <p class="muted" style="margin-top: 16px; font-size: 14px;">免费开源 · 支持 Windows 10/11 · 持续更新</p>
+      <p class="muted" style="font-size: 14px;">免费开源 · 持续更新</p>
     </div>
   </div>
 </section>
