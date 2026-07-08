@@ -119,27 +119,27 @@
   </div>
 </section>
 
-<!-- ===================== 下载+三步上手模块 ===================== -->
+<!-- ===================== 下载+三步上手模块（紧凑版） ===================== -->
 <section class="section" id="download">
   <div class="container">
-    <h2 class="section-title">三步开启本地智能助手</h2>
-    <p class="section-sub">无需复杂配置，几分钟即可上手使用</p>
+    <h2 class="section-title">下载并开启本地智能助手</h2>
+    <p class="section-sub">选择对应系统，几分钟内即可完成安装并开始使用</p>
     
-    <!-- 保留原有三步使用流程指引 -->
-    <div class="steps">
+    <!-- 横向紧凑三步流程 -->
+    <div class="steps-compact">
       {{ range .Site.Data.steps.items }}
-      <div class="step">
-        <div class="step-num">{{ .num }}</div>
+      <div class="step-compact">
+        <div class="step-compact-num">{{ .num }}</div>
         <div>
-          <h3>{{ .title }}</h3>
+          <h4>{{ .title }}</h4>
           <p class="muted">{{ .desc }}</p>
         </div>
       </div>
       {{ end }}
     </div>
     
-    <!-- 新增：多系统下载卡片（对应第一步「下载并安装」） -->
-    <div class="download-grid" style="margin-top: 56px;">
+    <!-- 三系统下载卡片 -->
+    <div class="download-grid">
       <!-- macOS 卡片（左） -->
       <div class="download-card">
         <div class="download-card-icon">🍎</div>
@@ -165,9 +165,7 @@
       </div>
     </div>
 
-    <div class="center" style="margin-top: 40px;">
-      <p class="muted" style="font-size: 14px;">免费开源 · 持续更新</p>
-    </div>
+    <p class="muted center" style="margin-top: 24px; font-size: 14px;">免费开源 · 持续更新</p>
   </div>
 </section>
 
