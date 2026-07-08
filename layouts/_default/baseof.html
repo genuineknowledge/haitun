@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.Language.Locale | default "zh-CN" }}">
+<html lang="{{ .Site.Locale | default "zh-CN" }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ .Site.Title }} · {{ .Site.Params.tagline }}</title>
+  <title>{{ .Title }} · {{ .Site.Params.tagline }}</title>
   <meta name="description" content="{{ .Site.Params.description }}">
   <link rel="icon" href="{{ "favicon.ico" | relURL }}" type="image/x-icon">
   {{ $style := resources.Get "css/main.css" | resources.Minify }}
@@ -12,20 +12,20 @@
 <body>
   <header class="nav">
     <div class="container nav-inner">
-      <!-- 左上角Logo：移除跳转，改为纯展示 -->
+      <!-- Logo 纯展示无链接 -->
       <div class="logo">
         <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
         <span class="logo-text">{{ .Site.Params.brand }}</span>
       </div>
       <nav class="nav-links">
-        <a href="{{ "/haitun" | relURL }}#features">功能</a>
-        <a href="{{ "/haitun" | relURL }}#requirements">配置要求</a>
-        <a href="{{ "/haitun" | relURL }}#faq">常见问题</a>
+        <a href="{{ "/detail/" | relURL }}#features">功能</a>
+        <a href="{{ "/detail/" | relURL }}#requirements">配置要求</a>
+        <a href="{{ "/detail/" | relURL }}#faq">常见问题</a>
         <button id="themeToggle" class="theme-toggle" aria-label="切换明暗主题">
           <span class="icon-sun">☀️</span>
           <span class="icon-moon">🌙</span>
         </button>
-        <a class="btn btn-sm" href="{{ "/haitun/download/" | relURL }}">下载中心</a>
+        <a class="btn btn-sm" href="{{ "/" | relURL }}">下载中心</a>
       </nav>
     </div>
   </header>
@@ -80,8 +80,6 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       const os = detectOS();
-
-      // 首页下拉菜单标记当前设备
       document.querySelectorAll('.download-option').forEach(el => {
         if (el.dataset.os === os) {
           el.classList.add('current');
@@ -92,46 +90,36 @@
         }
       });
 
-      // Hero 主按钮点击自动匹配下载
       const heroDownloadBtn = document.getElementById('hero-download-main');
       if (heroDownloadBtn) {
         heroDownloadBtn.addEventListener('click', (e) => {
           e.preventDefault();
           const target = document.querySelector(`.download-option[data-os="${os}"]`);
-          if (target) {
-            window.open(target.href, '_blank');
-          }
+          if (target) window.open(target.href, '_blank');
         });
       }
 
-      // 终端命令切换 + 复制
       const tabs = document.querySelectorAll('.terminal-tab');
       const commandEl = document.getElementById('terminal-command');
       const copyBtn = document.getElementById('copyCommandBtn');
-      
       if (tabs.length && commandEl) {
         tabs.forEach(tab => {
-          tab.addEventListener('click', () => {
+          tab.onclick = () => {
             tabs.forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
             commandEl.textContent = tab.dataset.cmd;
-          });
+          };
         });
       }
-      
       if (copyBtn && commandEl) {
-        copyBtn.addEventListener('click', async () => {
+        copyBtn.onclick = async () => {
           try {
             await navigator.clipboard.writeText(commandEl.textContent);
-            const originalIcon = copyBtn.innerHTML;
+            const old = copyBtn.innerHTML;
             copyBtn.innerHTML = '<span style="font-size:12px;">已复制</span>';
-            setTimeout(() => {
-              copyBtn.innerHTML = originalIcon;
-            }, 1500);
-          } catch (err) {
-            console.error('复制失败', err);
-          }
-        });
+            setTimeout(()=>copy.innerHTML=old,1500);
+          } catch (err) {}
+        };
       }
     });
   </script>
