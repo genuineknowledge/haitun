@@ -12,10 +12,11 @@
 <body>
   <header class="nav">
     <div class="container nav-inner">
-      <a href="{{ "/" | relURL }}" class="logo">
+      <!-- 左上角Logo：移除跳转，改为纯展示 -->
+      <div class="logo">
         <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
         <span class="logo-text">{{ .Site.Params.brand }}</span>
-      </a>
+      </div>
       <nav class="nav-links">
         <a href="{{ "/" | relURL }}#features">功能</a>
         <a href="{{ "/" | relURL }}#requirements">配置要求</a>
@@ -24,8 +25,7 @@
           <span class="icon-sun">☀️</span>
           <span class="icon-moon">🌙</span>
         </button>
-        <!-- 下载中心链接：适配子目录部署 -->
-        <a class="btn btn-sm" href="{{ "/haitun/download/" | relURL }}">下载中心</a>
+        <a class="btn btn-sm" href="{{ "/download/" | relURL }}">下载中心</a>
       </nav>
     </div>
   </header>
@@ -44,8 +44,7 @@
         <p class="muted">{{ .Site.Params.description }}</p>
       </div>
       <div class="footer-links">
-        {{ $githubRepo := printf "https://github.com/%s/%s" .Site.Params.github.owner .Site.Params.github.repo }}
-        <a href="{{ $githubRepo }}" target="_blank">GitHub</a>
+        <a href="https://github.com/genuineknowledge/psi-agent" target="_blank">GitHub</a>
         <a href="http://www.genuine-knowledge.com/" target="_blank">联系我们</a>
       </div>
     </div>
