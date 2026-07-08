@@ -10,7 +10,7 @@
   {{ $style := resources.Get "css/main.css" | resources.Minify }}
   <link rel="stylesheet" href="{{ $style.RelPermalink }}">
   <style>
-    /* 临时补充导航弹性修复，也可以复制到main.css永久生效 */
+    /* 导航弹性布局修复，保证左右排版不换行 */
     .nav-inner {
       display: flex;
       align-items: center;
@@ -29,17 +29,23 @@
       align-items: center;
       gap: 32px;
     }
+    /* 页脚logo样式，鼠标不显示点击手型 */
+    .footer .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: default;
+    }
   </style>
 </head>
 <body>
   <header class="nav">
     <div class="container nav-inner">
-      <!-- 顶部菜单栏Logo：无跳转div，禁止占满宽度 -->
+      <!-- 顶部Logo：无链接，不跳转 -->
       <div class="logo">
         <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
         <span class="logo-text">{{ .Site.Params.brand }}</span>
       </div>
-      <!-- 导航全部放右侧 -->
       <nav class="nav-links">
         <a href="#features">功能</a>
         <a href="#requirements">配置要求</a>
@@ -61,10 +67,11 @@
   <footer class="footer">
     <div class="container footer-inner">
       <div>
+        <!-- 页脚Logo：移除a标签，不再跳转首页 -->
         <div class="logo">
           <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
           <span class="logo-text">{{ .Site.Params.brand }}</span>
-        </a>
+        </div>
         <p class="muted">{{ .Site.Params.description }}</p>
       </div>
       <div class="footer-links">
