@@ -290,6 +290,35 @@
   </footer>
 
   <script>
+    // 终端命令切换 + 复制功能
+document.addEventListener('DOMContentLoaded', () => {
+  const tabs = document.querySelectorAll('.terminal-tab');
+  const cmdEl = document.getElementById('terminal-cmd');
+  const copyBtn = document.getElementById('copyCmdBtn');
+
+  // 切换系统命令
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      cmdEl.textContent = tab.dataset.cmd;
+    });
+  });
+
+  // 一键复制命令
+  copyBtn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(cmdEl.textContent);
+      const originalHTML = copyBtn.innerHTML;
+      copyBtn.innerHTML = '<span style="font-size:12px;">已复制</span>';
+      setTimeout(() => {
+        copyBtn.innerHTML = originalHTML;
+      }, 1500);
+    } catch (err) {
+      console.error('复制失败', err);
+    }
+  });
+});
     // 主题切换
     const themeToggle = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('haitun-theme');
