@@ -1,4 +1,4 @@
 ---
 title: 下载中心
-layout: page
+layout: download
 ---
