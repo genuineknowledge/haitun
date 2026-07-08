@@ -10,8 +10,14 @@
 <section class="hero">
   <div class="container hero-inner">
     <img class="hero-logo" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
-    <h1 class="hero-title">{{ .Site.Params.tagline }}</h1>
-    <p class="hero-sub">{{ .Site.Params.description }}</p>
+    <h1 class="hero-title">
+      <span style="font-weight:700;color:#2588f0;">HaiTun</span> 本地AI智能体<br>
+      自动处理全流程复杂任务
+    </h1>
+    <div class="hero-sub">
+      <p>全程本地运行，数据完全私有可控，长上下文稳定执行，智能体持续自主进化</p>
+      <p style="margin-top: 12px;">交付繁琐重复自动化工作，让你聚焦核心高价值事务</p>
+    </div>
     <div class="hero-cta">
       <a class="btn btn-lg" id="download-hero" href="{{ $downloadURL }}">
         免费开始使用
