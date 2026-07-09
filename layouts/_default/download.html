@@ -10,6 +10,7 @@
   <div class="download-page-content">
     <img class="download-page-logo" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
     
+    <!-- 大标题：固定前缀 + 垂直滚动的三个字 -->
     <h1 class="download-page-title">
       HaiTun 帮你
       <span class="word-rotate-single">
@@ -20,9 +21,11 @@
       </span>
     </h1>
 
+    <!-- 两行小标语，行距收紧 -->
     <p class="download-page-subtitle">全程本地运行、数据隐私可控，支持长上下文稳定执行与持续自进化</p>
     <p class="download-page-subtitle">把繁琐重复的工作交给它，专注真正重要的事</p>
 
+    <!-- 主按钮：仅Windows -->
     <a class="main-download-btn" href="{{ $downloadURL }}" target="_blank">
       <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -35,6 +38,7 @@
     <div class="download-version-info">最新版本 · 支持 Windows10/11 x64（兼容ARM64）</div>
     <a class="download-more-link" href="{{ $releasesURL }}" target="_blank">查看全部历史版本 →</a>
 
+    <!-- 底部平台：仅非Windows渠道 -->
     <div class="platform-list">
       <a class="platform-item" href="{{ $githubRepo }}" target="_blank">
         <div class="platform-item-icon">
@@ -42,13 +46,6 @@
           <span class="icon-fallback">🍎</span>
         </div>
         <span>macOS</span>
-      </a>
-      <a class="platform-item" href="{{ $githubRepo }}" target="_blank">
-        <div class="platform-item-icon">
-          <img src="{{ "icon-windows.svg" | relURL }}" alt="Windows" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
-          <span class="icon-fallback">🪟</span>
-        </div>
-        <span>Windows</span>
       </a>
       <a class="platform-item" href="{{ $githubRepo }}" target="_blank">
         <div class="platform-item-icon">
