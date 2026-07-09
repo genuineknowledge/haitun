@@ -16,6 +16,15 @@
         <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
         <span class="logo-text">{{ .Site.Params.brand }}</span>
       </div>
+
+      <!-- 汉堡按钮（仅移动端显示） -->
+      <button id="menuToggle" class="menu-toggle" aria-label="打开菜单">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <!-- PC端导航 -->
       <nav class="nav-links">
         <a href="{{ "/detail/" | relURL }}#features">功能</a>
         <a href="{{ "/detail/" | relURL }}#requirements">配置要求</a>
@@ -26,6 +35,13 @@
         </button>
         <a class="btn btn-sm" href="{{ "/" | relURL }}">下载中心</a>
       </nav>
+    </div>
+
+    <!-- 移动端下拉菜单 -->
+    <div id="mobileMenu" class="mobile-menu">
+      <a href="{{ "/detail/" | relURL }}#features">功能</a>
+      <a href="{{ "/detail/" | relURL }}#requirements">配置要求</a>
+      <a href="{{ "/detail/" | relURL }}#faq">常见问题</a>
     </div>
   </header>
 
@@ -131,7 +147,7 @@
         });
       }
 
-      // 大标题文字滚动切换（修复版）
+      // 大标题文字滚动切换
       const rotator = document.getElementById('heroWordRotator');
       if (rotator) {
         const words = ['写代码', '做设计', '写报告', '做分析'];
@@ -139,22 +155,14 @@
         rotator.textContent = words[current];
 
         function rotateWord() {
-          // 向上滑出动画
           rotator.classList.add('animating');
-
           rotator.addEventListener('animationend', function onOutEnd() {
             rotator.removeEventListener('animationend', onOutEnd);
             rotator.classList.remove('animating');
-
             current = (current + 1) % words.length;
             rotator.textContent = words[current];
-
-            // 强制回流，确保下一次动画能被识别
             void rotator.offsetWidth;
-
-            // 向下滑入动画
             rotator.classList.add('animating-in');
-
             rotator.addEventListener('animationend', function onInEnd() {
               rotator.removeEventListener('animationend', onInEnd);
               rotator.classList.remove('animating-in');
@@ -163,6 +171,21 @@
         }
 
         setInterval(rotateWord, 1300);
+      }
+
+      // 移动端汉堡菜单
+      const menuToggle = document.getElementById('menuToggle');
+      const mobileMenu = document.getElementById('mobileMenu');
+      if (menuToggle && mobileMenu) {
+        menuToggle.addEventListener('click', () => {
+          mobileMenu.classList.toggle('open');
+        });
+        // 点击链接后自动关闭菜单
+        mobileMenu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+          });
+        });
       }
     });
   </script>
