@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.LanguageCode | default "zh-CN" }}">
+<html lang="{{ .Site.Language.Locale | default "zh-CN" }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,7 @@
         <span class="logo-text">{{ .Site.Params.brand }}</span>
       </div>
 
-      <nav class="nav-links" id="navLinks">
+      <nav class="nav-links">
         <a href="{{ "/detail/" | relURL }}#features">功能</a>
         <a href="{{ "/detail/" | relURL }}#requirements">配置要求</a>
         <a href="{{ "/detail/" | relURL }}#faq">常见问题</a>
@@ -39,7 +39,6 @@
   </main>
 
   <div id="mobileMenuOverlay" class="mobile-menu-overlay"></div>
-
   <div id="mobileMenu" class="mobile-menu">
     <div class="mobile-menu-header">
       <div class="logo">
@@ -48,7 +47,6 @@
       </div>
       <button id="closeMobileMenu" class="close-menu-btn">×</button>
     </div>
-
     <nav class="mobile-menu-links">
       <a href="{{ "/detail/" | relURL }}#features">功能</a>
       <a href="{{ "/detail/" | relURL }}#requirements">配置要求</a>
@@ -83,68 +81,64 @@
   </footer>
 
   <script>
-    // 移动端右侧抽屉菜单
-    const navToggle = document.getElementById('navToggle');
-    const closeMobileMenu = document.getElementById('closeMobileMenu');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-    const mobileMenuLinks = document.querySelectorAll('.mobile-menu-links a');
+    // 移动端抽屉菜单（IIFE 包裹，不污染全局）
+    (function() {
+      const navToggle = document.getElementById('navToggle');
+      const closeBtn = document.getElementById('closeMobileMenu');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const overlay = document.getElementById('mobileMenuOverlay');
+      const menuLinks = document.querySelectorAll('.mobile-menu-links a');
 
-    function openMobileMenu() {
-      mobileMenu.classList.add('open');
-      mobileMenuOverlay.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeMobileMenu() {
-      mobileMenu.classList.remove('open');
-      mobileMenuOverlay.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    navToggle.addEventListener('click', openMobileMenu);
-    closeMobileMenu.addEventListener('click', closeMobileMenu);
-    mobileMenuOverlay.addEventListener('click', closeMobileMenu);
-
-    mobileMenuLinks.forEach(link => {
-      link.addEventListener('click', closeMobileMenu);
-    });
-
-    // 明暗主题
-    const themeToggle = document.getElementById('themeToggle');
-    const themeToggleMobile = document.getElementById('themeToggleMobile');
-    const savedTheme = localStorage.getItem('haitun-theme');
-
-    if (savedTheme === 'light') {
-      document.body.setAttribute('data-theme', 'light');
-    }
-
-    function toggleTheme() {
-      const current = document.body.getAttribute('data-theme');
-      if (current === 'light') {
-        document.body.removeAttribute('data-theme');
-        localStorage.setItem('haitun-theme', 'dark');
-      } else {
-        document.body.setAttribute('data-theme', 'light');
-        localStorage.setItem('haitun-theme', 'light');
+      function openMenu() {
+        mobileMenu.classList.add('open');
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
       }
-    }
+      function closeMenu() {
+        mobileMenu.classList.remove('open');
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
 
-    themeToggle.addEventListener('click', toggleTheme);
-    themeToggleMobile.addEventListener('click', toggleTheme);
+      navToggle.addEventListener('click', openMenu);
+      closeBtn.addEventListener('click', closeMenu);
+      overlay.addEventListener('click', closeMenu);
+      menuLinks.forEach(link => link.addEventListener('click', closeMenu));
+    })();
 
-    // 系统识别
-    function detectOS() {
-      const ua = navigator.userAgent.toLowerCase();
-      if (/windows|win/.test(ua)) return 'windows';
-      if (/mac|macintosh/.test(ua)) return 'mac';
-      if (/linux|x11|ubuntu/.test(ua)) return 'linux';
-      return 'windows';
-    }
+    // 明暗主题切换（IIFE 包裹）
+    (function() {
+      const toggleBtn = document.getElementById('themeToggle');
+      const toggleBtnMobile = document.getElementById('themeToggleMobile');
+      const saved = localStorage.getItem('haitun-theme');
+      if (saved === 'light') document.body.setAttribute('data-theme', 'light');
 
+      function toggle() {
+        const cur = document.body.getAttribute('data-theme');
+        if (cur === 'light') {
+          document.body.removeAttribute('data-theme');
+          localStorage.setItem('haitun-theme', 'dark');
+        } else {
+          document.body.setAttribute('data-theme', 'light');
+          localStorage.setItem('haitun-theme', 'light');
+        }
+      }
+      toggleBtn.addEventListener('click', toggle);
+      toggleBtnMobile.addEventListener('click', toggle);
+    })();
+
+    // 系统识别 + 终端命令交互
     document.addEventListener('DOMContentLoaded', () => {
+      function detectOS() {
+        const ua = navigator.userAgent.toLowerCase();
+        if (/windows|win/.test(ua)) return 'windows';
+        if (/mac|macintosh/.test(ua)) return 'mac';
+        if (/linux|x11|ubuntu/.test(ua)) return 'linux';
+        return 'windows';
+      }
       const os = detectOS();
 
+      // 下拉菜单标记当前设备
       document.querySelectorAll('.download-option').forEach(item => {
         if (item.dataset.os === os) {
           item.classList.add('current');
@@ -155,19 +149,20 @@
         }
       });
 
-      const heroDownloadBtn = document.getElementById('hero-download-main');
-      if (heroDownloadBtn) {
-        heroDownloadBtn.addEventListener('click', (e) => {
+      // 主下载按钮自动匹配
+      const heroBtn = document.getElementById('hero-download-main');
+      if (heroBtn) {
+        heroBtn.addEventListener('click', e => {
           e.preventDefault();
           const target = document.querySelector(`.download-option[data-os="${os}"]`);
           if (target) window.open(target.href, '_blank');
         });
       }
 
+      // 终端命令切换
       const tabs = document.querySelectorAll('.terminal-tab');
       const cmdBox = document.getElementById('terminal-command');
       const copyBtn = document.getElementById('copyCommandBtn');
-
       if (tabs.length && cmdBox) {
         tabs.forEach(tab => {
           tab.addEventListener('click', () => {
@@ -178,15 +173,16 @@
         });
       }
 
+      // 复制按钮
       if (copyBtn && cmdBox) {
         copyBtn.addEventListener('click', async () => {
           try {
             await navigator.clipboard.writeText(cmdBox.textContent);
-            const originHtml = copyBtn.innerHTML;
+            const old = copyBtn.innerHTML;
             copyBtn.innerHTML = '<span style="font-size:12px;">已复制</span>';
-            setTimeout(() => copyBtn.innerHTML = originHtml, 1500);
+            setTimeout(() => copyBtn.innerHTML = old, 1500);
           } catch (err) {
-            console.error('复制命令失败', err);
+            console.error('复制失败', err);
           }
         });
       }
