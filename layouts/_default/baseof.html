@@ -10,11 +10,50 @@
   <link rel="stylesheet" href="{{ $style.RelPermalink }}">
 </head>
 <body>
-  <!-- 头部、主体、页脚与原版完全一致，此处省略以聚焦脚本修改 -->
-  <!-- ... (保持原有 header, main, footer 不变) ... -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="logo">
+        <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
+        <span class="logo-text">{{ .Site.Params.brand }}</span>
+      </div>
+      <nav class="nav-links">
+        <a href="{{ "/detail/" | relURL }}#features">功能</a>
+        <a href="{{ "/detail/" | relURL }}#requirements">配置要求</a>
+        <a href="{{ "/detail/" | relURL }}#faq">常见问题</a>
+        <button id="themeToggle" class="theme-toggle" aria-label="切换明暗主题">
+          <span class="icon-sun">☀️</span>
+          <span class="icon-moon">🌙</span>
+        </button>
+        <a class="btn btn-sm" href="{{ "/" | relURL }}">下载中心</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    {{ block "main" . }}{{ end }}
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="logo">
+          <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
+          <span class="logo-text">{{ .Site.Params.brand }}</span>
+        </div>
+        <p class="muted">{{ .Site.Params.description }}</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/genuineknowledge/psi-agent" target="_blank">GitHub 仓库</a>
+        <a href="https://www.genuine-knowledge.com" target="_blank">真知官网</a>
+      </div>
+    </div>
+    <div class="container muted copyright">
+      © {{ .Site.Params.year }} 合肥真知人工智能应用软件有限公司 保留所有权利。
+    </div>
+  </footer>
 
   <script>
-    // 明暗主题持久化（不变）
+    // 明暗主题持久化
     const themeToggle = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('haitun-theme');
     if (savedTheme === 'light') {
@@ -31,7 +70,7 @@
       }
     });
 
-    // 系统检测（不变）
+    // 系统自动识别
     function detectOS() {
       const ua = navigator.userAgent.toLowerCase();
       if (/windows|win/.test(ua)) return 'windows';
@@ -43,7 +82,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       const os = detectOS();
 
-      // 下拉菜单标记当前设备（不变）
+      // 下拉菜单标记当前设备
       document.querySelectorAll('.download-option').forEach(item => {
         if (item.dataset.os === os) {
           item.classList.add('current');
@@ -54,7 +93,7 @@
         }
       });
 
-      // 主下载按钮适配（不变）
+      // 主下载按钮自动匹配系统下载链接
       const heroDownloadBtn = document.getElementById('hero-download-main');
       if (heroDownloadBtn) {
         heroDownloadBtn.addEventListener('click', (e) => {
@@ -64,7 +103,7 @@
         });
       }
 
-      // 终端命令切换（不变）
+      // 终端命令切换逻辑
       const tabs = document.querySelectorAll('.terminal-tab');
       const cmdBox = document.getElementById('terminal-command');
       const copyBtn = document.getElementById('copyCommandBtn');
@@ -78,6 +117,7 @@
         });
       }
 
+      // 复制按钮交互
       if (copyBtn && cmdBox) {
         copyBtn.addEventListener('click', async () => {
           try {
@@ -91,34 +131,30 @@
         });
       }
 
-      // ---------- 修复后的文字滚动逻辑 ----------
+      // 大标题文字滚动切换（修复版）
       const rotator = document.getElementById('heroWordRotator');
       if (rotator) {
         const words = ['写代码', '做设计', '写报告', '做分析'];
         let current = 0;
         rotator.textContent = words[current];
 
-        // 滚动函数
         function rotateWord() {
-          // 1. 播放向上滑出动画
+          // 向上滑出动画
           rotator.classList.add('animating');
 
-          // 动画结束处理（一次性监听）
           rotator.addEventListener('animationend', function onOutEnd() {
-            rotator.removeEventListener('animationend', onOutEnd); // 清除监听
-            rotator.classList.remove('animating');                // 移除动画类
+            rotator.removeEventListener('animationend', onOutEnd);
+            rotator.classList.remove('animating');
 
-            // 切换文字
             current = (current + 1) % words.length;
             rotator.textContent = words[current];
 
-            // ★ 强制回流，确保浏览器识别新动画的起始状态
+            // 强制回流，确保下一次动画能被识别
             void rotator.offsetWidth;
 
-            // 2. 播放下滑入动画
+            // 向下滑入动画
             rotator.classList.add('animating-in');
 
-            // 下滑入动画结束处理
             rotator.addEventListener('animationend', function onInEnd() {
               rotator.removeEventListener('animationend', onInEnd);
               rotator.classList.remove('animating-in');
@@ -126,7 +162,6 @@
           }, { once: true });
         }
 
-        // 每 2 秒切换一次
         setInterval(rotateWord, 2000);
       }
     });
