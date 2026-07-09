@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.Language.Locale | default "zh-CN" }}">
+<html lang="{{ .Site.Language.LanguageCode | default "zh-CN" }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,14 +12,13 @@
 <body>
   <header class="nav">
     <div class="container nav-inner">
-      <!-- Logo 纯展示无跳转 -->
+      <!-- Logo 纯展示，无跳转链接 -->
       <div class="logo">
         <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
         <span class="logo-text">{{ .Site.Params.brand }}</span>
       </div>
-
-      <!-- 桌面端正常导航 -->
       <nav class="nav-links">
+        <!-- 功能、配置、FAQ 全部指向 /detail/ 详情页锚点 -->
         <a href="{{ "/detail/" | relURL }}#features">功能</a>
         <a href="{{ "/detail/" | relURL }}#requirements">配置要求</a>
         <a href="{{ "/detail/" | relURL }}#faq">常见问题</a>
@@ -27,43 +26,15 @@
           <span class="icon-sun">☀️</span>
           <span class="icon-moon">🌙</span>
         </button>
+        <!-- 下载中心 = 当前首页根路径 /haitun/ -->
         <a class="btn btn-sm" href="{{ "/" | relURL }}">下载中心</a>
       </nav>
-
-      <!-- 仅移动端显示的汉堡按钮 -->
-      <button id="navToggle" class="nav-toggle" aria-label="展开菜单">
-        <span>☰</span>
-      </button>
     </div>
   </header>
 
   <main>
     {{ block "main" . }}{{ end }}
   </main>
-
-  <!-- 移动端抽屉遮罩与菜单 -->
-  <div id="mobileMenuOverlay" class="mobile-menu-overlay"></div>
-  <div id="mobileMenu" class="mobile-menu">
-    <div class="mobile-menu-header">
-      <div class="logo">
-        <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
-        <span class="logo-text">{{ .Site.Params.brand }}</span>
-      </div>
-      <button id="closeMobileMenu" class="close-menu-btn">×</button>
-    </div>
-    <nav class="mobile-menu-links">
-      <a href="{{ "/detail/" | relURL }}#features">功能</a>
-      <a href="{{ "/detail/" | relURL }}#requirements">配置要求</a>
-      <a href="{{ "/detail/" | relURL }}#faq">常见问题</a>
-      <div class="mobile-menu-footer">
-        <button id="themeToggleMobile" class="theme-toggle" aria-label="切换明暗主题">
-          <span class="icon-sun">☀️</span>
-          <span class="icon-moon">🌙</span>
-        </button>
-        <a class="btn btn-sm" href="{{ "/" | relURL }}">下载中心</a>
-      </div>
-    </nav>
-  </div>
 
   <footer class="footer">
     <div class="container footer-inner">
@@ -85,63 +56,34 @@
   </footer>
 
   <script>
-    // 移动端抽屉菜单
-    (function() {
-      const navToggle = document.getElementById('navToggle');
-      const closeBtn = document.getElementById('closeMobileMenu');
-      const mobileMenu = document.getElementById('mobileMenu');
-      const overlay = document.getElementById('mobileMenuOverlay');
-      const menuLinks = document.querySelectorAll('.mobile-menu-links a');
-
-      function openMenu() {
-        mobileMenu.classList.add('open');
-        overlay.classList.add('open');
-        document.body.style.overflow = 'hidden';
+    // 明暗主题持久化
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('haitun-theme');
+    if (savedTheme === 'light') {
+      document.body.setAttribute('data-theme', 'light');
+    }
+    themeToggle.addEventListener('click', () => {
+      const current = document.body.getAttribute('data-theme');
+      if (current === 'light') {
+        document.body.removeAttribute('data-theme');
+        localStorage.setItem('haitun-theme', 'dark');
+      } else {
+        document.body.setAttribute('data-theme', 'light');
+        localStorage.setItem('haitun-theme', 'light');
       }
-      function closeMenu() {
-        mobileMenu.classList.remove('open');
-        overlay.classList.remove('open');
-        document.body.style.overflow = '';
-      }
+    });
 
-      navToggle.addEventListener('click', openMenu);
-      closeBtn.addEventListener('click', closeMenu);
-      overlay.addEventListener('click', closeMenu);
-      menuLinks.forEach(link => link.addEventListener('click', closeMenu));
-    })();
+    // 系统自动识别
+    function detectOS() {
+      const ua = navigator.userAgent.toLowerCase();
+      if (/windows|win/.test(ua)) return 'windows';
+      if (/mac|macintosh/.test(ua)) return 'mac';
+      if (/linux|x11|ubuntu/.test(ua)) return 'linux';
+      return 'windows';
+    }
 
-    // 明暗主题切换
-    (function() {
-      const toggleBtn = document.getElementById('themeToggle');
-      const toggleBtnMobile = document.getElementById('themeToggleMobile');
-      const saved = localStorage.getItem('haitun-theme');
-      if (saved === 'light') document.body.setAttribute('data-theme', 'light');
-
-      function toggle() {
-        const cur = document.body.getAttribute('data-theme');
-        if (cur === 'light') {
-          document.body.removeAttribute('data-theme');
-          localStorage.setItem('haitun-theme', 'dark');
-        } else {
-          document.body.setAttribute('data-theme', 'light');
-          localStorage.setItem('haitun-theme', 'light');
-        }
-      }
-      toggleBtn.addEventListener('click', toggle);
-      toggleBtnMobile.addEventListener('click', toggle);
-    })();
-
-    // 全局交互：系统识别、终端命令、复制功能
     document.addEventListener('DOMContentLoaded', () => {
-      function detectOS() {
-        const ua = navigator.userAgent.toLowerCase();
-        if (/windows|win/.test(ua)) return 'windows';
-        if (/mac|macintosh/.test(ua)) return 'mac';
-        if (/linux|x11|ubuntu/.test(ua)) return 'linux';
-        return 'windows';
-      }
       const os = detectOS();
-
       // 下拉菜单标记当前设备
       document.querySelectorAll('.download-option').forEach(item => {
         if (item.dataset.os === os) {
@@ -153,10 +95,10 @@
         }
       });
 
-      // 主下载按钮自动匹配
-      const heroBtn = document.getElementById('hero-download-main');
-      if (heroBtn) {
-        heroBtn.addEventListener('click', e => {
+      // 首页主下载按钮自动跳转对应系统
+      const heroDownloadBtn = document.getElementById('hero-download-main');
+      if (heroDownloadBtn) {
+        heroDownloadBtn.addEventListener('click', (e) => {
           e.preventDefault();
           const target = document.querySelector(`.download-option[data-os="${os}"]`);
           if (target) window.open(target.href, '_blank');
@@ -177,14 +119,14 @@
         });
       }
 
-      // 复制按钮
+      // 复制按钮交互
       if (copyBtn && cmdBox) {
         copyBtn.addEventListener('click', async () => {
           try {
             await navigator.clipboard.writeText(cmdBox.textContent);
-            const old = copyBtn.innerHTML;
+            const originHtml = copyBtn.innerHTML;
             copyBtn.innerHTML = '<span style="font-size:12px;">已复制</span>';
-            setTimeout(() => copyBtn.innerHTML = old, 1500);
+            setTimeout(() => copyBtn.innerHTML = originHtml, 1500);
           } catch (err) {
             console.error('复制失败', err);
           }
