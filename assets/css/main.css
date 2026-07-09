@@ -919,6 +919,7 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   z-index: 20;
 }
 
+
 .platform-item .tooltip::after {
   content: "";
   position: absolute;
@@ -938,4 +939,71 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
 /* 明暗主题适配 */
 body[data-theme="light"] .platform-item .tooltip::after {
   border-top-color: var(--card);
+}
+
+/* ==========================================
+   移动端专项适配优化
+   ========================================== */
+@media (max-width: 768px) {
+  /* 1. 导航栏修复：隐藏文字链接，避免挤压竖排 */
+  .nav-links {
+    gap: 12px;
+  }
+  .nav-links a:not(.btn) {
+    display: none;
+  }
+
+  /* 2. 下载页首屏精细化适配 */
+  .download-page-hero {
+    min-height: auto;
+    padding: 60px 0 80px;
+  }
+  .download-page-logo {
+    width: 90px;
+    height: 90px;
+  }
+  .download-page-title {
+    font-size: 32px;
+    text-align: center;
+  }
+  .download-page-subtitle {
+    font-size: 15px;
+    margin-bottom: 32px;
+    line-height: 1.6;
+  }
+  .main-download-btn {
+    width: 100%;
+    max-width: 320px;
+    padding: 18px 0;
+    font-size: 20px;
+    justify-content: center;
+  }
+
+  /* 3. 平台按钮适配 */
+  .platform-list {
+    gap: 16px;
+    margin-top: 48px;
+  }
+  .platform-img {
+    width: 130px;
+  }
+
+  /* 4. 移动端关闭hover提示（触屏无hover，避免异常） */
+  .platform-item .tooltip {
+    display: none;
+  }
+}
+
+/* 小屏手机进一步压缩 */
+@media (max-width: 380px) {
+  .download-page-title {
+    font-size: 28px;
+  }
+  .main-download-btn {
+    font-size: 18px;
+    padding: 16px 0;
+  }
+  .platform-img {
+    width: 110px;
+  }
 }
