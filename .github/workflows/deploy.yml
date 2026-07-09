@@ -22,7 +22,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 拉取代码
-        uses: actions/checkout@v4
+        # 升级至 v6，原生 Node24 运行，消除警告
+        uses: actions/checkout@v6
         with:
           submodules: recursive
           fetch-depth: 0
@@ -35,7 +36,8 @@ jobs:
 
       - name: 配置 Pages
         id: pages
-        uses: actions/configure-pages@v5
+        # 升级至 v6，适配 Node24
+        uses: actions/configure-pages@v6
         with:
           # 仓库未手动开启 Pages 时，自动启用（避免 "Get Pages site failed"）
           enablement: true
@@ -45,6 +47,7 @@ jobs:
         run: hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
 
       - name: 上传构建产物
+        # upload-pages-artifact v3 本身基于 Node24，无需改动
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./public
@@ -59,4 +62,5 @@ jobs:
     steps:
       - name: 部署到 GitHub Pages
         id: deployment
+        # deploy-pages@v4 原生兼容 Node24，无需改动
         uses: actions/deploy-pages@v4
