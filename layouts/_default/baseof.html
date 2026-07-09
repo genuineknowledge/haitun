@@ -17,17 +17,21 @@
         <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
         <span class="logo-text">{{ .Site.Params.brand }}</span>
       </div>
-      <nav class="nav-links">
-        <!-- 详情页锚点链接，relURL自动拼接/haitun/前缀 -->
-        <a href="{{ "/haitun/detail/" | relURL }}#features">功能</a>
-        <a href="{{ "/haitun/detail/" | relURL }}#requirements">配置要求</a>
-        <a href="{{ "/haitun/detail/" | relURL }}#faq">常见问题</a>
+
+      <!-- 移动端汉堡按钮 -->
+      <button id="navToggle" class="nav-toggle" aria-label="展开菜单">
+        <span>☰</span>
+      </button>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="{{ "/detail/" | relURL }}#features">功能</a>
+        <a href="{{ "/detail/" | relURL }}#requirements">配置要求</a>
+        <a href="{{ "/detail/" | relURL }}#faq">常见问题</a>
         <button id="themeToggle" class="theme-toggle" aria-label="切换明暗主题">
           <span class="icon-sun">☀️</span>
           <span class="icon-moon">🌙</span>
         </button>
-        <!-- 首页下载中心 -->
-        <a class="btn btn-sm" href="{{ "/haitun" | relURL }}">下载中心</a>
+        <a class="btn btn-sm" href="{{ "/" | relURL }}">下载中心</a>
       </nav>
     </div>
   </header>
@@ -56,6 +60,19 @@
   </footer>
 
   <script>
+    // 移动端汉堡菜单切换
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+    // 点击导航链接后自动收起菜单
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+      });
+    });
+
     // 明暗主题持久化
     const themeToggle = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('haitun-theme');
