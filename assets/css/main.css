@@ -1007,3 +1007,47 @@ body[data-theme="light"] .platform-item .tooltip::after {
     width: 110px;
   }
 }
+
+/* ==========================================
+   需求专项优化：气泡放大 + Logo缩小 + 标题间距加大
+   ========================================== */
+/* 放大悬停提示气泡 */
+.platform-item .tooltip {
+  padding: 10px 18px;
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 260px;
+  border-radius: 10px;
+  white-space: normal;
+  text-align: center;
+  bottom: calc(100% + 12px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+.platform-item .tooltip::after {
+  border-width: 7px;
+}
+.platform-item:hover .tooltip {
+  bottom: calc(100% + 16px);
+}
+
+/* 下载页主Logo缩小，与标题比例更协调 */
+.download-page-logo {
+  width: 80px;
+  height: 80px;
+}
+
+/* 主标题与副标题间距加大 */
+.hero-header-row {
+  margin-bottom: 32px;
+}
+
+/* 移动端保持适配 */
+@media (max-width: 768px) {
+  .download-page-logo {
+    width: 70px;
+    height: 70px;
+  }
+  .platform-item .tooltip {
+    display: none;
+  }
+}
