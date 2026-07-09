@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.Language.LanguageCode | default "zh-CN" }}">
+<html lang="{{ .Site.LanguageCode | default "zh-CN" }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,11 +12,13 @@
 <body>
   <header class="nav">
     <div class="container nav-inner">
+      <!-- Logo 纯展示，无跳转链接 -->
       <div class="logo">
         <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
         <span class="logo-text">{{ .Site.Params.brand }}</span>
       </div>
       <nav class="nav-links">
+        <!-- 详情页锚点链接，relURL自动拼接/haitun/前缀 -->
         <a href="{{ "/detail/" | relURL }}#features">功能</a>
         <a href="{{ "/detail/" | relURL }}#requirements">配置要求</a>
         <a href="{{ "/detail/" | relURL }}#faq">常见问题</a>
@@ -24,6 +26,7 @@
           <span class="icon-sun">☀️</span>
           <span class="icon-moon">🌙</span>
         </button>
+        <!-- 首页下载中心 -->
         <a class="btn btn-sm" href="{{ "/" | relURL }}">下载中心</a>
       </nav>
     </div>
@@ -53,6 +56,7 @@
   </footer>
 
   <script>
+    // 明暗主题持久化
     const themeToggle = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('haitun-theme');
     if (savedTheme === 'light') {
@@ -69,6 +73,7 @@
       }
     });
 
+    // 系统自动识别
     function detectOS() {
       const ua = navigator.userAgent.toLowerCase();
       if (/windows|win/.test(ua)) return 'windows';
@@ -79,6 +84,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       const os = detectOS();
+      // 下拉菜单标记当前设备
       document.querySelectorAll('.download-option').forEach(item => {
         if (item.dataset.os === os) {
           item.classList.add('current');
@@ -89,6 +95,7 @@
         }
       });
 
+      // 主下载按钮自动匹配系统下载链接
       const heroDownloadBtn = document.getElementById('hero-download-main');
       if (heroDownloadBtn) {
         heroDownloadBtn.addEventListener('click', (e) => {
@@ -98,6 +105,7 @@
         });
       }
 
+      // 终端命令切换逻辑
       const tabs = document.querySelectorAll('.terminal-tab');
       const cmdBox = document.getElementById('terminal-command');
       const copyBtn = document.getElementById('copyCommandBtn');
@@ -111,6 +119,7 @@
         });
       }
 
+      // 复制按钮交互
       if (copyBtn && cmdBox) {
         copyBtn.addEventListener('click', async () => {
           try {
@@ -119,7 +128,7 @@
             copyBtn.innerHTML = '<span style="font-size:12px;">已复制</span>';
             setTimeout(() => copyBtn.innerHTML = originHtml, 1500);
           } catch (err) {
-            console.error('复制失败', err);
+            console.error('复制命令失败', err);
           }
         });
       }
