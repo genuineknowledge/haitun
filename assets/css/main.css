@@ -1064,3 +1064,165 @@ body[data-theme="light"] .platform-item .tooltip::after {
     display: none;
   }
 }
+/* ==========================================
+   1. 悬停气泡优化：宽扁造型 + 左对齐 + 每行约8字
+   ========================================== */
+.platform-item .tooltip {
+  padding: 10px 16px;
+  font-size: 14px;
+  line-height: 1.6;
+  min-width: 260px;
+  max-width: 300px;
+  border-radius: 10px;
+  white-space: normal;
+  text-align: left;
+  bottom: calc(100% + 12px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.platform-item .tooltip::after {
+  border-width: 7px;
+}
+
+.platform-item:hover .tooltip {
+  bottom: calc(100% + 16px);
+}
+
+/* ==========================================
+   2. 回退下载页主Logo为默认大小
+   ========================================== */
+.download-page-logo {
+  width: 120px;
+  height: 120px;
+}
+
+/* ==========================================
+   3. 修复下载页明暗主题切换无效
+   ========================================== */
+body[data-theme="light"] .download-page-hero {
+  background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 50%, #c7d2fe 100%);
+}
+
+body[data-theme="light"] .download-page-content,
+body[data-theme="light"] .download-page-title,
+body[data-theme="light"] .main-download-btn {
+  color: #0f172a;
+}
+
+body[data-theme="light"] .download-page-subtitle {
+  color: #475569;
+  opacity: 1;
+}
+
+body[data-theme="light"] .download-version-info {
+  color: #64748b;
+  opacity: 1;
+}
+
+body[data-theme="light"] .download-more-link {
+  color: #475569;
+  border-bottom-color: rgba(71, 85, 105, 0.3);
+}
+
+body[data-theme="light"] .download-more-link:hover {
+  color: #0f172a;
+  border-bottom-color: rgba(15, 23, 42, 0.8);
+}
+
+body[data-theme="light"] .main-download-btn {
+  color: #fff !important;
+}
+
+/* ==========================================
+   4. 移动端汉堡菜单
+   ========================================== */
+/* 汉堡按钮 - PC端隐藏 */
+.menu-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 0;
+  z-index: 60;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* 移动端菜单面板 - 默认隐藏 */
+.mobile-menu {
+  display: none;
+  position: absolute;
+  top: 64px;
+  left: 0;
+  right: 0;
+  background: var(--nav-bg);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 24px 20px;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 40;
+}
+
+.mobile-menu a {
+  color: var(--text);
+  font-size: 15px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+}
+
+.mobile-menu a:last-child {
+  border-bottom: none;
+}
+
+.mobile-menu.open {
+  display: flex;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  /* 隐藏PC端文字导航，保留主题按钮和下载按钮 */
+  .nav-links a:not(.btn):not(#themeToggle) {
+    display: none;
+  }
+
+  .nav-links {
+    gap: 10px;
+  }
+
+  /* 移动端气泡继续隐藏 */
+  .platform-item .tooltip {
+    display: none;
+  }
+
+  /* 移动端Logo保持适中 */
+  .download-page-logo {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+@media (max-width: 380px) {
+  .download-page-logo {
+    width: 80px;
+    height: 80px;
+  }
+}
