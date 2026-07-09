@@ -12,13 +12,11 @@
 <body>
   <header class="nav">
     <div class="container nav-inner">
-      <!-- Logo 纯展示，无跳转链接 -->
       <div class="logo">
         <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
         <span class="logo-text">{{ .Site.Params.brand }}</span>
       </div>
       <nav class="nav-links">
-        <!-- 功能、配置、FAQ 全部指向 /detail/ 详情页锚点 -->
         <a href="{{ "/detail/" | relURL }}#features">功能</a>
         <a href="{{ "/detail/" | relURL }}#requirements">配置要求</a>
         <a href="{{ "/detail/" | relURL }}#faq">常见问题</a>
@@ -26,7 +24,6 @@
           <span class="icon-sun">☀️</span>
           <span class="icon-moon">🌙</span>
         </button>
-        <!-- 下载中心 = 当前首页根路径 /haitun/ -->
         <a class="btn btn-sm" href="{{ "/" | relURL }}">下载中心</a>
       </nav>
     </div>
@@ -56,7 +53,6 @@
   </footer>
 
   <script>
-    // 明暗主题持久化
     const themeToggle = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('haitun-theme');
     if (savedTheme === 'light') {
@@ -73,7 +69,6 @@
       }
     });
 
-    // 系统自动识别
     function detectOS() {
       const ua = navigator.userAgent.toLowerCase();
       if (/windows|win/.test(ua)) return 'windows';
@@ -84,7 +79,6 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       const os = detectOS();
-      // 下拉菜单标记当前设备
       document.querySelectorAll('.download-option').forEach(item => {
         if (item.dataset.os === os) {
           item.classList.add('current');
@@ -95,7 +89,6 @@
         }
       });
 
-      // 首页主下载按钮自动跳转对应系统
       const heroDownloadBtn = document.getElementById('hero-download-main');
       if (heroDownloadBtn) {
         heroDownloadBtn.addEventListener('click', (e) => {
@@ -105,7 +98,6 @@
         });
       }
 
-      // 终端命令切换
       const tabs = document.querySelectorAll('.terminal-tab');
       const cmdBox = document.getElementById('terminal-command');
       const copyBtn = document.getElementById('copyCommandBtn');
@@ -119,7 +111,6 @@
         });
       }
 
-      // 复制按钮交互
       if (copyBtn && cmdBox) {
         copyBtn.addEventListener('click', async () => {
           try {
