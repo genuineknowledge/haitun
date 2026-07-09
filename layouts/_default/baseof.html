@@ -12,11 +12,13 @@
 <body>
   <header class="nav">
     <div class="container nav-inner">
+      <!-- Logo 纯展示无跳转 -->
       <div class="logo">
         <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
         <span class="logo-text">{{ .Site.Params.brand }}</span>
       </div>
 
+      <!-- 桌面端正常导航 -->
       <nav class="nav-links">
         <a href="{{ "/detail/" | relURL }}#features">功能</a>
         <a href="{{ "/detail/" | relURL }}#requirements">配置要求</a>
@@ -28,6 +30,7 @@
         <a class="btn btn-sm" href="{{ "/" | relURL }}">下载中心</a>
       </nav>
 
+      <!-- 仅移动端显示的汉堡按钮 -->
       <button id="navToggle" class="nav-toggle" aria-label="展开菜单">
         <span>☰</span>
       </button>
@@ -38,6 +41,7 @@
     {{ block "main" . }}{{ end }}
   </main>
 
+  <!-- 移动端抽屉遮罩与菜单 -->
   <div id="mobileMenuOverlay" class="mobile-menu-overlay"></div>
   <div id="mobileMenu" class="mobile-menu">
     <div class="mobile-menu-header">
@@ -81,7 +85,7 @@
   </footer>
 
   <script>
-    // 移动端抽屉菜单（IIFE 包裹，不污染全局）
+    // 移动端抽屉菜单
     (function() {
       const navToggle = document.getElementById('navToggle');
       const closeBtn = document.getElementById('closeMobileMenu');
@@ -106,7 +110,7 @@
       menuLinks.forEach(link => link.addEventListener('click', closeMenu));
     })();
 
-    // 明暗主题切换（IIFE 包裹）
+    // 明暗主题切换
     (function() {
       const toggleBtn = document.getElementById('themeToggle');
       const toggleBtnMobile = document.getElementById('themeToggleMobile');
@@ -127,7 +131,7 @@
       toggleBtnMobile.addEventListener('click', toggle);
     })();
 
-    // 系统识别 + 终端命令交互
+    // 全局交互：系统识别、终端命令、复制功能
     document.addEventListener('DOMContentLoaded', () => {
       function detectOS() {
         const ua = navigator.userAgent.toLowerCase();
