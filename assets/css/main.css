@@ -877,11 +877,11 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
 }
 /* 向下滑出 */
 .word-rotator.animating {
-  animation: slideOutUp 0.3s ease forwards;   /* 【可改】0.3s 为滑出动画时长 */
+  animation: slideOutUp 0.22s ease forwards;   /* 【可改】0.3s 为滑出动画时长 */
 }
 /* 从上滑入 */
 .word-rotator.animating-in {
-  animation: slideInDown 0.3s ease forwards;  /* 【可改】0.3s 为滑入动画时长 */
+  animation: slideInDown 0.22s ease forwards;  /* 【可改】0.3s 为滑入动画时长 */
 }
 @keyframes slideOutUp {
   from { transform: translateY(0); opacity: 1; }
