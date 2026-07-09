@@ -28,22 +28,19 @@
     <div class="download-version-info">最新版本 · 支持 Windows10/11 x64（兼容ARM64）</div>
     <a class="download-more-link" href="{{ $releasesURL }}" target="_blank">查看全部历史版本 →</a>
 
+    <!-- 四个平台按钮：使用自定义图片 -->
     <div class="platform-list">
       <a class="platform-item" href="{{ $githubRepo }}" target="_blank">
-        <div class="platform-item-icon">🍎</div>
-        <span>macOS</span>
+        <img src="{{ "images/platform-macos.png" | relURL }}" alt="macOS" class="platform-img">
       </a>
       <a class="platform-item" href="{{ $githubRepo }}" target="_blank">
-        <div class="platform-item-icon">🐧</div>
-        <span>Linux</span>
+        <img src="{{ "images/platform-linux.png" | relURL }}" alt="Linux" class="platform-img">
       </a>
       <a class="platform-item" href="#terminal-install">
-        <div class="platform-item-icon">⌨️</div>
-        <span>终端安装</span>
+        <img src="{{ "images/platform-terminal.png" | relURL }}" alt="终端安装" class="platform-img">
       </a>
       <a class="platform-item" href="{{ $githubRepo }}" target="_blank">
-        <div class="platform-item-icon">📦</div>
-        <span>源码部署</span>
+        <img src="{{ "images/platform-source.png" | relURL }}" alt="源码部署" class="platform-img">
       </a>
     </div>
   </div>
