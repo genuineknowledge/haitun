@@ -12,13 +12,11 @@
 <body>
   <header class="nav">
     <div class="container nav-inner">
-      <!-- Logo 纯展示，无跳转链接 -->
       <div class="logo">
         <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
         <span class="logo-text">{{ .Site.Params.brand }}</span>
       </div>
       <nav class="nav-links">
-        <!-- 详情页锚点链接，relURL自动拼接/haitun/前缀 -->
         <a href="{{ "/detail/" | relURL }}#features">功能</a>
         <a href="{{ "/detail/" | relURL }}#requirements">配置要求</a>
         <a href="{{ "/detail/" | relURL }}#faq">常见问题</a>
@@ -26,7 +24,6 @@
           <span class="icon-sun">☀️</span>
           <span class="icon-moon">🌙</span>
         </button>
-        <!-- 首页下载中心 -->
         <a class="btn btn-sm" href="{{ "/" | relURL }}">下载中心</a>
       </nav>
     </div>
@@ -84,7 +81,6 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       const os = detectOS();
-      // 下拉菜单标记当前设备
       document.querySelectorAll('.download-option').forEach(item => {
         if (item.dataset.os === os) {
           item.classList.add('current');
@@ -95,7 +91,6 @@
         }
       });
 
-      // 主下载按钮自动匹配系统下载链接
       const heroDownloadBtn = document.getElementById('hero-download-main');
       if (heroDownloadBtn) {
         heroDownloadBtn.addEventListener('click', (e) => {
@@ -105,7 +100,6 @@
         });
       }
 
-      // 终端命令切换逻辑
       const tabs = document.querySelectorAll('.terminal-tab');
       const cmdBox = document.getElementById('terminal-command');
       const copyBtn = document.getElementById('copyCommandBtn');
@@ -119,7 +113,6 @@
         });
       }
 
-      // 复制按钮交互
       if (copyBtn && cmdBox) {
         copyBtn.addEventListener('click', async () => {
           try {
@@ -131,6 +124,31 @@
             console.error('复制命令失败', err);
           }
         });
+      }
+
+      // 大标题文字滚动切换（作用于拥有 id="heroWordRotator" 的元素，现仅下载页使用）
+      const rotator = document.getElementById('heroWordRotator');
+      if (rotator) {
+        const words = ['写代码', '做设计', '写报告', '做分析'];
+        let current = 0;
+        rotator.textContent = words[current];
+        function rotateWord() {
+          rotator.classList.add('animating');
+          const onOutEnd = () => {
+            rotator.removeEventListener('animationend', onOutEnd);
+            rotator.classList.remove('animating');
+            current = (current + 1) % words.length;
+            rotator.textContent = words[current];
+            rotator.classList.add('animating-in');
+            const onInEnd = () => {
+              rotator.removeEventListener('animationend', onInEnd);
+              rotator.classList.remove('animating-in');
+            };
+            rotator.addEventListener('animationend', onInEnd);
+          };
+          rotator.addEventListener('animationend', onOutEnd);
+        }
+        setInterval(rotateWord, 2000);
       }
     });
   </script>
