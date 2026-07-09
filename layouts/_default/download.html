@@ -10,8 +10,20 @@
 <section class="download-page-hero">
   <div class="download-page-content">
     <img class="download-page-logo" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
-    <h1 class="download-page-title">{{ .Site.Params.brand }} 本地AI智能体</h1>
-    <p class="download-page-subtitle">{{ .Site.Params.description }}</p>
+    
+    <!-- 大标题：固定前缀 + 垂直滚动的三个字，每2秒切换一次 -->
+    <h1 class="download-page-title">
+      {{ .Site.Params.brand }} 帮你
+      <span class="word-rotate">
+        <span class="word-item">写代码</span>
+        <span class="word-item">做设计</span>
+        <span class="word-item">写报告</span>
+        <span class="word-item">做分析</span>
+      </span>
+    </h1>
+
+    <p class="download-page-subtitle">全程本地运行、数据隐私可控，支持长上下文稳定执行与持续自进化</p>
+    <p class="download-page-subtitle">把繁琐重复的工作交给它，专注真正重要的事</p>
 
     <a class="main-download-btn" href="{{ $downloadURL }}" target="_blank">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
