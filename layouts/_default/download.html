@@ -11,20 +11,20 @@
   <div class="download-page-content">
     <img class="download-page-logo" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
     
-    <!-- 轮播大标题 -->
+    <!-- 大标题：一行文字 + 右侧滚动窗口 -->
     <h1 class="download-page-title">
       HaiTun 帮你
-      <div class="word-rotate">
-        <span class="word-rotate-item">写报告</span>
-        <span class="word-rotate-item">做分析</span>
-        <span class="word-rotate-item">写代码</span>
-        <span class="word-rotate-item">做设计</span>
-      </div>
+      <span class="word-rotate-wrap">
+        <span class="word-rotate-text">写代码</span>
+        <span class="word-rotate-text">做设计</span>
+        <span class="word-rotate-text">写报告</span>
+        <span class="word-rotate-text">做分析</span>
+      </span>
     </h1>
 
-    <!-- 分两行副标题 -->
+    <!-- 两行小标语，行距收紧 -->
     <p class="download-page-subtitle">全程本地运行、数据隐私可控，支持长上下文稳定执行与持续自进化</p>
-    <p class="download-page-subtitle subtitle-second">把繁琐重复的工作交给它，专注真正重要的事</p>
+    <p class="download-page-subtitle">把繁琐重复的工作交给它，专注真正重要的事</p>
 
     <a class="main-download-btn" href="{{ $downloadURL }}" target="_blank">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -38,7 +38,7 @@
     <div class="download-version-info">最新版本 · 支持 Windows10/11 x64（兼容ARM64）</div>
     <a class="download-more-link" href="{{ $releasesURL }}" target="_blank">查看全部历史版本 →</a>
 
-    <!-- 优化后的多平台入口：预留图标位+增大尺寸 -->
+    <!-- 多平台入口：保留图标位，不做顶部中央目录 -->
     <div class="platform-list">
       <a class="platform-item" href="{{ $githubRepo }}" target="_blank">
         <div class="platform-item-icon">
