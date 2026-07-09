@@ -9,11 +9,14 @@
 <!-- 下载中心首屏 -->
 <section class="download-page-hero">
   <div class="download-page-content">
-    <img class="download-page-logo" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
-    <h1 class="download-page-title">
-      {{ .Site.Params.brand }} 帮你
-      <span class="word-rotator" id="heroWordRotator">写代码</span>
-    </h1>
+    <!-- Logo + 标题 左右并列 -->
+    <div class="hero-header-row">
+      <img class="download-page-logo" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
+      <h1 class="download-page-title">
+        {{ .Site.Params.brand }} 帮你
+        <span class="word-rotator" id="heroWordRotator">写代码</span>
+      </h1>
+    </div>
     <p class="download-page-subtitle">全程本地运行、数据隐私可控，支持长上下文稳定执行与持续自进化<br>把繁琐重复的工作交给它，专注真正重要的事</p>
 
     <a class="main-download-btn" href="{{ $downloadURL }}" target="_blank">
@@ -28,7 +31,7 @@
     <div class="download-version-info">最新版本 · 支持 Windows10/11 x64（兼容ARM64）</div>
     <a class="download-more-link" href="{{ $releasesURL }}" target="_blank">查看全部历史版本 →</a>
 
-    <!-- 四个平台按钮：使用自定义图片 -->
+    <!-- 四个平台按钮（自定义图片） -->
     <div class="platform-list">
       <a class="platform-item" href="{{ $githubRepo }}" target="_blank">
         <img src="{{ "images/platform-macos.png" | relURL }}" alt="macOS" class="platform-img">
