@@ -743,32 +743,53 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   opacity: 1;
   border-color: rgba(255,255,255,0.8);
 }
+/* ==========================================
+   四个平台按钮（自定义图片，一排显眼）
+   ========================================== */
 .platform-list {
   display: flex;
   justify-content: center;
-  gap: 48px;
-  margin-top: 60px;
-  flex-wrap: wrap;
-}
-.platform-item {
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  color: rgba(255,255,255,0.8);
-  text-decoration: none;
-  transition: all 0.2s;
-  font-size: 15px;
-}
-.platform-item:hover {
-  color: #fff;
-  transform: translateY(-2px);
-}
-.platform-item-icon {
-  font-size: 28px;
-  opacity: 0.9;
+  gap: 30px;                     /* 按钮之间的间距，可调大 */
+  margin-top: 60px;
+  flex-wrap: wrap;               /* 小屏自动换行 */
 }
 
+.platform-item {
+  display: inline-block;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+  line-height: 0;               /* 消除图片底部空隙 */
+}
+
+.platform-item:hover {
+  transform: translateY(-4px);   /* 悬停微微上浮 */
+}
+
+.platform-img {
+  display: block;
+  width: 160px;                  /* 固定宽度，四张图保持一致 */
+  height: auto;                  /* 高度自适应（图片本身应等比） */
+  max-width: 100%;
+  border-radius: 12px;           /* 轻微圆角 */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.2s;
+}
+
+.platform-item:hover .platform-img {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* 移动端适配：按钮宽度适当缩小 */
+@media (max-width: 768px) {
+  .platform-list {
+    gap: 20px;
+    margin-top: 40px;
+  }
+  .platform-img {
+    width: 120px;
+  }
+}
 /* —— 页脚 —— */
 .footer { border-top: 1px solid var(--border); padding: 50px 0 30px; background: var(--bg); transition: background 0.3s ease; }
 .footer-inner { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; margin-bottom: 30px; }
