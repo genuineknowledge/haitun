@@ -12,13 +12,11 @@
 <body>
   <header class="nav">
     <div class="container nav-inner">
-      <!-- Logo 纯展示，无跳转链接 -->
       <div class="logo">
         <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
         <span class="logo-text">{{ .Site.Params.brand }}</span>
       </div>
 
-      <!-- 桌面端导航 -->
       <nav class="nav-links" id="navLinks">
         <a href="{{ "/detail/" | relURL }}#features">功能</a>
         <a href="{{ "/detail/" | relURL }}#requirements">配置要求</a>
@@ -30,7 +28,6 @@
         <a class="btn btn-sm" href="{{ "/" | relURL }}">下载中心</a>
       </nav>
 
-      <!-- 移动端汉堡按钮 -->
       <button id="navToggle" class="nav-toggle" aria-label="展开菜单">
         <span>☰</span>
       </button>
@@ -40,6 +37,31 @@
   <main>
     {{ block "main" . }}{{ end }}
   </main>
+
+  <div id="mobileMenuOverlay" class="mobile-menu-overlay"></div>
+
+  <div id="mobileMenu" class="mobile-menu">
+    <div class="mobile-menu-header">
+      <div class="logo">
+        <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
+        <span class="logo-text">{{ .Site.Params.brand }}</span>
+      </div>
+      <button id="closeMobileMenu" class="close-menu-btn">×</button>
+    </div>
+
+    <nav class="mobile-menu-links">
+      <a href="{{ "/detail/" | relURL }}#features">功能</a>
+      <a href="{{ "/detail/" | relURL }}#requirements">配置要求</a>
+      <a href="{{ "/detail/" | relURL }}#faq">常见问题</a>
+      <div class="mobile-menu-footer">
+        <button id="themeToggleMobile" class="theme-toggle" aria-label="切换明暗主题">
+          <span class="icon-sun">☀️</span>
+          <span class="icon-moon">🌙</span>
+        </button>
+        <a class="btn btn-sm" href="{{ "/" | relURL }}">下载中心</a>
+      </div>
+    </nav>
+  </div>
 
   <footer class="footer">
     <div class="container footer-inner">
@@ -61,29 +83,43 @@
   </footer>
 
   <script>
-    // 移动端汉堡菜单：只在小屏展开，桌面端保持原样
+    // 移动端右侧抽屉菜单
     const navToggle = document.getElementById('navToggle');
-    const navLinks = document.getElementById('navLinks');
+    const closeMobileMenu = document.getElementById('closeMobileMenu');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+    const mobileMenuLinks = document.querySelectorAll('.mobile-menu-links a');
 
-    navToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
+    function openMobileMenu() {
+      mobileMenu.classList.add('open');
+      mobileMenuOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('open');
+      mobileMenuOverlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    navToggle.addEventListener('click', openMobileMenu);
+    closeMobileMenu.addEventListener('click', closeMobileMenu);
+    mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+
+    mobileMenuLinks.forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
     });
 
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('open');
-      });
-    });
-
-    // 明暗主题持久化
+    // 明暗主题
     const themeToggle = document.getElementById('themeToggle');
+    const themeToggleMobile = document.getElementById('themeToggleMobile');
     const savedTheme = localStorage.getItem('haitun-theme');
 
     if (savedTheme === 'light') {
       document.body.setAttribute('data-theme', 'light');
     }
 
-    themeToggle.addEventListener('click', () => {
+    function toggleTheme() {
       const current = document.body.getAttribute('data-theme');
       if (current === 'light') {
         document.body.removeAttribute('data-theme');
@@ -92,9 +128,12 @@
         document.body.setAttribute('data-theme', 'light');
         localStorage.setItem('haitun-theme', 'light');
       }
-    });
+    }
 
-    // 系统自动识别
+    themeToggle.addEventListener('click', toggleTheme);
+    themeToggleMobile.addEventListener('click', toggleTheme);
+
+    // 系统识别
     function detectOS() {
       const ua = navigator.userAgent.toLowerCase();
       if (/windows|win/.test(ua)) return 'windows';
@@ -106,7 +145,6 @@
     document.addEventListener('DOMContentLoaded', () => {
       const os = detectOS();
 
-      // 下拉菜单标记当前设备
       document.querySelectorAll('.download-option').forEach(item => {
         if (item.dataset.os === os) {
           item.classList.add('current');
@@ -117,7 +155,6 @@
         }
       });
 
-      // 主下载按钮自动匹配系统下载链接
       const heroDownloadBtn = document.getElementById('hero-download-main');
       if (heroDownloadBtn) {
         heroDownloadBtn.addEventListener('click', (e) => {
@@ -127,7 +164,6 @@
         });
       }
 
-      // 终端命令切换逻辑
       const tabs = document.querySelectorAll('.terminal-tab');
       const cmdBox = document.getElementById('terminal-command');
       const copyBtn = document.getElementById('copyCommandBtn');
@@ -142,7 +178,6 @@
         });
       }
 
-      // 复制按钮交互
       if (copyBtn && cmdBox) {
         copyBtn.addEventListener('click', async () => {
           try {
