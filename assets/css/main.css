@@ -791,9 +791,7 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   .main-download-btn { padding: 16px 40px; font-size: 18px; }
   .platform-list { gap: 24px; }
 }
-@media (max-width: 860px) {
-  .nav-links a:not(.btn) { display: none; }
-}
+
 @media (max-width: 560px) {
   .grid { grid-template-columns: 1fr; }
   .feature-grid { grid-template-columns: 1fr; }
@@ -802,4 +800,132 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   .spec-card { padding: 24px; }
   .faq-item summary { font-size: 16px; }
   .community-qrcode img { width: 140px; height: 140px; }
+}
+/* ========== 新增：移动端汉堡菜单 ========== */
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 22px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+.nav-toggle:hover {
+  background: var(--bg-alt);
+}
+
+@media (max-width: 860px) {
+  .nav-toggle { display: block; }
+  .nav-links {
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: var(--nav-bg);
+    backdrop-filter: blur(12px);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 8px 24px 16px;
+    border-bottom: 1px solid var(--border);
+    transform: translateY(-120%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 40;
+  }
+  .nav-links.open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+  .nav-links a {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    width: 100%;
+    font-size: 16px;
+  }
+  .nav-links a:last-of-type { border-bottom: none; }
+  .nav-links .theme-toggle {
+    align-self: flex-start;
+    margin: 12px 0 4px;
+  }
+  .nav-links .btn {
+    margin-top: 12px;
+    justify-content: center;
+  }
+}
+
+/* ========== 新增：首页标题轮播动画 ========== */
+.word-rotate {
+  display: inline-block;
+  height: 1.2em;
+  overflow: hidden;
+  vertical-align: bottom;
+  color: var(--accent-2);
+  margin-left: 12px;
+}
+.word-rotate-item {
+  display: block;
+  line-height: 1.2em;
+  animation: wordSlide 10s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@keyframes wordSlide {
+  0%, 20% { transform: translateY(0); }
+  25%, 45% { transform: translateY(-1.2em); }
+  50%, 70% { transform: translateY(-2.4em); }
+  75%, 95% { transform: translateY(-3.6em); }
+  100% { transform: translateY(-4.8em); }
+}
+
+.subtitle-second {
+  margin-top: 8px !important;
+  opacity: 0.8 !important;
+}
+
+/* ========== 新增：下载中心平台卡片优化 ========== */
+.platform-item {
+  padding: 20px 28px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+.platform-item:hover {
+  background: rgba(255, 255, 255, 0.16);
+  transform: translateY(-4px);
+}
+.platform-item-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.platform-item-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.icon-fallback {
+  display: none;
+  font-size: 36px;
+  line-height: 1;
+}
+
+@media (max-width: 900px) {
+  .platform-item {
+    padding: 16px 20px;
+  }
+  .platform-item-icon {
+    width: 40px;
+    height: 40px;
+  }
+  .icon-fallback {
+    font-size: 30px;
+  }
 }
