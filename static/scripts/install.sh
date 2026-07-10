@@ -50,7 +50,6 @@ ZIP_PATH="$HAITUN_DIR/$FILE"
 echo "  系统: $OS"
 echo "  版本: $VERSION"
 echo "  文件: $FILE"
-echo "  地址: $DOWNLOAD_URL"
 echo ""
 
 # 检查 curl 是否存在
@@ -94,11 +93,11 @@ else
     exit 1
 fi
 
-# ==================== 步骤4：启动 ====================
-echo -e "\n${CYAN}[4/4] 启动 psi-agent workspace...${NC}"
+# ==================== 步骤4：启动 Gateway ====================
+echo -e "\n${CYAN}[4/4] 启动 Gateway 服务...${NC}"
 echo "  工作目录: $HAITUN_DIR"
-echo "  启动命令: ./psi-agent workspace"
+echo "  启动命令: ./psi-agent gateway"
 echo -e "\n${GREEN}========================================${NC}"
 
 cd "$HAITUN_DIR"
-./psi-agent workspace
+./psi-agent gateway
