@@ -951,6 +951,25 @@ body[data-theme="light"] .footer .logo-text {
   color: var(--muted);
   text-align: left;
 }
+/* 品牌链接样式（真知智能跳转官网） */
+.brand-link {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.brand-link:hover {
+  color: var(--accent-2);
+  text-decoration: underline;
+}
+/* 下载页首屏的品牌链接特殊适配（深色背景下更亮） */
+.download-page-subtitle .brand-link {
+  color: #00d4ff;
+}
+.download-page-subtitle .brand-link:hover {
+  color: #ffffff;
+}
+
 /* ==========================================
    标题文字滚动动画（下载页“帮你”后面的三字词）
    ========================================== */
@@ -1083,25 +1102,28 @@ body[data-theme="light"] .footer .logo-text {
     padding: 60px 0 80px;
   }
   .download-page-logo {
-     width: 100px;
-     height: 100px;
-     object-fit: contain;
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
   }
+  /* 手机端主标题放大 */
   .download-page-title {
-     font-size: 36px;
-     font-weight: 800;
-     line-height: 1.25;
-     text-align: center;
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1.25;
+    text-align: center;
   }
   .download-page-subtitle {
-     font-size: 17px;
-     line-height: 1.6;
-     opacity: 0.85;
-     margin-bottom: 32px;
+    font-size: 17px;
+    line-height: 1.6;
+    opacity: 0.85;
+    margin-bottom: 32px;
   }
   .hero-header-row {
-     gap: 28px;
-     margin-bottom: 24px;
+    gap: 28px;
+    margin-bottom: 24px;
+    flex-direction: column;
+    text-align: center;
   } 
   .main-download-btn {
     width: 100%;
@@ -1111,71 +1133,62 @@ body[data-theme="light"] .footer .logo-text {
     justify-content: center;
   }
 
-  /* 平台图标：移动端允许换行 */
+  /* 手机端平台图标：一行两个，网格布局 */
   .platform-list {
-    gap: 16px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px 16px;
     margin-top: 48px;
-    flex-wrap: wrap;
+    width: 100%;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .platform-item {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
   }
   .platform-img {
-    width: 110px;
-    height: 110px;
+    width: 120px;
+    height: 120px;
   }
 
-  /* 移动端隐藏悬停弹窗 */
+  /* 手机端页脚：纵向排列，左对齐，解决排列不齐 */
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+  }
+  .footer-inner > div:first-child {
+    width: 100%;
+    max-width: 100%;
+  }
+  .footer-links {
+    width: 100%;
+    min-width: auto;
+    text-align: left;
+    gap: 12px;
+  }
+  .footer-links a {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .footer-links a:last-child {
+    border-bottom: none;
+  }
+  .copyright {
+    text-align: left;
+    padding-top: 16px;
+  }
+
+  /* 移动端关闭hover提示 */
   .platform-item .tooltip {
     display: none;
   }
 }
-
-@media (max-width: 560px) {
-  .grid { grid-template-columns: 1fr; }
-  .feature-grid { grid-template-columns: 1fr; }
-  .hero { padding: 70px 0 60px; }
-  .section { padding: 60px 0; }
-  .spec-card { padding: 24px; }
-  .faq-item summary { font-size: 16px; }
-  .community-qrcode img { width: 140px; height: 140px; }
-
-  /* 手机端：Logo 和标题垂直排列，标题居中 */
-  .hero-header-row {
-    flex-direction: column;
-    text-align: center;
-  }
-  .download-page-logo {
-    width: 80px;
-    height: 80px;
-  }
-  .download-page-title {
-    font-size: 28px;
-    text-align: center;
-  }
-  .main-download-btn {
-    padding: 16px 50px;
-    font-size: 18px;
-  }
-  .platform-img {
-    width: 95px;
-    height: 95px;
-  }
-}
-
-@media (max-width: 380px) {
-  .download-page-logo {
-    width: 90px;
-    height: 90px;
-  }
-  .download-page-title {
-    font-size: 32px;
-  }
-  .download-page-subtitle {
-    font-size: 16px;
-  }
-  .hero-header-row {
-    gap: 20px;
-  }
-}
-
 /* 页脚强制左右分栏修复 */
 .footer-inner {
   display: flex !important;
@@ -1193,4 +1206,22 @@ body[data-theme="light"] .footer .logo-text {
   text-align: right;
 }
 /* ============================================
-   
+@media (max-width: 380px) {
+  .download-page-logo {
+    width: 90px;
+    height: 90px;
+  }
+  .download-page-title {
+    font-size: 36px;
+  }
+  .download-page-subtitle {
+    font-size: 16px;
+  }
+  .platform-img {
+    width: 110px;
+    height: 110px;
+  }
+  .hero-header-row {
+    gap: 20px;
+  }
+}   
