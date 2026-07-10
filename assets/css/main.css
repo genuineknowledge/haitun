@@ -56,7 +56,6 @@ body {
 
 a { color: inherit; text-decoration: none; }
 
-/* —— 导航栏：固定深色，不随明暗主题切换 —— */
 /* —— 导航栏：固定纯黑暗，不随明暗主题切换 —— */
 .nav {
   position: sticky;
@@ -67,22 +66,16 @@ a { color: inherit; text-decoration: none; }
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(35, 40, 56, 0.72);
 }
-
-/* 左上角 Logo 固定深色样式，不随主题变化 */
-.nav .logo-mark {
-  filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5)) !important;
-  opacity: 1 !important;
-}
-
-.nav .logo-text {
-  color: #e8eaf2 !important;
-}
 .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
 .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; }
 .logo-mark {
   width: 26px; height: 26px; border-radius: 7px;
   object-fit: contain;
-  filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5));
+  filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5)) !important;
+  opacity: 1 !important;
+}
+.logo-text {
+  color: #e8eaf2 !important;
 }
 .nav-links { display: flex; align-items: center; gap: 28px; font-size: 15px; }
 .nav-links a { color: #9aa3b8; transition: color .2s; }
@@ -722,7 +715,6 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   line-height: 1.2;
   text-align: left;
   margin: 0;
-  color: #ffffff;
   background: linear-gradient(180deg, #ffffff, #b9bfd6);
   -webkit-background-clip: text;
   background-clip: text;
@@ -784,15 +776,14 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   border-bottom-color: rgba(255, 255, 255, 0.8);
 }
 
-/* 四个平台按钮 */
-/* 四个平台按钮 */
+/* 四个平台按钮：修复对齐，强制一行 */
 .platform-list {
   display: flex;
   justify-content: center;
   align-items: flex-end;
   gap: 30px;
   margin-top: 60px;
-  flex-wrap: nowrap; /* PC端强制一行，避免自动换行错位 */
+  flex-wrap: nowrap;
 }
 
 .platform-item {
@@ -800,9 +791,10 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   text-decoration: none;
   transition: transform 0.2s ease;
+  padding-bottom: 4px;
 }
 
 .platform-item:hover {
@@ -821,6 +813,12 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
 
 .platform-item:hover .platform-img {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.platform-item span:not(.tooltip) {
+  color: #e8eaf2;
+  font-size: 15px;
+  line-height: 1;
 }
 
 /* 平台按钮悬停弹窗：窄款、大字、终端安装高亮 */
@@ -885,18 +883,18 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
 /* ==========================================
    标题文字滚动动画（下载页“帮你”后面的三字词）
    ========================================== */
-/* 标题文字滚动动画 */
 .word-rotator {
   display: inline-block;
   min-width: 3em;
   text-align: center;
   vertical-align: bottom;
   position: relative;
-  /* 开启硬件加速，解决渐变文字动画闪烁 */
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+  overflow: visible;
+  /* 修复渐变文字动画闪烁消失 */
+  -webkit-text-fill-color: inherit;
+  background: inherit;
+  -webkit-background-clip: inherit;
+  background-clip: inherit;
 }
 
 .word-rotator.animating {
@@ -916,6 +914,7 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   from { transform: translateY(-100%); opacity: 0; }
   to   { transform: translateY(0); opacity: 1; }
 }
+
 /* ==========================================
    移动端汉堡菜单
    ========================================== */
@@ -1034,14 +1033,15 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
     justify-content: center;
   }
 
-  /* 平台图标缩小 */
+  /* 平台图标：移动端允许换行 */
   .platform-list {
     gap: 16px;
     margin-top: 48px;
+    flex-wrap: wrap;
   }
   .platform-img {
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 110px;
   }
 
   /* 移动端隐藏悬停弹窗 */
@@ -1077,8 +1077,8 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
     font-size: 18px;
   }
   .platform-img {
-    width: 85px;
-    height: 85px;
+    width: 95px;
+    height: 95px;
   }
 }
 
@@ -1091,8 +1091,8 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
     padding: 14px 0;
   }
   .platform-img {
-    width: 75px;
-    height: 75px;
+    width: 85px;
+    height: 85px;
   }
   .platform-list {
     gap: 12px;
