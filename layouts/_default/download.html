@@ -1,6 +1,6 @@
 {{ define "main" }}
-{{ $githubRepo := "https://github.com/genuineknowledge/psi-agent" }}
-{{ $releasesURL := "https://github.com/genuineknowledge/psi-agent/releases" }}
+{{ $githubRepo := "https://github.com/genuineknowledge/haitun" }}
+{{ $releasesURL := "https://github.com/genuineknowledge/haitun/releases" }}
 {{ $downloadURL := "https://github.com/genuineknowledge/haitun/releases/latest/download/haitun-agent-setup.exe"}}
 
 <!-- 下载中心首屏 -->
@@ -38,23 +38,23 @@
       <a class="platform-item" href="#terminal-install">
         <span class="tooltip">HaiTun暂未上线该系统安装包，建议选择<strong>终端安装</strong></span>
         <img src="{{ "images/platform-linux.png" | relURL }}" alt="Linux" class="platform-img">
-        
+        <span>Linux</span>
       </a>
       <!-- 2. macOS：有提示，点击跳转终端安装 -->
       <a class="platform-item" href="#terminal-install">
         <span class="tooltip">HaiTun暂未上线该系统安装包，建议选择<strong>终端安装</strong></span>
         <img src="{{ "images/platform-macos.png" | relURL }}" alt="macOS" class="platform-img">
-        
+        <span>macOS</span>
       </a>
       <!-- 3. 终端安装：无提示，锚点跳转 -->
       <a class="platform-item" href="#terminal-install">
         <img src="{{ "images/platform-terminal.png" | relURL }}" alt="终端安装" class="platform-img">
-        
+        <span>终端安装</span>
       </a>
       <!-- 4. 开发源码：无提示，直接跳转GitHub -->
       <a class="platform-item" href="{{ $githubRepo }}" target="_blank">
         <img src="{{ "images/platform-source.png" | relURL }}" alt="开发源码" class="platform-img">
-        
+        <span>开发源码</span>
       </a>
     </div>
   </div>
@@ -71,11 +71,11 @@
         <span class="terminal-tip">依赖 Python 3.14+</span>
       </div>
       <div class="terminal-tabs">
-        <button class="terminal-tab active" data-cmd="uv tool install psi-agent">macOS / Linux</button>
-        <button class="terminal-tab" data-cmd="uv tool install psi-agent">Windows PowerShell</button>
+        <button class="terminal-tab active" data-cmd="curl -fsSL https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.sh | bash">macOS / Linux</button>
+        <button class="terminal-tab" data-cmd="irm https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.ps1 | iex">Windows PowerShell</button>
       </div>
       <div class="terminal-code-box">
-        <code id="terminal-command">uv tool install psi-agent</code>
+        <code id="terminal-command">curl -fsSL https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.sh | bash</code>
         <button class="copy-btn" id="copyCommandBtn" title="复制安装命令">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
@@ -83,7 +83,7 @@
           </svg>
         </button>
       </div>
-      <p class="terminal-footer">安装完成后执行 <code>psi-agent gateway</code> 启动Web管理面板</p>
+      <p class="terminal-footer">安装完成后执行 <code>haitun gateway</code> 启动Web管理面板</p>
     </div>
   </div>
 </section>
