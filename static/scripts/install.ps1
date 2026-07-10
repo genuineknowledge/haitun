@@ -29,7 +29,6 @@ $zipPath = Join-Path $haitunDir $file
 Write-Host "  系统: Windows"
 Write-Host "  版本: $Version"
 Write-Host "  文件: $file"
-Write-Host "  地址: $downloadUrl"
 Write-Host ""
 Write-Host "正在下载，请稍候..."
 
@@ -63,12 +62,12 @@ if (Test-Path $exePath) {
     exit 1
 }
 
-# ==================== 步骤4：启动 ====================
-Write-Host "`n[4/4] 启动 psi-agent workspace..." -ForegroundColor Cyan
+# ==================== 步骤4：启动 Gateway ====================
+Write-Host "`n[4/4] 启动 Gateway 服务..." -ForegroundColor Cyan
 Write-Host "  工作目录: $haitunDir"
-Write-Host "  启动命令: psi-agent.exe workspace"
+Write-Host "  启动命令: psi-agent.exe gateway"
 Write-Host ""
 Write-Host "========================================" -ForegroundColor Green
 
 Set-Location $haitunDir
-& $exePath workspace
+& $exePath gateway
