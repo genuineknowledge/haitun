@@ -1,13 +1,10 @@
 {{ define "main" }}
-{{ $owner := .Site.Params.github.owner }}
-{{ $repo := .Site.Params.github.repo }}
-{{ $asset := .Site.Params.github.assetName }}
-{{ $downloadURL := "https://github.com/genuineknowledge/psi-agent/actions/runs/29021389076/artifacts/8199939428" }}
 {{ $githubRepo := "https://github.com/genuineknowledge/psi-agent" }}
 {{ $releasesURL := "https://github.com/genuineknowledge/psi-agent/releases" }}
+{{ $downloadURL := "https://github.com/genuineknowledge/psi-agent/actions/runs/29021389076/artifacts/8199939428" }}
 
 <!-- 下载中心首屏 -->
-<section class="download-page-hero fixed-dark-section">
+<section class="download-page-hero">
   <div class="download-page-content">
     <!-- Logo + 标题 左右并列 -->
     <div class="hero-header-row">
@@ -31,25 +28,29 @@
     <div class="download-version-info">最新版本 · 支持 Windows10/11 x64（兼容ARM64）</div>
     <a class="download-more-link" href="{{ $releasesURL }}" target="_blank">查看全部历史版本 →</a>
 
-    <!-- 四个平台按钮：顺序 macOS → Linux → 终端安装 → 源码部署 -->
+    <!-- 四个平台按钮：顺序 macOS → Linux → 终端安装 → 开发源码 -->
     <div class="platform-list">
-      <!-- macOS：有提示，点击跳转终端安装 -->
+      <!-- 1. macOS：有提示，点击跳转终端安装 -->
       <a class="platform-item" href="#terminal-install">
-        <span class="tooltip">HaiTun暂未上线该系统安装包，建议选择<strong>终端安装<strong></span>
+        <span class="tooltip">HaiTun暂未上线该系统安装包，建议选择<strong>终端安装</strong></span>
         <img src="{{ "images/platform-macos.png" | relURL }}" alt="macOS" class="platform-img">
+        <span>macOS</span>
       </a>
-      <!-- Linux：有提示，点击跳转终端安装 -->
+      <!-- 2. Linux：有提示，点击跳转终端安装 -->
       <a class="platform-item" href="#terminal-install">
-        <span class="tooltip">HaiTun暂未上线该系统安装包，建议选择<strong>终端安装<strong></span>
+        <span class="tooltip">HaiTun暂未上线该系统安装包，建议选择<strong>终端安装</strong></span>
         <img src="{{ "images/platform-linux.png" | relURL }}" alt="Linux" class="platform-img">
+        <span>Linux</span>
       </a>
-      <!-- 终端安装：无提示，锚点跳转 -->
+      <!-- 3. 终端安装：无提示，锚点跳转 -->
       <a class="platform-item" href="#terminal-install">
         <img src="{{ "images/platform-terminal.png" | relURL }}" alt="终端安装" class="platform-img">
+        <span>终端安装</span>
       </a>
-      <!-- 源码部署：无提示，直接跳转GitHub -->
+      <!-- 4. 开发源码：无提示，直接跳转GitHub -->
       <a class="platform-item" href="{{ $githubRepo }}" target="_blank">
-        <img src="{{ "images/platform-source.png" | relURL }}" alt="源码部署" class="platform-img">
+        <img src="{{ "images/platform-source.png" | relURL }}" alt="开发源码" class="platform-img">
+        <span>开发源码</span>
       </a>
     </div>
   </div>
