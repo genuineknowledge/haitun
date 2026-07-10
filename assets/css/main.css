@@ -17,6 +17,8 @@
   --hero-title-gradient: linear-gradient(180deg, #fff, #b9bfd6);
   --hero-glow-color: rgba(109,94,252,0.25);
   --card-shadow: none;
+  /* 背景图变量，方便统一修改 */
+  --download-hero-bg: url('../images/hero-bg.png');
 }
 
 /* 亮色主题（仅作用于内容区域，导航与下载首屏固定深色） */
@@ -76,6 +78,10 @@ a { color: inherit; text-decoration: none; }
 }
 .logo-text {
   color: #e8eaf2 !important;
+  /* 科技感字体 */
+  font-family: 'Orbitron', 'Rajdhani', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  letter-spacing: 1px;
+  font-weight: 700;
 }
 .nav-links { display: flex; align-items: center; gap: 28px; font-size: 15px; }
 .nav-links a { 
@@ -157,6 +163,10 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   -webkit-background-clip: text; background-clip: text; color: transparent;
   transition: background 0.3s ease;
   line-height: 1.3;
+}
+.hero-title .brand-name {
+  font-family: 'Orbitron', 'Rajdhani', sans-serif;
+  letter-spacing: 1.5px;
 }
 .hero-sub { font-size: clamp(16px, 2.4vw, 20px); color: var(--muted); max-width: 640px; margin: 0 auto 38px; }
 .hero-sub p { line-height: 1.6; }
@@ -658,11 +668,14 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background:
-    radial-gradient(circle at 20% 10%, rgba(109, 94, 252, 0.45), transparent 28%),
-    radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.35), transparent 28%),
-    linear-gradient(135deg, #05060b 0%, #0a0b14 45%, #101830 100%);
+  /* ===== 背景PNG图片预留位置 ===== */
+  background-image: var(--download-hero-bg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #05060b; /* 图片加载失败兜底 */
 }
+/* 保留网格纹理与光晕叠加层，增强文字可读性 */
 .download-page-hero::before {
   content: "";
   position: absolute;
@@ -712,6 +725,10 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   margin: 0;
 }
 
+.title-group {
+  text-align: left;
+}
+
 .download-page-title {
   font-size: 56px;
   font-weight: 800;
@@ -722,6 +739,21 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+.download-page-title .brand-name {
+  font-family: 'Orbitron', 'Rajdhani', sans-serif;
+  letter-spacing: 2px;
+  font-weight: 800;
+}
+
+/* ===== 新增：一级副标题（主标题下方，与logo等高适配） ===== */
+.download-page-subtitle-primary {
+  font-size: 22px;
+  font-weight: 500;
+  color: #cdd6f0;
+  margin: 10px 0 0;
+  line-height: 1.3;
+  letter-spacing: 0.5px;
 }
 
 .download-page-subtitle {
@@ -751,6 +783,7 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   transition: all 0.3s ease;
   border: none;
   cursor: pointer;
+  font-family: inherit;
 }
 .main-download-btn:hover {
   transform: translateY(-2px);
@@ -780,12 +813,12 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   border-bottom-color: rgba(255, 255, 255, 0.8);
 }
 
-/* 四个平台按钮：修复对齐，强制一行 */
+/* ===== 平台按钮：适配2个并排 ===== */
 .platform-list {
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  gap: 30px;
+  gap: 48px;
   margin-top: 60px;
   flex-wrap: wrap;
 }
@@ -799,6 +832,7 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   text-decoration: none;
   transition: transform 0.2s ease;
   padding-bottom: 4px;
+  cursor: pointer;
 }
 
 .platform-item:hover {
@@ -825,7 +859,7 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   line-height: 1;
 }
 
-/* 平台按钮悬停弹窗：窄款、大字、终端安装高亮 */
+/* 平台按钮悬停弹窗 */
 .platform-item .tooltip {
   position: absolute;
   bottom: calc(100% + 10px);
@@ -1113,6 +1147,10 @@ body[data-theme="light"] .footer .logo-text {
     line-height: 1.25;
     text-align: center;
   }
+  .download-page-subtitle-primary {
+    font-size: 18px;
+    text-align: center;
+  }
   .download-page-subtitle {
     font-size: 17px;
     line-height: 1.6;
@@ -1125,6 +1163,9 @@ body[data-theme="light"] .footer .logo-text {
     flex-direction: column;
     text-align: center;
   } 
+  .title-group {
+    text-align: center;
+  }
   .main-download-btn {
     width: 100%;
     max-width: 320px;
@@ -1205,23 +1246,3 @@ body[data-theme="light"] .footer .logo-text {
   order: 2;
   text-align: right;
 }
-/* ============================================
-@media (max-width: 380px) {
-  .download-page-logo {
-    width: 90px;
-    height: 90px;
-  }
-  .download-page-title {
-    font-size: 36px;
-  }
-  .download-page-subtitle {
-    font-size: 16px;
-  }
-  .platform-img {
-    width: 110px;
-    height: 110px;
-  }
-  .hero-header-row {
-    gap: 20px;
-  }
-}   
