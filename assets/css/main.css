@@ -838,7 +838,7 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   font-weight: 500;
   line-height: 1.6;
   min-width: 180px;
-  max-width: 300px;
+  max-width: 360px;
   white-space: normal;
   text-align: center;
   border: 1px solid rgba(35, 40, 56, 0.9);
