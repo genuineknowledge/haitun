@@ -1,6 +1,6 @@
 /* ============================================================
    Haitun Agent 落地页样式 —— 支持明暗双主题切换
-   可修改参数：搜索“可改”查看所有可调整的数值
+   导航栏与下载页首屏固定深色，其余区域随主题切换
    ============================================================ */
 :root {
   /* 深色主题（默认） */
@@ -14,13 +14,12 @@
   --accent-2: #00d4ff;
   --radius: 14px;
   --maxw: 1100px;
-  --nav-bg: rgba(10, 11, 20, 0.8);
   --hero-title-gradient: linear-gradient(180deg, #fff, #b9bfd6);
   --hero-glow-color: rgba(109,94,252,0.25);
   --card-shadow: none;
 }
 
-/* 亮色主题 */
+/* 亮色主题（仅作用于内容区域，导航与下载首屏固定深色） */
 body[data-theme="light"] {
   --bg: #ffffff;
   --bg-alt: #f8fafc;
@@ -32,7 +31,6 @@ body[data-theme="light"] {
   --accent-2: #0ea5e9;
   --radius: 14px;
   --maxw: 1100px;
-  --nav-bg: rgba(255, 255, 255, 0.85);
   --hero-title-gradient: linear-gradient(180deg, #0f172a, #334155);
   --hero-glow-color: rgba(109,94,252,0.12);
   --card-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
@@ -58,13 +56,13 @@ body {
 
 a { color: inherit; text-decoration: none; }
 
-/* —— 导航栏 —— */
+/* —— 导航栏：固定深色，不随明暗主题切换 —— */
 .nav {
   position: sticky; top: 0; z-index: 50;
-  background: var(--nav-bg);
+  background: rgba(10, 11, 20, 0.88);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-  transition: background 0.3s ease, border-color 0.3s ease;
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(35, 40, 56, 0.72);
 }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
 .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; }
@@ -74,14 +72,14 @@ a { color: inherit; text-decoration: none; }
   filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5));
 }
 .nav-links { display: flex; align-items: center; gap: 28px; font-size: 15px; }
-.nav-links a { color: var(--muted); transition: color .2s; }
-.nav-links a:hover { color: var(--text); }
+.nav-links a { color: #9aa3b8; transition: color .2s; }
+.nav-links a:hover { color: #ffffff; }
 
-/* 主题切换按钮 */
+/* 主题切换按钮：固定深色样式 */
 .theme-toggle {
-  background: var(--card);
-  border: 1px solid var(--border);
-  color: var(--text);
+  background: #151826;
+  border: 1px solid #232838;
+  color: #e8eaf2;
   width: 36px;
   height: 36px;
   border-radius: 8px;
@@ -122,7 +120,7 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   font-weight: 600;
 }
 
-/* —— Hero（首页） —— */
+/* —— Hero（详情页首页，随主题切换） —— */
 .hero { position: relative; padding: 110px 0 90px; overflow: visible; text-align: center; }
 .hero-inner { position: relative; z-index: 2; }
 .hero-logo {
@@ -642,7 +640,7 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
 }
 
 /* ============================================================
-   下载中心页面专属样式（可改：按钮大小、间距、图片宽度等）
+   下载中心页面专属样式 —— 固定深色，不随明暗主题切换
    ============================================================ */
 .download-page-hero {
   position: relative;
@@ -651,15 +649,18 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: linear-gradient(135deg, #0a0b14 0%, #1e1b4b 50%, #4338ca 100%);
+  background:
+    radial-gradient(circle at 20% 10%, rgba(109, 94, 252, 0.45), transparent 28%),
+    radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.35), transparent 28%),
+    linear-gradient(135deg, #05060b 0%, #0a0b14 45%, #101830 100%);
 }
 .download-page-hero::before {
   content: "";
   position: absolute;
   inset: 0;
   background-image: 
-    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
   background-size: 40px 40px;
   mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
   pointer-events: none;
@@ -670,32 +671,32 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 800px;
-  height: 800px;
-  background: radial-gradient(circle, rgba(109, 94, 252, 0.3) 0%, transparent 70%);
+  width: 900px;
+  height: 900px;
+  background: radial-gradient(circle, rgba(109, 94, 252, 0.35), transparent 70%);
   pointer-events: none;
 }
 .download-page-content {
   position: relative;
   z-index: 2;
   text-align: center;
-  color: #fff;
+  color: #e8eaf2;
   padding: 40px 20px;
 }
 
-/* ---------- Logo + 标题 左右并列（可改） ---------- */
+/* Logo + 标题 左右并列 */
 .hero-header-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 48px;                    /* 【可改】Logo 与标题之间的间距 */
-  margin-bottom: 24px;          /* 【可改】与下方副标题的距离 */
+  gap: 48px;
+  margin-bottom: 32px;
   flex-wrap: wrap;
 }
 
 .download-page-logo {
-  width: 120px;                 /* 【可改】Logo 宽度 */
-  height: 120px;                /* 【可改】Logo 高度 */
+  width: 120px;
+  height: 120px;
   filter: drop-shadow(0 8px 24px rgba(0,0,0,0.3));
   object-fit: contain;
   flex-shrink: 0;
@@ -703,29 +704,35 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
 }
 
 .download-page-title {
-  font-size: 48px;              /* 【可改】标题字号 */
+  font-size: 48px;
   font-weight: 700;
   line-height: 1.2;
-  text-align: left;             /* 标题靠左对齐（与 Logo 并列时更自然） */
+  text-align: left;
   margin: 0;
+  color: #ffffff;
+  background: linear-gradient(180deg, #ffffff, #b9bfd6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .download-page-subtitle {
-  font-size: 18px;              /* 【可改】副标题字号 */
-  opacity: 0.85;
-  margin: 0 0 40px;             /* 【可改】副标题底部间距 */
+  font-size: 18px;
+  color: #aeb7d4;
+  margin: 0 0 40px;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+  line-height: 1.6;
 }
 
-/* ---------- Windows 主下载按钮（可改） ---------- */
+/* Windows 主下载按钮 */
 .main-download-btn {
   display: inline-flex;
   align-items: center;
-  gap: 14px;                    /* 【可改】图标与文字间距 */
-  padding: 24px 80px;           /* 【可改】按钮内边距（上下 左右） */
-  font-size: 26px;              /* 【可改】按钮文字大小 */
+  gap: 14px;
+  padding: 24px 80px;
+  font-size: 26px;
   font-weight: 600;
   color: #fff;
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
@@ -741,41 +748,41 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   box-shadow: 0 16px 48px rgba(109, 94, 252, 0.5);
 }
 .main-download-btn svg {
-  width: 30px;                  /* 【可改】图标大小 */
+  width: 30px;
   height: 30px;
 }
 
 .download-version-info {
   margin-top: 16px;
   font-size: 14px;
-  opacity: 0.75;
+  color: #8fa4c8;
 }
 .download-more-link {
   display: inline-block;
   margin-top: 12px;
-  color: #fff;
-  opacity: 0.85;
+  color: #b8c7ff;
   font-size: 15px;
   text-decoration: none;
-  border-bottom: 1px solid rgba(255,255,255,0.3);
+  border-bottom: 1px solid rgba(184, 199, 255, 0.35);
   transition: all 0.2s;
 }
 .download-more-link:hover {
-  opacity: 1;
-  border-color: rgba(255,255,255,0.8);
+  color: #ffffff;
+  border-bottom-color: rgba(255, 255, 255, 0.8);
 }
 
-/* ---------- 四个平台按钮（自定义图片，可改） ---------- */
+/* 四个平台按钮 */
 .platform-list {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 30px;                    /* 【可改】按钮之间的间距 */
-  margin-top: 60px;             /* 【可改】与上方元素的距离 */
+  gap: 30px;
+  margin-top: 60px;
   flex-wrap: wrap;
 }
 
 .platform-item {
+  position: relative;
   display: inline-block;
   text-decoration: none;
   transition: transform 0.2s ease;
@@ -788,16 +795,66 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
 
 .platform-img {
   display: block;
-  width: 200px;                 /* 【可改】按钮图片的统一宽度 */
-  height: auto;
-  max-width: 100%;
-  border-radius: 12px;          /* 【可改】圆角大小 */
+  width: 130px;
+  height: 130px;
+  object-fit: contain;
+  border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transition: box-shadow 0.2s;
 }
 
 .platform-item:hover .platform-img {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* 平台按钮悬停弹窗：窄款、大字、终端安装高亮 */
+.platform-item .tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #151826;
+  color: #e8eaf2;
+  padding: 16px 14px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.6;
+  min-width: 120px;
+  max-width: 160px;
+  white-space: normal;
+  text-align: center;
+  border: 1px solid rgba(35, 40, 56, 0.9);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.platform-item .tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 8px solid transparent;
+  border-top-color: #151826;
+}
+
+.platform-item:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+  bottom: calc(100% + 14px);
+}
+
+.platform-item .tooltip strong {
+  color: #00d4ff;
+  font-weight: 700;
+  display: block;
+  margin-top: 6px;
+  font-size: 17px;
 }
 
 /* —— 页脚 —— */
@@ -810,11 +867,96 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
 .copyright { font-size: 13px; padding-top: 20px; border-top: 1px solid var(--border); color: var(--muted); }
 
 /* ==========================================
+   标题文字滚动动画（下载页“帮你”后面的三字词）
+   ========================================== */
+.word-rotator {
+  display: inline-block;
+  min-width: 3em;
+  text-align: center;
+  vertical-align: bottom;
+  position: relative;
+}
+.word-rotator.animating {
+  animation: slideOutUp 0.22s ease forwards;
+}
+.word-rotator.animating-in {
+  animation: slideInDown 0.22s ease forwards;
+}
+@keyframes slideOutUp {
+  from { transform: translateY(0); opacity: 1; }
+  to   { transform: translateY(100%); opacity: 0; }
+}
+@keyframes slideInDown {
+  from { transform: translateY(-100%); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+/* ==========================================
+   移动端汉堡菜单
+   ========================================== */
+.menu-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 0;
+  z-index: 60;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #e8eaf2;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu {
+  display: none;
+  position: absolute;
+  top: 64px;
+  left: 0;
+  right: 0;
+  background: rgba(10, 11, 20, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(35, 40, 56, 0.8);
+  padding: 12px 24px 20px;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 40;
+}
+
+.mobile-menu a {
+  color: #e8eaf2;
+  font-size: 15px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(35, 40, 56, 0.6);
+  text-decoration: none;
+}
+
+.mobile-menu a:last-child {
+  border-bottom: none;
+}
+
+.mobile-menu.open {
+  display: flex;
+}
+
+/* ==========================================
    响应式设计（移动端适配）
    ========================================== */
 @media (max-width: 960px) {
   .feature-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
 @media (max-width: 900px) {
   .grid { grid-template-columns: 1fr 1fr; }
   .requirements-grid { grid-template-columns: 1fr; }
@@ -825,135 +967,23 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   .platform-list { gap: 24px; }
   .hero-header-row { gap: 24px; }
 }
+
 @media (max-width: 768px) {
-  .platform-list {
-    gap: 20px;
-    margin-top: 40px;
+  /* 汉堡菜单显示 */
+  .menu-toggle {
+    display: flex;
   }
-  .platform-img {
-    width: 140px;               /* 【可改】平板设备上的图片宽度 */
-  }
-}
-@media (max-width: 560px) {
-  .grid { grid-template-columns: 1fr; }
-  .feature-grid { grid-template-columns: 1fr; }
-  .hero { padding: 70px 0 60px; }
-  .section { padding: 60px 0; }
-  .spec-card { padding: 24px; }
-  .faq-item summary { font-size: 16px; }
-  .community-qrcode img { width: 140px; height: 140px; }
-  /* 手机端：Logo 和标题垂直排列，标题居中 */
-  .hero-header-row {
-    flex-direction: column;
-    text-align: center;
-  }
-  .download-page-logo {
-    width: 100px;
-    height: 100px;
-  }
-  .download-page-title {
-    font-size: 28px;
-    text-align: center;
-  }
-  .main-download-btn {
-    padding: 16px 50px;
-    font-size: 18px;
-  }
-  .platform-img {
-    width: 120px;               /* 【可改】手机上的图片宽度 */
-  }
-}
 
-/* ==========================================
-   标题文字滚动动画（下载页“帮你”后面的三字词）
-   【可改】动画时长、切换速度需在 baseof.html 脚本中调整
-   ========================================== */
-.word-rotator {
-  display: inline-block;
-  min-width: 3em;               /* 三个中文字宽度，防止抖动 */
-  text-align: center;
-  vertical-align: bottom;
-  position: relative;
-}
-/* 向下滑出 */
-.word-rotator.animating {
-  animation: slideOutUp 0.22s ease forwards;   /* 【可改】0.3s 为滑出动画时长 */
-}
-/* 从上滑入 */
-.word-rotator.animating-in {
-  animation: slideInDown 0.22s ease forwards;  /* 【可改】0.3s 为滑入动画时长 */
-}
-@keyframes slideOutUp {
-  from { transform: translateY(0); opacity: 1; }
-  to   { transform: translateY(100%); opacity: 0; }
-}
-@keyframes slideInDown {
-  from { transform: translateY(-100%); opacity: 0; }
-  to   { transform: translateY(0); opacity: 1; }
-}
-/* ==========================================
-   平台按钮悬停提示弹窗
-   ========================================== */
-.platform-item {
-  position: relative;
-}
-
-.platform-item .tooltip {
-  position: absolute;
-  bottom: calc(100% + 10px);
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--card);
-  color: var(--text);
-  padding: 8px 14px;
-  border-radius: 8px;
-  font-size: 13px;
-  line-height: 1.4;
-  white-space: nowrap;
-  border: 1px solid var(--border);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.2s ease;
-  pointer-events: none;
-  z-index: 20;
-}
-
-
-.platform-item .tooltip::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 6px solid transparent;
-  border-top-color: var(--card);
-}
-
-.platform-item:hover .tooltip {
-  opacity: 1;
-  visibility: visible;
-  bottom: calc(100% + 14px);
-}
-
-/* 明暗主题适配 */
-body[data-theme="light"] .platform-item .tooltip::after {
-  border-top-color: var(--card);
-}
-
-/* ==========================================
-   移动端专项适配优化
-   ========================================== */
-@media (max-width: 768px) {
-  /* 1. 导航栏修复：隐藏文字链接，避免挤压竖排 */
-  .nav-links {
-    gap: 12px;
-  }
-  .nav-links a:not(.btn) {
+  /* 隐藏PC端文字导航，保留主题按钮和下载按钮 */
+  .nav-links a:not(.btn):not(#themeToggle) {
     display: none;
   }
 
-  /* 2. 下载页首屏精细化适配 */
+  .nav-links {
+    gap: 10px;
+  }
+
+  /* 下载页首屏适配 */
   .download-page-hero {
     min-height: auto;
     padding: 60px 0 80px;
@@ -979,368 +1009,67 @@ body[data-theme="light"] .platform-item .tooltip::after {
     justify-content: center;
   }
 
-  /* 3. 平台按钮适配 */
+  /* 平台图标缩小 */
   .platform-list {
     gap: 16px;
     margin-top: 48px;
   }
   .platform-img {
-    width: 130px;
+    width: 100px;
+    height: 100px;
   }
 
-  /* 4. 移动端关闭hover提示（触屏无hover，避免异常） */
+  /* 移动端隐藏悬停弹窗 */
   .platform-item .tooltip {
     display: none;
   }
 }
 
-/* 小屏手机进一步压缩 */
-@media (max-width: 380px) {
-  .download-page-title {
-    font-size: 28px;
+@media (max-width: 560px) {
+  .grid { grid-template-columns: 1fr; }
+  .feature-grid { grid-template-columns: 1fr; }
+  .hero { padding: 70px 0 60px; }
+  .section { padding: 60px 0; }
+  .spec-card { padding: 24px; }
+  .faq-item summary { font-size: 16px; }
+  .community-qrcode img { width: 140px; height: 140px; }
+
+  /* 手机端：Logo 和标题垂直排列，标题居中 */
+  .hero-header-row {
+    flex-direction: column;
+    text-align: center;
   }
-  .main-download-btn {
-    font-size: 18px;
-    padding: 16px 0;
-  }
-  .platform-img {
-    width: 110px;
-  }
-}
-
-/* ==========================================
-   需求专项优化：气泡放大 + Logo缩小 + 标题间距加大
-   ========================================== */
-/* ==========================================
-   优化悬停提示气泡：宽扁造型 + 放大醒目
-   ========================================== */
-.platform-item .tooltip {
-  padding: 12px 24px;
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 1.4;
-  min-width: 280px;
-  max-width: 320px;
-  border-radius: 12px;
-  white-space: nowrap;
-  text-align: center;
-  bottom: calc(100% + 14px);
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
-}
-
-.platform-item .tooltip::after {
-  border-width: 8px;
-}
-
-.platform-item:hover .tooltip {
-  bottom: calc(100% + 18px);
-}
-
-/* 移动端继续隐藏气泡 */
-@media (max-width: 768px) {
-  .platform-item .tooltip {
-    display: none;
-  }
-}
-
-/* 下载页主Logo缩小，与标题比例更协调 */
-.download-page-logo {
-  width: 80px;
-  height: 80px;
-}
-
-/* 主标题与副标题间距加大 */
-.hero-header-row {
-  margin-bottom: 32px;
-}
-
-/* 移动端保持适配 */
-@media (max-width: 768px) {
-  .download-page-logo {
-    width: 70px;
-    height: 70px;
-  }
-  .platform-item .tooltip {
-    display: none;
-  }
-}
-/* ==========================================
-   1. 悬停气泡优化：宽扁造型 + 左对齐 + 每行约8字
-   ========================================== */
-.platform-item .tooltip {
-  padding: 10px 16px;
-  font-size: 14px;
-  line-height: 1.6;
-  min-width: 260px;
-  max-width: 300px;
-  border-radius: 10px;
-  white-space: normal;
-  text-align: left;
-  bottom: calc(100% + 12px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-}
-
-.platform-item .tooltip::after {
-  border-width: 7px;
-}
-
-.platform-item:hover .tooltip {
-  bottom: calc(100% + 16px);
-}
-
-/* ==========================================
-   2. 回退下载页主Logo为默认大小
-   ========================================== */
-.download-page-logo {
-  width: 120px;
-  height: 120px;
-}
-
-/* ==========================================
-   3. 修复下载页明暗主题切换无效
-   ========================================== */
-body[data-theme="light"] .download-page-hero {
-  background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 50%, #c7d2fe 100%);
-}
-
-body[data-theme="light"] .download-page-content,
-body[data-theme="light"] .download-page-title,
-body[data-theme="light"] .main-download-btn {
-  color: #0f172a;
-}
-
-body[data-theme="light"] .download-page-subtitle {
-  color: #475569;
-  opacity: 1;
-}
-
-body[data-theme="light"] .download-version-info {
-  color: #64748b;
-  opacity: 1;
-}
-
-body[data-theme="light"] .download-more-link {
-  color: #475569;
-  border-bottom-color: rgba(71, 85, 105, 0.3);
-}
-
-body[data-theme="light"] .download-more-link:hover {
-  color: #0f172a;
-  border-bottom-color: rgba(15, 23, 42, 0.8);
-}
-
-body[data-theme="light"] .main-download-btn {
-  color: #fff !important;
-}
-
-/* ==========================================
-   4. 移动端汉堡菜单
-   ========================================== */
-/* 汉堡按钮 - PC端隐藏 */
-.menu-toggle {
-  display: none;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  width: 36px;
-  height: 36px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  padding: 0;
-  z-index: 60;
-}
-
-.menu-toggle span {
-  display: block;
-  width: 22px;
-  height: 2px;
-  background: var(--text);
-  border-radius: 2px;
-  transition: all 0.3s ease;
-}
-
-/* 移动端菜单面板 - 默认隐藏 */
-.mobile-menu {
-  display: none;
-  position: absolute;
-  top: 64px;
-  left: 0;
-  right: 0;
-  background: var(--nav-bg);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-  padding: 12px 24px 20px;
-  flex-direction: column;
-  gap: 4px;
-  z-index: 40;
-}
-
-.mobile-menu a {
-  color: var(--text);
-  font-size: 15px;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--border);
-  text-decoration: none;
-}
-
-.mobile-menu a:last-child {
-  border-bottom: none;
-}
-
-.mobile-menu.open {
-  display: flex;
-}
-
-/* 移动端适配 */
-@media (max-width: 768px) {
-  .menu-toggle {
-    display: flex;
-  }
-
-  /* 隐藏PC端文字导航，保留主题按钮和下载按钮 */
-  .nav-links a:not(.btn):not(#themeToggle) {
-    display: none;
-  }
-
-  .nav-links {
-    gap: 10px;
-  }
-
-  /* 移动端气泡继续隐藏 */
-  .platform-item .tooltip {
-    display: none;
-  }
-
-  /* 移动端Logo保持适中 */
-  .download-page-logo {
-    width: 90px;
-    height: 90px;
-  }
-}
-
-@media (max-width: 380px) {
   .download-page-logo {
     width: 80px;
     height: 80px;
   }
-}
-/* ==========================================
-   下载页首屏专项优化
-   ========================================== */
-
-/* 1. 锁定顶部导航栏颜色，不受明暗主题影响 */
-.nav {
-  background: rgba(10, 11, 20, 0.85) !important;
-  border-bottom: 1px solid rgba(35, 40, 56, 0.6) !important;
-  backdrop-filter: blur(12px) !important;
-}
-
-.nav .logo,
-.nav .logo-text,
-.nav .nav-links a,
-.nav .theme-toggle,
-.nav .btn-sm {
-  color: #e8eaf2 !important;
+  .download-page-title {
+    font-size: 28px;
+    text-align: center;
+  }
+  .main-download-btn {
+    padding: 16px 50px;
+    font-size: 18px;
+  }
+  .platform-img {
+    width: 85px;
+    height: 85px;
+  }
 }
 
-.nav .theme-toggle {
-  background: rgba(21, 24, 38, 0.8) !important;
-  border-color: rgba(35, 40, 56, 0.8) !important;
+@media (max-width: 380px) {
+  .download-page-title {
+    font-size: 26px;
+  }
+  .main-download-btn {
+    font-size: 17px;
+    padding: 14px 0;
+  }
+  .platform-img {
+    width: 75px;
+    height: 75px;
+  }
+  .platform-list {
+    gap: 12px;
+  }
 }
-
-.nav .btn-sm {
-  background: linear-gradient(135deg, #6d5efc, #00d4ff) !important;
-  border: none !important;
-}
-
-/* 2. 下载页首屏背景也锁定为深色科技感，不跟随明暗主题切换 */
-.download-page-hero {
-  background:
-    radial-gradient(circle at 20% 10%, rgba(109, 94, 252, 0.45), transparent 25%),
-    radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.35), transparent 25%),
-    linear-gradient(135deg, #05060b 0%, #0a0b14 45%, #101830 100%) !important;
-}
-
-.download-page-hero::before {
-  background-image:
-    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-  background-size: 40px 40px;
-}
-
-.download-page-hero::after {
-  width: 900px;
-  height: 900px;
-  background: radial-gradient(circle, rgba(109, 94, 252, 0.35), transparent 70%);
-}
-
-/* 3. 下载页首屏文字保持浅色，不随明暗主题切换 */
-.download-page-content,
-.download-page-title,
-.download-page-subtitle,
-.download-version-info,
-.download-more-link {
-  color: #e8eaf2 !important;
-  opacity: 1 !important;
-}
-
-.download-page-subtitle {
-  color: #aeb7d4 !important;
-}
-
-.download-version-info {
-  color: #8fa4c8 !important;
-}
-
-.download-more-link {
-  color: #b8c7ff !important;
-  border-bottom-color: rgba(184, 199, 255, 0.35) !important;
-}
-
-.download-more-link:hover {
-  color: #ffffff !important;
-  border-bottom-color: rgba(255, 255, 255, 0.8) !important;
-}
-
-/* 4. 四个平台图标整体变小一点 */
-.platform-img {
-  width: 150px;
-  height: 150px;
-  object-fit: contain;
-}
-
-/* 5. 弹窗更大、字体更大 */
-.platform-item .tooltip {
-  padding: 14px 20px;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.7;
-  min-width: 340px;
-  max-width: 420px;
-  border-radius: 12px;
-  white-space: normal;
-  text-align: left;
-  bottom: calc(100% + 14px);
-  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.35);
-  background: #151826;
-  color: #e8eaf2;
-  border: 1px solid rgba(35, 40, 56, 0.9);
-}
-
-.platform-item .tooltip::after {
-  border-width: 8px;
-  border-top-color: #151826;
-}
-
-.platform-item:hover .tooltip {
-  bottom: calc(100% + 18px);
-}
-
-/* 6. 弹窗里的“终端安装”加粗提醒 */
-.platform-item .tooltip strong {
-  color: #00d4ff;
-  font-weight: 700;
-}
-
