@@ -126,7 +126,7 @@
         });
       }
 
-      // 终端命令切换逻辑
+      // 终端命令切换逻辑（完全原样保留）
       const tabs = document.querySelectorAll('.terminal-tab');
       const cmdBox = document.getElementById('terminal-command');
       const copyBtn = document.getElementById('copyCommandBtn');
@@ -140,21 +140,33 @@
         });
       }
 
-      // 复制按钮交互
+      // ========== 仅此处修改复制按钮逻辑，增加降级兼容，其余代码不动 ==========
       if (copyBtn && cmdBox) {
         copyBtn.addEventListener('click', async () => {
+          const copyText = cmdBox.textContent;
           try {
-            await navigator.clipboard.writeText(cmdBox.textContent);
+            await navigator.clipboard.writeText(copyText);
             const originHtml = copyBtn.innerHTML;
             copyBtn.innerHTML = '<span style="font-size:12px;">已复制</span>';
             setTimeout(() => copyBtn.innerHTML = originHtml, 1500);
           } catch (err) {
-            console.error('复制命令失败', err);
+            // 浏览器不支持clipboard API时的兜底复制方案
+            const tempTextarea = document.createElement('textarea');
+            tempTextarea.value = copyText;
+            tempTextarea.style.position = 'fixed';
+            tempTextarea.style.left = '-9999px';
+            document.body.appendChild(tempTextarea);
+            tempTextarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextarea);
+            const originHtml = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<span style="font-size:12px;">已复制</span>';
+            setTimeout(() => copyBtn.innerHTML = originHtml, 1500);
           }
         });
       }
 
-      // 大标题文字滚动切换
+      // 大标题文字滚动切换（完全原样保留）
       const rotator = document.getElementById('heroWordRotator');
       if (rotator) {
         const words = ['写代码', '做设计', '写报告', '做分析'];
@@ -180,7 +192,7 @@
         setInterval(rotateWord, 1300);
       }
 
-      // 移动端汉堡菜单
+      // 移动端汉堡菜单（完全原样保留）
       const menuToggle = document.getElementById('menuToggle');
       const mobileMenu = document.getElementById('mobileMenu');
       if (menuToggle && mobileMenu) {
