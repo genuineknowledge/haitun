@@ -28,17 +28,17 @@
     <div class="download-version-info">最新版本 · 支持 Windows10/11 x64（兼容ARM64）</div>
     <a class="download-more-link" href="{{ $releasesURL }}" target="_blank">查看全部历史版本 →</a>
 
-    <!-- 四个平台按钮：顺序 macOS → Linux → 终端安装 → 开发源码 -->
+    <!-- 四个平台按钮：顺序 Linux → macOS → 终端安装 → 开发源码 -->
     <div class="platform-list">
-      <!-- 1. macOS：有提示，点击跳转终端安装 -->
-      <a class="platform-item" href="#terminal-install">
-        <span class="tooltip">HaiTun暂未上线该系统安装包，建议选择<strong>终端安装</strong></span>
-        <img src="{{ "images/platform-macos.png" | relURL }}" alt="macOS" class="platform-img">
-      </a>
-      <!-- 2. Linux：有提示，点击跳转终端安装 -->
+      <!-- 1. Linux：有提示，点击跳转终端安装 -->
       <a class="platform-item" href="#terminal-install">
         <span class="tooltip">HaiTun暂未上线该系统安装包，建议选择<strong>终端安装</strong></span>
         <img src="{{ "images/platform-linux.png" | relURL }}" alt="Linux" class="platform-img">
+      </a>
+      <!-- 2. macOS：有提示，点击跳转终端安装 -->
+      <a class="platform-item" href="#terminal-install">
+        <span class="tooltip">HaiTun暂未上线该系统安装包，建议选择<strong>终端安装</strong></span>
+        <img src="{{ "images/platform-macos.png" | relURL }}" alt="macOS" class="platform-img">
       </a>
       <!-- 3. 终端安装：无提示，锚点跳转 -->
       <a class="platform-item" href="#terminal-install">
