@@ -1082,18 +1082,24 @@ body[data-theme="light"] .footer .logo-text {
     padding: 60px 0 80px;
   }
   .download-page-logo {
-    width: 90px;
-    height: 90px;
+     width: 140px;
+     height: 140px;
+     object-fit: contain;
   }
   .download-page-title {
-    font-size: 32px;
-    text-align: center;
+     font-size: 56px;
+     font-weight: 800;
+     line-height: 1.25;
   }
   .download-page-subtitle {
-    font-size: 15px;
-    margin-bottom: 32px;
+    font-size: 21px;
     line-height: 1.6;
+    opacity: 0.85;
   }
+  .hero-header-row {
+     gap: 56px;
+     margin-bottom: 32px;
+  } 
   .main-download-btn {
     width: 100%;
     max-width: 320px;
