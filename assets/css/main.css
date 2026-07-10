@@ -785,13 +785,14 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
 }
 
 /* 四个平台按钮 */
+/* 四个平台按钮 */
 .platform-list {
   display: flex;
   justify-content: center;
   align-items: flex-end;
   gap: 30px;
   margin-top: 60px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; /* PC端强制一行，避免自动换行错位 */
 }
 
 .platform-item {
@@ -799,11 +800,9 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
+  gap: 8px;
   text-decoration: none;
   transition: transform 0.2s ease;
-  line-height: 1;
-  height: 140px;
 }
 
 .platform-item:hover {
@@ -886,28 +885,37 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
 /* ==========================================
    标题文字滚动动画（下载页“帮你”后面的三字词）
    ========================================== */
+/* 标题文字滚动动画 */
 .word-rotator {
   display: inline-block;
   min-width: 3em;
   text-align: center;
   vertical-align: bottom;
   position: relative;
+  /* 开启硬件加速，解决渐变文字动画闪烁 */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
+
 .word-rotator.animating {
   animation: slideOutUp 0.22s ease forwards;
 }
+
 .word-rotator.animating-in {
   animation: slideInDown 0.22s ease forwards;
 }
+
 @keyframes slideOutUp {
   from { transform: translateY(0); opacity: 1; }
   to   { transform: translateY(100%); opacity: 0; }
 }
+
 @keyframes slideInDown {
   from { transform: translateY(-100%); opacity: 0; }
   to   { transform: translateY(0); opacity: 1; }
 }
-
 /* ==========================================
    移动端汉堡菜单
    ========================================== */
