@@ -42,13 +42,7 @@ irm https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/script
 
 macOS 和 Linux 用户可以通过终端安装开发者版本：
 
-macOS用户使用指令：
 ```bash
-curl -fsSL https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.sh | bash
-```
-
-Linux 用户使用指令：
-``bash
 curl -fsSL https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.sh | bash
 ```
 
