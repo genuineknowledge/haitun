@@ -18,6 +18,12 @@ Windows users can download the installer directly:
 
 Supports Windows 10 / 11 x64 and is compatible with ARM64.
 
+Of course,you can install the developer version from the terminal:
+
+```bash
+irm https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.ps1 | iex
+```
+
 After installation, open HaiTun Agent and describe what you want to accomplish in natural language. For example:
 
 ```text
@@ -37,7 +43,7 @@ Write a daily report based on these materials.
 macOS and Linux users can install the developer version from the terminal:
 
 ```bash
-uv tool install psi-agent
+curl -fsSL https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.sh | bash
 ```
 
 After installation, start the web management console:
