@@ -910,6 +910,11 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
 .footer .logo-text {
   color: var(--text);
   font-weight: 700;
+   transition: color 0.3s ease;
+}
+body[data-theme="light"] .footer .logo-text {
+  color: #0f172a !important;
+  opacity: 1 !important;
 }
 
 .footer-inner p {
@@ -1178,26 +1183,4 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   text-align: right;
 }
 /* ============================================
-   页脚 logo 与文字明暗主题适配
-   ============================================ */
-/* 深色模式默认 */
-.footer .logo-mark {
-  filter: drop-shadow(0 0 12px rgba(0, 212, 255, 0.6));
-  transition: filter 0.3s ease, opacity 0.3s ease;
-}
-
-.footer .logo-text {
-  color: #e8eaf2; /* 深色模式亮色文字 */
-  transition: color 0.3s ease;
-}
-
-/* 亮色模式 */
-body[data-theme="light"] .footer .logo-mark {
-  filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.12)) brightness(0.95);
-  /* 若图片本身深色，可加白色背景衬底 */
-  /* background: #fff; padding: 4px; border-radius: 8px; */
-}
-
-body[data-theme="light"] .footer .logo-text {
-  color: #2d3748; /* 深色文字，保证高对比度 */
-}
+   
