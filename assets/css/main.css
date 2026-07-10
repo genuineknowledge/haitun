@@ -698,14 +698,14 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 48px;
+  gap: 56px;
   margin-bottom: 32px;
   flex-wrap: wrap;
 }
 
 .download-page-logo {
-  width: 120px;
-  height: 120px;
+  width: 140px;
+  height: 140px;
   filter: drop-shadow(0 8px 24px rgba(0,0,0,0.3));
   object-fit: contain;
   flex-shrink: 0;
@@ -713,9 +713,9 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
 }
 
 .download-page-title {
-  font-size: 48px;
-  font-weight: 700;
-  line-height: 1.2;
+  font-size: 56px;
+  font-weight: 800;
+  line-height: 1.25;
   text-align: left;
   margin: 0;
   background: linear-gradient(180deg, #ffffff, #b9bfd6);
@@ -725,13 +725,14 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
 }
 
 .download-page-subtitle {
-  font-size: 18px;
+  font-size: 21px;
   color: #aeb7d4;
   margin: 0 0 40px;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
   line-height: 1.6;
+  opacity: 0.85;
 }
 
 /* Windows 主下载按钮 */
@@ -1082,23 +1083,25 @@ body[data-theme="light"] .footer .logo-text {
     padding: 60px 0 80px;
   }
   .download-page-logo {
-     width: 140px;
-     height: 140px;
+     width: 100px;
+     height: 100px;
      object-fit: contain;
   }
   .download-page-title {
-     font-size: 56px;
+     font-size: 36px;
      font-weight: 800;
      line-height: 1.25;
+     text-align: center;
   }
   .download-page-subtitle {
-    font-size: 21px;
-    line-height: 1.6;
-    opacity: 0.85;
+     font-size: 17px;
+     line-height: 1.6;
+     opacity: 0.85;
+     margin-bottom: 32px;
   }
   .hero-header-row {
-     gap: 56px;
-     margin-bottom: 32px;
+     gap: 28px;
+     margin-bottom: 24px;
   } 
   .main-download-btn {
     width: 100%;
@@ -1158,19 +1161,18 @@ body[data-theme="light"] .footer .logo-text {
 }
 
 @media (max-width: 380px) {
+  .download-page-logo {
+    width: 90px;
+    height: 90px;
+  }
   .download-page-title {
-    font-size: 26px;
+    font-size: 32px;
   }
-  .main-download-btn {
-    font-size: 17px;
-    padding: 14px 0;
+  .download-page-subtitle {
+    font-size: 16px;
   }
-  .platform-img {
-    width: 85px;
-    height: 85px;
-  }
-  .platform-list {
-    gap: 12px;
+  .hero-header-row {
+    gap: 20px;
   }
 }
 
