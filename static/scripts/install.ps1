@@ -1,4 +1,3 @@
-﻿
 $ErrorActionPreference = "Stop"
 
 # 配置项
@@ -54,7 +53,6 @@ Remove-Item $zipPath -Force
 # 检查可执行文件
 $exePath = Join-Path $haitunDir "psi-agent.exe"
 if (-not (Test-Path $exePath)) {
-    # 试试不带 exe 后缀
     $exePath = Join-Path $haitunDir "psi-agent"
 }
 
