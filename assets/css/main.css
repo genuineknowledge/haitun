@@ -78,9 +78,12 @@ a { color: inherit; text-decoration: none; }
   color: #e8eaf2 !important;
 }
 .nav-links { display: flex; align-items: center; gap: 28px; font-size: 15px; }
-.nav-links a { color: #9aa3b8; transition: color .2s; font-weight: 600; }
+.nav-links a { 
+  color: #cbd5e1; 
+  font-weight: 700; 
+  transition: color .2s; 
+}
 .nav-links a:hover { color: #ffffff; }
-
 /* 主题切换按钮：固定深色样式 */
 .theme-toggle {
   background: #151826;
@@ -872,48 +875,64 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
 }
 
 /* —— 页脚 —— */
-/* —— 页脚 —— */
-.footer { border-top: 1px solid var(--border); padding: 50px 0 30px; background: var(--bg); transition: background 0.3s ease; }
+.footer { 
+  border-top: 1px solid var(--border); 
+  padding: 50px 0 30px; 
+  background: var(--bg); 
+  transition: background 0.3s ease; 
+}
 .footer-inner { 
   display: flex; 
   justify-content: space-between; 
-  gap: 60px; 
+  align-items: flex-start;
+  gap: 40px; 
   flex-wrap: wrap; 
   margin-bottom: 30px;
-  align-items: flex-start;
+  width: 100%;
 }
-.footer-inner .logo {
+.footer-inner > div:first-child {
+  flex: 1;
+  min-width: 280px;
+}
+.footer .logo {
   margin-bottom: 12px;
 }
+/* 页脚 Logo 文字跟随主题，不会过浅消失 */
+.footer .logo-text {
+  color: var(--text) !important;
+  opacity: 1 !important;
+}
+.footer .logo-mark {
+  filter: none !important;
+}
 .footer-inner p { 
-  max-width: 420px; 
+  max-width: 480px; 
   margin-top: 12px; 
   font-size: 14px; 
-  color: var(--text);
-  opacity: 0.8;
+  color: var(--muted);
   line-height: 1.7;
 }
 .footer-links { 
   display: flex; 
   flex-direction: column; 
-  gap: 10px; 
-  min-width: 120px;
+  gap: 12px; 
+  min-width: 140px;
+  text-align: right;
 }
 .footer-links a { 
   color: var(--text); 
-  opacity: 0.7;
-  transition: all .2s; 
+  font-size: 15px;
+  transition: color .2s; 
 }
 .footer-links a:hover { 
-  color: var(--text); 
-  opacity: 1;
+  color: var(--accent); 
 }
 .copyright { 
   font-size: 13px; 
   padding-top: 20px; 
   border-top: 1px solid var(--border); 
-  color: var(--text);
-  opacity: 0.6;
+  color: var(--muted);
+  text-align: left;
 }
 /* ==========================================
    标题文字滚动动画（下载页“帮你”后面的三字词）
