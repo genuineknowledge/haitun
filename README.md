@@ -18,6 +18,12 @@ Windows 用户可以直接下载安装包：
 
 支持 Windows 10 / 11 x64，兼容 ARM64。
 
+当然也可以通过终端安装开发者版本：
+
+```bash
+irm https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.ps1 | iex
+```
+
 安装后打开 HaiTun Agent，用自然语言告诉它你想完成什么，例如：
 
 ```text
@@ -36,11 +42,17 @@ Windows 用户可以直接下载安装包：
 
 macOS 和 Linux 用户可以通过终端安装开发者版本：
 
+macOS用户使用指令：
 ```bash
-uv tool install psi-agent
+curl -fsSL https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.sh | bash
 ```
 
-安装完成后启动 Web 管理面板：
+Linux 用户使用指令：
+``bash
+curl -fsSL https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.sh | bash
+```
+
+安装完成后会自启动 Web 管理面板，下次自己启动可以输入：
 
 ```bash
 psi-agent gateway
