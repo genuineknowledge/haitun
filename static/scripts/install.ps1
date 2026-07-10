@@ -4,12 +4,13 @@ $ErrorActionPreference = "Stop"
 $Version = "v1.0.1"
 $Repo = "genuineknowledge/haitun"
 $haitunDir = Join-Path $env:USERPROFILE ".haitun"
+$exePath = Join-Path $haitunDir "psi-agent.exe"
 
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host "    HaiTun Agent 一键安装脚本" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 
-# ==================== 步骤1：创建目录 ====================
+# ==================== 步骤1：检查目录 ====================
 Write-Host "`n[1/4] 检查安装目录..." -ForegroundColor Cyan
 
 if (-not (Test-Path $haitunDir)) {
@@ -19,47 +20,60 @@ if (-not (Test-Path $haitunDir)) {
     Write-Host "目录已存在: $haitunDir" -ForegroundColor Yellow
 }
 
-# ==================== 步骤2：下载 ====================
-Write-Host "`n[2/4] 下载 psi-agent..." -ForegroundColor Cyan
-
-$file = "psi-agent-pyinstaller-windows-latest.zip"
-$downloadUrl = "https://github.com/$Repo/releases/download/$Version/$file"
-$zipPath = Join-Path $haitunDir $file
-
-Write-Host "  系统: Windows"
-Write-Host "  版本: $Version"
-Write-Host "  文件: $file"
-Write-Host ""
-Write-Host "正在下载，请稍候..."
-
-Invoke-WebRequest -Uri $downloadUrl -OutFile $zipPath -UseBasicParsing
-
-if (-not (Test-Path $zipPath)) {
-    Write-Host "✗ 下载失败" -ForegroundColor Red
-    exit 1
-}
-
-Write-Host "✓ 下载完成" -ForegroundColor Green
-
-# ==================== 步骤3：解压 ====================
-Write-Host "`n[3/4] 解压文件..." -ForegroundColor Cyan
-
-Expand-Archive -Path $zipPath -DestinationPath $haitunDir -Force
-
-# 删除压缩包
-Remove-Item $zipPath -Force
-
-# 检查可执行文件
-$exePath = Join-Path $haitunDir "psi-agent.exe"
-if (-not (Test-Path $exePath)) {
-    $exePath = Join-Path $haitunDir "psi-agent"
-}
-
 if (Test-Path $exePath) {
-    Write-Host "✓ 解压完成" -ForegroundColor Green
+    Write-Host "✓ 已检测到 psi-agent.exe，跳过下载" -ForegroundColor Green
 } else {
-    Write-Host "✗ 解压后未找到 psi-agent 文件" -ForegroundColor Red
-    exit 1
+    # ==================== 步骤2：下载（国内加速版） ====================
+    Write-Host "`n[2/4] 下载 psi-agent..." -ForegroundColor Cyan
+
+    $file = "psi-agent-pyinstaller-windows-latest.zip"
+    $githubUrl = "https://github.com/$Repo/releases/download/$Version/$file"
+    $downloadUrl = "https://ghproxy.com/$githubUrl"
+    $zipPath = Join-Path $haitunDir $file
+
+    Write-Host "  系统: Windows"
+    Write-Host "  版本: $Version"
+    Write-Host "  文件: $file"
+    Write-Host ""
+    Write-Host "正在下载，请稍候..."
+
+    # 用 curl 下载（比 Invoke-WebRequest 更稳定）
+    curl.exe -L --retry 3 --retry-delay 2 -o "$zipPath" "$downloadUrl"
+
+    # 校验文件大小（小于 10MB 认为下载失败）
+    if (Test-Path $zipPath) {
+        $fileSize = (Get-Item $zipPath).Length
+        if ($fileSize -lt 10MB) {
+            Write-Host "✗ 下载文件异常（太小），请检查网络后重试" -ForegroundColor Red
+            Remove-Item $zipPath -Force
+            exit 1
+        }
+    } else {
+        Write-Host "✗ 下载失败" -ForegroundColor Red
+        exit 1
+    }
+
+    Write-Host "✓ 下载完成" -ForegroundColor Green
+
+    # ==================== 步骤3：解压 ====================
+    Write-Host "`n[3/4] 解压文件..." -ForegroundColor Cyan
+
+    try {
+        Expand-Archive -Path $zipPath -DestinationPath $haitunDir -Force
+    } catch {
+        Write-Host "✗ 解压失败，文件可能损坏，请重新运行脚本" -ForegroundColor Red
+        Remove-Item $zipPath -Force
+        exit 1
+    }
+
+    Remove-Item $zipPath -Force
+
+    if (Test-Path $exePath) {
+        Write-Host "✓ 解压完成" -ForegroundColor Green
+    } else {
+        Write-Host "✗ 解压后未找到 psi-agent 文件" -ForegroundColor Red
+        exit 1
+    }
 }
 
 # ==================== 步骤4：启动 Gateway ====================
