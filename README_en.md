@@ -152,8 +152,8 @@ HaiTun Agent is currently available at no charge. Third-party AI providers may c
 
 - [Product website](http://www.genuine-knowledge.com/haitun/)
 - [Product details](http://www.genuine-knowledge.com/haitun/detail/)
-- [Open-source runtime](https://github.com/genuineknowledge/psi-agent)
-- [HaiTun Agent releases](https://github.com/genuineknowledge/haitun/releases)
+- [Source code](https://github.com/genuineknowledge/psi-agent)
+- [Release history](https://github.com/genuineknowledge/haitun/releases)
 - [Feedback and suggestions](https://github.com/genuineknowledge/psi-agent/issues)
 
 ## License
