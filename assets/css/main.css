@@ -960,6 +960,8 @@ body[data-theme="light"] .footer .logo-text {
   vertical-align: bottom;
   position: relative;
   overflow: visible;
+  -webkit-text-fill-color: inherit;
+  background: inherit;
   -webkit-background-clip: inherit;
   background-clip: inherit;
 }
