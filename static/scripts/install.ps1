@@ -1,10 +1,8 @@
-﻿param(
-    [string]$Version = "v1.0.1"
-)
-
+﻿
 $ErrorActionPreference = "Stop"
 
 # 配置项
+$Version = "v1.0.1"
 $Repo = "genuineknowledge/haitun"
 $haitunDir = Join-Path $env:USERPROFILE ".haitun"
 
