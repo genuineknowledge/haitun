@@ -2,96 +2,96 @@
 
 > [简体中文](README.md)
 
-> 🐬 A local AI agent for communication, execution, and delivery—starting from your goals.
+> 🐬 A local AI agent that turns your goals into completed work.
 
-HaiTun Agent is an all-scenario local AI agent created by Genuine Knowledge. Simply describe your goal in natural language, and it can help you write code, create designs, prepare reports, perform analysis, organize files, clean data, convert formats, and handle batch operations.
+HaiTun Agent is a general-purpose AI agent developed by [Genuine Knowledge](http://www.genuine-knowledge.com/) and designed to run on your local device. Describe your goal in natural language, and it can help you write code, create designs, prepare reports, analyze information, organize files, clean data, convert formats, and automate repetitive operations.
 
-It is designed for users who want to hand tasks directly to AI, as well as developers who want to use open-source agent capabilities on their local devices.
+It is built for people who want AI to execute tasks and deliver usable results, as well as developers who want an open-source agent environment on their own hardware.
 
-## 🐬 Get Started
+## 🐬 Get started
 
 ### Windows
 
-Windows users can download the installer directly:
+Download the Windows installer:
 
-[Download for Windows](https://github.com/genuineknowledge/haitun/releases/latest/download/haitun-agent-setup.exe)
+[Download HaiTun Agent for Windows](https://github.com/genuineknowledge/haitun/releases/latest/download/haitun-agent-setup.exe)
 
-Supports Windows 10 / 11 x64 and is compatible with ARM64.
+HaiTun Agent supports Windows 10 and Windows 11 on x64 systems, with ARM64 compatibility.
 
-Of course,you can install the developer version from the terminal:
+Developers can alternatively install the command-line build from PowerShell:
 
-```bash
+```powershell
 irm https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.ps1 | iex
 ```
 
-After installation, open HaiTun Agent and describe what you want to accomplish in natural language. For example:
+After installation, open HaiTun Agent and describe the result you want. For example:
 
 ```text
 Organize the documents in this folder and group them by project name.
 ```
 
 ```text
-Clean the customer information in this spreadsheet and standardize its format.
+Standardize the customer information in this spreadsheet.
 ```
 
 ```text
-Write a daily report based on these materials.
+Prepare a daily report from these materials.
 ```
 
-### macOS / Linux
+### macOS and Linux
 
-macOS and Linux users can install the developer version from the terminal:
+A developer build is available through the terminal:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.sh | bash
 ```
 
-After installation, start the web management console:
+The installation script launches the web console automatically. To start it again later, run:
 
 ```bash
 psi-agent gateway
 ```
 
-Python 3.14+ is required.
+Python 3.14 or later is required.
 
-## 🐬 What HaiTun Agent Can Do
+## 🐬 What HaiTun Agent can do
 
-| Scenario | Tasks you can give HaiTun Agent |
+| Scenario | Example tasks |
 | --- | --- |
 | File organization | Rename, classify, move, and organize project files in batches |
 | Data processing | Clean spreadsheets, convert formats, and extract key information |
-| Writing and delivery | Create daily reports, weekly reports, documentation, and summaries |
+| Writing and delivery | Prepare daily reports, weekly reports, documentation, and summaries |
 | Coding assistance | Inspect projects, modify code, run commands, and organize results |
-| Repetitive operations | Delegate batches of similar tasks for continuous execution |
+| Repetitive operations | Execute batches of similar tasks continuously |
 
-## Core Capabilities
+## Core capabilities
 
-### Intelligent Task Automation
+### Intelligent task automation
 
-HaiTun Agent can automate repetitive work such as file organization, data cleaning, format conversion, and batch operations, reducing manual effort.
+HaiTun Agent automates repetitive work such as file organization, data cleaning, format conversion, and batch operations, reducing manual effort.
 
-### Local Operation, Privacy First
+### Local execution and privacy
 
-The agent runs on your local device. By default, your data remains on your device and is not uploaded to our servers. The code is open source and can be audited independently.
+The agent runs on your local device. By default, your project data remains on your device and is not uploaded to Genuine Knowledge servers. The code is open source and can be independently audited.
 
-### Reliable Long-Running Tasks
+### Reliable multi-step execution
 
-HaiTun Agent supports long-context and multi-step tasks, making it suitable for workflows that require continuous execution, inspection, and correction.
+HaiTun Agent supports long-context and multi-step tasks that require continuous execution, inspection, and correction.
 
-### Continuous Improvement
+### Continuous improvement
 
-HaiTun Agent improves task strategies based on execution feedback and continues to support more personal and team workflows.
+HaiTun Agent refines task strategies based on execution feedback and continues to support more personal and team workflows.
 
-## Complete a Task in Three Steps
+## Complete your first task in three steps
 
 1. Download and install HaiTun Agent
 2. Describe your goal in natural language
-3. Confirm execution and review the final result
+3. Confirm execution and review the result
 
 For example:
 
 ```text
-Read all meeting notes in this folder and create a project-based action-item list.
+Read every meeting note in this folder and create an action-item list organized by project.
 ```
 
 ```text
@@ -99,63 +99,63 @@ Convert these Markdown documents to a consistent format and generate a table of 
 ```
 
 ```text
-Review this project's README and tell me whether a new user can get started successfully.
+Review this project's README and determine whether a new user can get started successfully.
 ```
 
-## System Requirements
+## System requirements
 
-### Minimum Requirements
+### Minimum requirements
 
 | Item | Requirement |
 | --- | --- |
-| Operating system | Windows 10/11, a mainstream Linux distribution, or macOS 13+ |
-| CPU | 4-core 64-bit processor |
+| Operating system | Windows 10/11, a mainstream Linux distribution, or macOS 13 or later |
+| CPU | 4-core, 64-bit processor |
 | Memory | 8 GB RAM |
 | Storage | 2 GB of available space |
-| GPU | Integrated graphics are sufficient |
-| Network | Stable access to your selected AI provider |
+| GPU | Integrated graphics |
+| Network | Stable access to the selected AI provider |
 
-### Recommended Requirements
+### Recommended configuration
 
 | Item | Recommendation |
 | --- | --- |
-| Operating system | Windows 11, Ubuntu 24.04+/Debian 13+, or macOS 14+ |
-| CPU | 6-8 core 64-bit processor |
+| Operating system | Windows 11, Ubuntu 24.04 or later, Debian 13 or later, or macOS 14 or later |
+| CPU | 6-8 core, 64-bit processor |
 | Memory | 16 GB RAM or more |
 | Storage | At least 5 GB of available space; SSD recommended |
 | Browser | A modern browser with hardware acceleration enabled |
 | Network | A stable, low-latency connection |
 
-## Frequently Asked Questions
+## Frequently asked questions
 
 ### Which operating systems are supported?
 
-A Windows 10/11 installer is currently available. macOS and Linux users can use the developer version through the GitHub repository.
+A Windows 10/11 installer is available. Developers on macOS and Linux can install the command-line build from the terminal.
 
 ### Is an internet connection required?
 
-HaiTun Agent itself runs locally. Features that call online models or network resources require an internet connection; other local capabilities can run offline.
+HaiTun Agent runs locally. Features that use online models or network resources require an internet connection; tasks that rely solely on local capabilities can run offline.
 
-### Is my data safe?
+### How is my data handled?
 
-By default, your data remains on your local device and is not uploaded to our servers.
+By default, HaiTun Agent keeps project data on your local device and does not upload it to Genuine Knowledge servers. Features that use an online AI provider may send the information required to complete a request to that provider.
 
 ### How do I get updates?
 
-New versions are published through GitHub Releases. The download button points to the latest version, which you can download and reinstall.
+New versions are published through GitHub Releases. The Windows download link always points to the latest release.
 
 ### Is HaiTun Agent free?
 
-HaiTun Agent is currently available free of charge. Any changes will be announced on the product page and in the GitHub repository.
+HaiTun Agent is currently available at no charge. Third-party AI providers may charge for model usage. Any changes to HaiTun Agent pricing will be announced on the product website and in this repository.
 
-## Related Links
+## Related links
 
-- [Product Home](http://www.genuine-knowledge.com/haitun/)
-- [Product Details](http://www.genuine-knowledge.com/haitun/detail/)
-- [GitHub Repository](https://github.com/genuineknowledge/psi-agent)
-- [Release History](https://github.com/genuineknowledge/psi-agent/releases)
-- [Feedback and Suggestions](https://github.com/genuineknowledge/psi-agent/issues)
+- [Product website](http://www.genuine-knowledge.com/haitun/)
+- [Product details](http://www.genuine-knowledge.com/haitun/detail/)
+- [Open-source runtime](https://github.com/genuineknowledge/psi-agent)
+- [HaiTun Agent releases](https://github.com/genuineknowledge/haitun/releases)
+- [Feedback and suggestions](https://github.com/genuineknowledge/psi-agent/issues)
 
 ## License
 
-MIT License. See [LICENSE](LICENSE.md) for details.
+HaiTun Agent is available under the [MIT License](LICENSE.md).
