@@ -28,7 +28,7 @@ else
     echo -e "${YELLOW}目录已存在: $HAITUN_DIR${NC}"
 fi
 
-# ==================== 步骤2：下载（多源自动回退） ====================
+# ==================== 步骤2：下载 ====================
 echo -e "\n${CYAN}[2/4] 下载 psi-agent...${NC}"
 
 # 判断系统
@@ -46,7 +46,7 @@ case "$OS" in
         ;;
 esac
 
-GITHUB_URL="https://github.com/$REPO/releases/download/$VERSION/$FILE"
+DOWNLOAD_URL="https://github.com/$REPO/releases/download/$VERSION/$FILE"
 ZIP_PATH="$HAITUN_DIR/$FILE"
 
 echo "  系统: $OS"
@@ -71,48 +71,34 @@ if ! command -v unzip &> /dev/null; then
     exit 1
 fi
 
-# 下载源列表（按优先级尝试）
-DOWNLOAD_URLS=(
-    "https://mirror.ghproxy.com/$GITHUB_URL"
-    "https://gh-proxy.com/$GITHUB_URL"
-    "$GITHUB_URL"
-)
+echo "正在下载，请稍候..."
 
-DOWNLOAD_SUCCESS=false
+# 清理旧文件
+rm -f "$ZIP_PATH"
 
-for url in "${DOWNLOAD_URLS[@]}"; do
-    echo "尝试下载源: $url"
-    
-    # 清理旧文件
-    rm -f "$ZIP_PATH"
-    
-    if curl -L --retry 2 --retry-delay 1 --connect-timeout 10 --progress-bar -o "$ZIP_PATH" "$url"; then
-        # 校验文件大小
-        FILE_SIZE=$(stat -f%z "$ZIP_PATH" 2>/dev/null || stat -c%s "$ZIP_PATH" 2>/dev/null || echo 0)
-        MIN_SIZE=$((10 * 1024 * 1024))
-        
-        if [ "$FILE_SIZE" -ge "$MIN_SIZE" ]; then
-            DOWNLOAD_SUCCESS=true
-            echo -e "${GREEN}✓ 下载成功${NC}"
-            break
-        fi
-    fi
-    
-    echo -e "${YELLOW}  该源下载失败，尝试下一个...${NC}"
-done
-
-if [ "$DOWNLOAD_SUCCESS" = false ]; then
-    echo -e "\n${RED}✗ 所有下载源均失败，请检查网络连接${NC}"
-    echo "也可以手动下载后放到 $HAITUN_DIR 目录"
-    echo "下载地址: $GITHUB_URL"
+# 下载，自动重试 3 次
+if ! curl -L --retry 3 --retry-delay 2 --progress-bar -o "$ZIP_PATH" "$DOWNLOAD_URL"; then
+    echo -e "\n${RED}✗ 下载失败，请检查网络连接${NC}"
     rm -f "$ZIP_PATH"
     exit 1
 fi
 
+# 校验文件大小
+FILE_SIZE=$(stat -f%z "$ZIP_PATH" 2>/dev/null || stat -c%s "$ZIP_PATH" 2>/dev/null || echo 0)
+MIN_SIZE=$((10 * 1024 * 1024))
+
+if [ "$FILE_SIZE" -lt "$MIN_SIZE" ]; then
+    echo -e "${RED}✗ 下载文件异常（太小），请重新运行${NC}"
+    rm -f "$ZIP_PATH"
+    exit 1
+fi
+
+echo -e "${GREEN}✓ 下载完成${NC}"
+
 # ==================== 步骤3：解压覆盖 ====================
 echo -e "\n${CYAN}[3/4] 解压覆盖...${NC}"
 
-# 先删除旧的可执行文件，确保是全新的
+# 先删除旧的可执行文件
 rm -f "$BINARY_PATH"
 
 cd "$HAITUN_DIR"
