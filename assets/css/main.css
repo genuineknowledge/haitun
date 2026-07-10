@@ -57,12 +57,25 @@ body {
 a { color: inherit; text-decoration: none; }
 
 /* —— 导航栏：固定深色，不随明暗主题切换 —— */
+/* —— 导航栏：固定纯黑暗，不随明暗主题切换 —— */
 .nav {
-  position: sticky; top: 0; z-index: 50;
-  background: rgba(10, 11, 20, 0.88);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #0a0b14 !important;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(35, 40, 56, 0.72);
+}
+
+/* 左上角 Logo 固定深色样式，不随主题变化 */
+.nav .logo-mark {
+  filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5)) !important;
+  opacity: 1 !important;
+}
+
+.nav .logo-text {
+  color: #e8eaf2 !important;
 }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
 .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; }
@@ -775,7 +788,7 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
 .platform-list {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   gap: 30px;
   margin-top: 60px;
   flex-wrap: wrap;
@@ -783,10 +796,14 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
 
 .platform-item {
   position: relative;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
   text-decoration: none;
   transition: transform 0.2s ease;
-  line-height: 0;
+  line-height: 1;
+  height: 140px;
 }
 
 .platform-item:hover {
@@ -795,8 +812,8 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
 
 .platform-img {
   display: block;
-  width: 130px;
-  height: 130px;
+  width: 140px;
+  height: 140px;
   object-fit: contain;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
