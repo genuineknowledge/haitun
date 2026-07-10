@@ -786,11 +786,11 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   align-items: flex-end;
   gap: 30px;
   margin-top: 60px;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 }
 
 .platform-item {
-  position: relative;
+  position: relative;  
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -955,9 +955,6 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   vertical-align: bottom;
   position: relative;
   overflow: visible;
-  /* 修复渐变文字动画闪烁消失 */
-  -webkit-text-fill-color: inherit;
-  background: inherit;
   -webkit-background-clip: inherit;
   background-clip: inherit;
 }
