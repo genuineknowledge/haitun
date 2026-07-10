@@ -77,8 +77,7 @@
     }
     themeToggle.addEventListener('click', () => {
       const current = document.body.getAttribute('data-theme');
-      const isDownloadPage = document.querySelector('.download-page-hero');
-
+      
       if (current === 'light') {
         document.body.removeAttribute('data-theme');
         localStorage.setItem('haitun-theme', 'dark');
