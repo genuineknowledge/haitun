@@ -875,62 +875,73 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
 }
 
 /* —— 页脚 —— */
-.footer { 
-  border-top: 1px solid var(--border); 
-  padding: 50px 0 30px; 
-  background: var(--bg); 
-  transition: background 0.3s ease; 
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 50px 0 30px;
+  background: var(--bg);
+  transition: background 0.3s ease;
 }
-.footer-inner { 
-  display: flex; 
-  justify-content: space-between; 
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
   align-items: flex-start;
-  gap: 40px; 
-  flex-wrap: wrap; 
+  gap: 48px;
+  flex-wrap: wrap;
   margin-bottom: 30px;
   width: 100%;
 }
+
 .footer-inner > div:first-child {
-  flex: 1;
-  min-width: 280px;
+  flex: 1 1 auto;
+  min-width: 260px;
+  max-width: 420px;
 }
+
 .footer .logo {
   margin-bottom: 12px;
 }
-/* 页脚 Logo 文字跟随主题，不会过浅消失 */
-.footer .logo-text {
-  color: var(--text) !important;
-  opacity: 1 !important;
-}
+
+/* 页脚 Logo 保持清晰 */
 .footer .logo-mark {
-  filter: none !important;
+  filter: none;
 }
-.footer-inner p { 
-  max-width: 480px; 
-  margin-top: 12px; 
-  font-size: 14px; 
+
+.footer .logo-text {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.footer-inner p {
+  max-width: 420px;
+  margin-top: 12px;
+  font-size: 14px;
   color: var(--muted);
   line-height: 1.7;
 }
-.footer-links { 
-  display: flex; 
-  flex-direction: column; 
-  gap: 12px; 
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   min-width: 140px;
   text-align: right;
 }
-.footer-links a { 
-  color: var(--text); 
-  font-size: 15px;
-  transition: color .2s; 
+
+.footer-links a {
+  color: var(--muted);
+  font-size: 14px;
+  transition: color 0.2s ease;
 }
-.footer-links a:hover { 
-  color: var(--accent); 
+
+.footer-links a:hover {
+  color: var(--accent);
 }
-.copyright { 
-  font-size: 13px; 
-  padding-top: 20px; 
-  border-top: 1px solid var(--border); 
+
+.copyright {
+  font-size: 13px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
   color: var(--muted);
   text-align: left;
 }
@@ -1151,4 +1162,21 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   .platform-list {
     gap: 12px;
   }
+}
+
+/* 页脚强制左右分栏修复 */
+.footer-inner {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: flex-start !important;
+}
+
+.footer-inner > div:first-child {
+  order: 1;
+  text-align: left;
+}
+
+.footer-links {
+  order: 2;
+  text-align: right;
 }
