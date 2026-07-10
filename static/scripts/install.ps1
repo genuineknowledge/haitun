@@ -20,65 +20,40 @@ if (-not (Test-Path $haitunDir)) {
     Write-Host "目录已存在: $haitunDir" -ForegroundColor Yellow
 }
 
-# ==================== 步骤2：下载（多源自动回退） ====================
+# ==================== 步骤2：下载 ====================
 Write-Host "`n[2/4] 下载 psi-agent..." -ForegroundColor Cyan
 
 $file = "psi-agent-pyinstaller-windows-latest.zip"
-$githubUrl = "https://github.com/$Repo/releases/download/$Version/$file"
+$downloadUrl = "https://github.com/$Repo/releases/download/$Version/$file"
 $zipPath = Join-Path $haitunDir $file
 
 Write-Host "  系统: Windows"
 Write-Host "  版本: $Version"
 Write-Host "  文件: $file"
 Write-Host ""
+Write-Host "正在下载，请稍候..."
 
-# 下载源列表（按优先级尝试）
-$downloadUrls = @(
-    "https://mirror.ghproxy.com/$githubUrl",
-    "https://gh-proxy.com/$githubUrl",
-    $githubUrl
-)
+curl.exe -L --retry 3 --retry-delay 2 -o "$zipPath" "$downloadUrl"
 
-$downloadSuccess = $false
-
-foreach ($url in $downloadUrls) {
-    Write-Host "尝试下载源: $url"
-    
-    # 清理旧文件
-    if (Test-Path $zipPath) {
+# 校验文件大小
+if (Test-Path $zipPath) {
+    $fileSize = (Get-Item $zipPath).Length
+    if ($fileSize -lt 10MB) {
+        Write-Host "✗ 下载文件异常（太小），请检查网络后重试" -ForegroundColor Red
         Remove-Item $zipPath -Force
+        exit 1
     }
-
-    try {
-        curl.exe -L --retry 2 --retry-delay 1 --connect-timeout 10 -o "$zipPath" "$url"
-        
-        # 校验文件大小
-        if (Test-Path $zipPath) {
-            $fileSize = (Get-Item $zipPath).Length
-            if ($fileSize -gt 10MB) {
-                $downloadSuccess = $true
-                Write-Host "✓ 下载成功" -ForegroundColor Green
-                break
-            }
-        }
-    } catch {
-        # 继续试下一个
-    }
-    
-    Write-Host "  该源下载失败，尝试下一个..." -ForegroundColor Yellow
-}
-
-if (-not $downloadSuccess) {
-    Write-Host "`n✗ 所有下载源均失败，请检查网络连接" -ForegroundColor Red
-    Write-Host "也可以手动下载后放到 $haitunDir 目录"
-    Write-Host "下载地址: $githubUrl"
+} else {
+    Write-Host "✗ 下载失败" -ForegroundColor Red
     exit 1
 }
+
+Write-Host "✓ 下载完成" -ForegroundColor Green
 
 # ==================== 步骤3：解压覆盖 ====================
 Write-Host "`n[3/4] 解压覆盖..." -ForegroundColor Cyan
 
-# 先删除旧的可执行文件，确保是全新的
+# 先删除旧的可执行文件
 if (Test-Path $exePath) {
     Remove-Item $exePath -Force
 }
