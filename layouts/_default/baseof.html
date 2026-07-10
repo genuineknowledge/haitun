@@ -50,26 +50,30 @@
   </main>
 
   <footer class="footer">
-    <div class="container footer-inner">
+  <div class="container">
+    <div class="footer-inner">
       <div>
-        <a class="logo" href="http://www.genuine-knowledge.com/haitun/" target="_blank">
+        <div class="logo">
           <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
           <span class="logo-text">{{ .Site.Params.brand }}</span>
-        </a>
-        <!-- 以下两行是新文案，取代了原来的 {{ .Site.Params.description }} -->
-        <p class="muted">真知出品的全场景本地 AI 智能体</p>
-        <p class="muted">交流、执行、交付，从你的目标开始</p>
+        </div>
+        <p>
+          <a class="brand-link" href="http://www.genuine-knowledge.com/" target="_blank" rel="noopener">真知智能</a>
+          出品的全场景本地 AI 智能体<br>
+          交流、执行、交付，从你的目标开始
+        </p>
       </div>
-      <div class="footer-links">
-        <a href="https://github.com/genuineknowledge/psi-agent" target="_blank">GitHub 仓库</a>
-        <a href="https://www.genuine-knowledge.com" target="_blank">真知官网</a>
-      </div>
-    </div>
-    <div class="container muted copyright">
-      © {{ .Site.Params.year }} 合肥真知人工智能应用软件有限公司 保留所有权利。
-    </div>
-  </footer>
 
+      <div class="footer-links">
+        <a href="https://github.com/genuineknowledge/psi-agent" target="_blank" rel="noopener">GitHub 仓库</a>
+        <a href="http://www.genuine-knowledge.com/" target="_blank" rel="noopener">真知官网</a>
+      </div>
+    </div>
+    <div class="copyright">
+      © 2026 合肥真知人工智能应用软件有限公司 保留所有权利。
+    </div>
+  </div>
+</footer>
   <script>
     // 明暗主题持久化
     const themeToggle = document.getElementById('themeToggle');
