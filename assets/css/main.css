@@ -1226,3 +1226,121 @@ body[data-theme="light"] .main-download-btn {
     height: 80px;
   }
 }
+/* ==========================================
+   下载页首屏专项优化
+   ========================================== */
+
+/* 1. 锁定顶部导航栏颜色，不受明暗主题影响 */
+.nav {
+  background: rgba(10, 11, 20, 0.85) !important;
+  border-bottom: 1px solid rgba(35, 40, 56, 0.6) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+.nav .logo,
+.nav .logo-text,
+.nav .nav-links a,
+.nav .theme-toggle,
+.nav .btn-sm {
+  color: #e8eaf2 !important;
+}
+
+.nav .theme-toggle {
+  background: rgba(21, 24, 38, 0.8) !important;
+  border-color: rgba(35, 40, 56, 0.8) !important;
+}
+
+.nav .btn-sm {
+  background: linear-gradient(135deg, #6d5efc, #00d4ff) !important;
+  border: none !important;
+}
+
+/* 2. 下载页首屏背景也锁定为深色科技感，不跟随明暗主题切换 */
+.download-page-hero {
+  background:
+    radial-gradient(circle at 20% 10%, rgba(109, 94, 252, 0.45), transparent 25%),
+    radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.35), transparent 25%),
+    linear-gradient(135deg, #05060b 0%, #0a0b14 45%, #101830 100%) !important;
+}
+
+.download-page-hero::before {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.download-page-hero::after {
+  width: 900px;
+  height: 900px;
+  background: radial-gradient(circle, rgba(109, 94, 252, 0.35), transparent 70%);
+}
+
+/* 3. 下载页首屏文字保持浅色，不随明暗主题切换 */
+.download-page-content,
+.download-page-title,
+.download-page-subtitle,
+.download-version-info,
+.download-more-link {
+  color: #e8eaf2 !important;
+  opacity: 1 !important;
+}
+
+.download-page-subtitle {
+  color: #aeb7d4 !important;
+}
+
+.download-version-info {
+  color: #8fa4c8 !important;
+}
+
+.download-more-link {
+  color: #b8c7ff !important;
+  border-bottom-color: rgba(184, 199, 255, 0.35) !important;
+}
+
+.download-more-link:hover {
+  color: #ffffff !important;
+  border-bottom-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* 4. 四个平台图标整体变小一点 */
+.platform-img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
+
+/* 5. 弹窗更大、字体更大 */
+.platform-item .tooltip {
+  padding: 14px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.7;
+  min-width: 340px;
+  max-width: 420px;
+  border-radius: 12px;
+  white-space: normal;
+  text-align: left;
+  bottom: calc(100% + 14px);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.35);
+  background: #151826;
+  color: #e8eaf2;
+  border: 1px solid rgba(35, 40, 56, 0.9);
+}
+
+.platform-item .tooltip::after {
+  border-width: 8px;
+  border-top-color: #151826;
+}
+
+.platform-item:hover .tooltip {
+  bottom: calc(100% + 18px);
+}
+
+/* 6. 弹窗里的“终端安装”加粗提醒 */
+.platform-item .tooltip strong {
+  color: #00d4ff;
+  font-weight: 700;
+}
+
