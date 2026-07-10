@@ -20,60 +20,84 @@ if (-not (Test-Path $haitunDir)) {
     Write-Host "目录已存在: $haitunDir" -ForegroundColor Yellow
 }
 
-if (Test-Path $exePath) {
-    Write-Host "✓ 已检测到 psi-agent.exe，跳过下载" -ForegroundColor Green
-} else {
-    # ==================== 步骤2：下载（国内加速版） ====================
-    Write-Host "`n[2/4] 下载 psi-agent..." -ForegroundColor Cyan
+# ==================== 步骤2：下载（多源自动回退） ====================
+Write-Host "`n[2/4] 下载 psi-agent..." -ForegroundColor Cyan
 
-    $file = "psi-agent-pyinstaller-windows-latest.zip"
-    $githubUrl = "https://github.com/$Repo/releases/download/$Version/$file"
-    $downloadUrl = "https://ghproxy.com/$githubUrl"
-    $zipPath = Join-Path $haitunDir $file
+$file = "psi-agent-pyinstaller-windows-latest.zip"
+$githubUrl = "https://github.com/$Repo/releases/download/$Version/$file"
+$zipPath = Join-Path $haitunDir $file
 
-    Write-Host "  系统: Windows"
-    Write-Host "  版本: $Version"
-    Write-Host "  文件: $file"
-    Write-Host ""
-    Write-Host "正在下载，请稍候..."
+Write-Host "  系统: Windows"
+Write-Host "  版本: $Version"
+Write-Host "  文件: $file"
+Write-Host ""
 
-    # 用 curl 下载（比 Invoke-WebRequest 更稳定）
-    curl.exe -L --retry 3 --retry-delay 2 -o "$zipPath" "$downloadUrl"
+# 下载源列表（按优先级尝试）
+$downloadUrls = @(
+    "https://mirror.ghproxy.com/$githubUrl",
+    "https://gh-proxy.com/$githubUrl",
+    $githubUrl
+)
 
-    # 校验文件大小（小于 10MB 认为下载失败）
+$downloadSuccess = $false
+
+foreach ($url in $downloadUrls) {
+    Write-Host "尝试下载源: $url"
+    
+    # 清理旧文件
     if (Test-Path $zipPath) {
-        $fileSize = (Get-Item $zipPath).Length
-        if ($fileSize -lt 10MB) {
-            Write-Host "✗ 下载文件异常（太小），请检查网络后重试" -ForegroundColor Red
-            Remove-Item $zipPath -Force
-            exit 1
-        }
-    } else {
-        Write-Host "✗ 下载失败" -ForegroundColor Red
-        exit 1
+        Remove-Item $zipPath -Force
     }
-
-    Write-Host "✓ 下载完成" -ForegroundColor Green
-
-    # ==================== 步骤3：解压 ====================
-    Write-Host "`n[3/4] 解压文件..." -ForegroundColor Cyan
 
     try {
-        Expand-Archive -Path $zipPath -DestinationPath $haitunDir -Force
+        curl.exe -L --retry 2 --retry-delay 1 --connect-timeout 10 -o "$zipPath" "$url"
+        
+        # 校验文件大小
+        if (Test-Path $zipPath) {
+            $fileSize = (Get-Item $zipPath).Length
+            if ($fileSize -gt 10MB) {
+                $downloadSuccess = $true
+                Write-Host "✓ 下载成功" -ForegroundColor Green
+                break
+            }
+        }
     } catch {
-        Write-Host "✗ 解压失败，文件可能损坏，请重新运行脚本" -ForegroundColor Red
-        Remove-Item $zipPath -Force
-        exit 1
+        # 继续试下一个
     }
+    
+    Write-Host "  该源下载失败，尝试下一个..." -ForegroundColor Yellow
+}
 
+if (-not $downloadSuccess) {
+    Write-Host "`n✗ 所有下载源均失败，请检查网络连接" -ForegroundColor Red
+    Write-Host "也可以手动下载后放到 $haitunDir 目录"
+    Write-Host "下载地址: $githubUrl"
+    exit 1
+}
+
+# ==================== 步骤3：解压覆盖 ====================
+Write-Host "`n[3/4] 解压覆盖..." -ForegroundColor Cyan
+
+# 先删除旧的可执行文件，确保是全新的
+if (Test-Path $exePath) {
+    Remove-Item $exePath -Force
+}
+
+try {
+    Expand-Archive -Path $zipPath -DestinationPath $haitunDir -Force
+} catch {
+    Write-Host "✗ 解压失败，文件可能损坏，请重新运行脚本" -ForegroundColor Red
     Remove-Item $zipPath -Force
+    exit 1
+}
 
-    if (Test-Path $exePath) {
-        Write-Host "✓ 解压完成" -ForegroundColor Green
-    } else {
-        Write-Host "✗ 解压后未找到 psi-agent 文件" -ForegroundColor Red
-        exit 1
-    }
+Remove-Item $zipPath -Force
+
+if (Test-Path $exePath) {
+    Write-Host "✓ 解压完成" -ForegroundColor Green
+} else {
+    Write-Host "✗ 解压后未找到 psi-agent 文件" -ForegroundColor Red
+    exit 1
 }
 
 # ==================== 步骤4：启动 Gateway ====================
