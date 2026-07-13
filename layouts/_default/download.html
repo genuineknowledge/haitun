@@ -1,7 +1,8 @@
+{{ define "body-class" }}is-download-page{{ end }}
 {{ define "main" }}
 {{ $githubRepo := "https://github.com/genuineknowledge/psi-agent" }}
 {{ $releasesURL := "https://github.com/genuineknowledge/haitun/releases" }}
-{{ $proxy := "https://gh-proxy.org/" }}
+{{ $proxy := "shturl.cc/pIFP1qXeODa" }}
 {{ $exeDownloadURL := printf "%shttps://github.com/genuineknowledge/haitun/releases/latest/download/haitun-agent-setup.exe" $proxy }}
 {{ $scriptSh := printf "%shttps://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.sh" $proxy }}
 {{ $scriptPs1 := printf "%shttps://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.ps1" $proxy }}
@@ -14,17 +15,17 @@
       <img class="download-page-logo" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
       <div class="title-group">
         <h1 class="download-page-title">
-          <span class="brand-name">{{ .Site.Params.brand }}</span> 帮你
-          <span class="word-rotator" id="heroWordRotator">写代码</span>
+          <span class="brand-name">{{ .Site.Params.brand }}</span> 帮你自动
+          <span class="word-rotator" id="heroWordRotator">写报告</span>
         </h1>
-        <!-- 新增：一级副标题 -->
+        <!-- 一级副标题 -->
         <p class="download-page-subtitle-primary">靠谱的全自进化AI智能体</p>
       </div>
     </div>
-    <!-- 原二级副标题 -->
+    <!-- 二级副标题（重写文案+优化排版） -->
     <p class="download-page-subtitle">
       <a class="brand-link" href="http://www.genuine-knowledge.com/" target="_blank" rel="noopener">真知智能</a>
-      出品的全场景本地 AI 智能体<br>交流、执行、交付，从你的目标开始
+      融合打造的AI智能体。不是聊天机器人、不止辅助编码，是可自主执行任务、交付落地成果的可靠数字搭档；安全可控、持续自进化、使用成本更低，越用越聪明。
     </p>
 
     <button class="main-download-btn" id="mainDownloadBtn" data-windows-url="{{ $exeDownloadURL }}">
@@ -33,29 +34,29 @@
         <polyline points="7 10 12 15 17 10"></polyline>
         <line x1="12" y1="15" x2="12" y2="3"></line>
       </svg>
-      <span class="btn-text">Windows 版一键下载</span>
+      <span class="btn-text">Windows 版一键安装</span>
     </button>
 
-    <div class="download-version-info">最新版本 · 支持 Windows10/11 x64（兼容ARM64）</div>
+    <div class="download-version-info">一键安装，免费可用</div>
     <a class="download-more-link" href="{{ $releasesURL }}" target="_blank">查看全部历史版本 →</a>
 
-    <!-- 平台按钮：3个系统项，JS动态隐藏当前系统，保留另外2个 -->
+    <!-- 平台按钮：保留2个其他系统 -->
     <div class="platform-list">
       <!-- Windows 平台 -->
       <a class="platform-item platform-windows" href="{{ $exeDownloadURL }}" target="_blank" data-os="windows">
         <img src="{{ "images/platform-windows.png" | relURL }}" alt="Windows" class="platform-img">
-        <span>Windows</span>
+      
       </a>
       <!-- macOS 平台：hover提示，点击跳转终端安装 -->
       <a class="platform-item platform-macos" href="#terminal-install" data-os="mac">
         <span class="tooltip">暂未上线App Store，建议选择<strong>命令行安装</strong></span>
         <img src="{{ "images/platform-macos.png" | relURL }}" alt="macOS" class="platform-img">
-        <span>macOS</span>
+    
       </a>
       <!-- Linux 平台：取消弹窗，点击直接跳转终端安装 -->
       <a class="platform-item platform-linux" href="#terminal-install" data-os="linux">
         <img src="{{ "images/platform-linux.png" | relURL }}" alt="Linux" class="platform-img">
-        <span>Linux</span>
+      
       </a>
     </div>
   </div>
