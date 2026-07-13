@@ -6,14 +6,15 @@
   <title>{{ .Title }} | {{ .Site.Title }}</title>
   <meta name="description" content="{{ .Site.Params.description }}">
   <link rel="icon" href="{{ "favicon.ico" | relURL }}" type="image/x-icon">
-  <!-- 科技感字体（国内访问慢可注释掉，自动降级为系统字体） -->
+  <!-- 科技感字体 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&display=swap" rel="stylesheet">
   {{ $style := resources.Get "css/main.css" | resources.Minify }}
   <link rel="stylesheet" href="{{ $style.RelPermalink }}">
 </head>
-<body>
+<!-- 新增：body类插槽，下载页可单独注入样式类 -->
+<body class="{{ block "body-class" . }}{{ end }}">
   <header class="nav fixed-dark-nav">
     <div class="container nav-inner">
       <a class="logo" href="http://www.genuine-knowledge.com/haitun/">
@@ -141,8 +142,8 @@
 
         // 根据系统更新主按钮文案与行为
         if (os === 'windows') {
-          btnText.textContent = 'Windows 版一键下载';
-          if (versionInfo) versionInfo.textContent = '最新版本 · 支持 Windows10/11 x64（兼容ARM64）';
+          btnText.textContent = 'Windows 版一键安装';
+          if (versionInfo) versionInfo.textContent = '一键安装，免费可用';
           mainBtn.addEventListener('click', () => {
             window.open(windowsUrl, '_blank');
           });
@@ -150,7 +151,7 @@
           document.querySelector('.platform-windows').style.display = 'none';
         } else if (os === 'mac') {
           btnText.textContent = 'macOS 版一键安装';
-          if (versionInfo) versionInfo.textContent = '暂未上线App Store，推荐使用命令行安装';
+          if (versionInfo) versionInfo.textContent = '一键安装，免费可用';
           mainBtn.addEventListener('click', (e) => {
             e.preventDefault();
             document.getElementById('terminal-install').scrollIntoView({ behavior: 'smooth' });
@@ -159,7 +160,7 @@
           document.querySelector('.platform-macos').style.display = 'none';
         } else if (os === 'linux') {
           btnText.textContent = 'Linux 版一键安装';
-          if (versionInfo) versionInfo.textContent = '推荐使用终端命令行安装';
+          if (versionInfo) versionInfo.textContent = '一键安装，免费可用';
           mainBtn.addEventListener('click', (e) => {
             e.preventDefault();
             document.getElementById('terminal-install').scrollIntoView({ behavior: 'smooth' });
@@ -219,7 +220,7 @@
       // 大标题文字滚动切换
       const rotator = document.getElementById('heroWordRotator');
       if (rotator) {
-        const words = ['写代码', '做设计', '写报告', '做分析'];
+        const words = ['写报告', '做分析', '写代码', '处理数据'];
         let current = 0;
         rotator.textContent = words[current];
 
