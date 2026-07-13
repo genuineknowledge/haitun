@@ -1006,3 +1006,14 @@ body[data-theme="light"] .footer .logo-text {
   order: 2;
   text-align: right;
 }
+
+background-color: #f8fafc;
+background-image: 
+  linear-gradient(180deg, rgba(59, 130, 246, 0.08) 0%, transparent 60%),
+  repeating-linear-gradient(
+    135deg,
+    transparent,
+    transparent 80px,
+    rgba(59, 130, 246, 0.06) 80px,
+    rgba(59, 130, 246, 0.06) 81px
+  );
