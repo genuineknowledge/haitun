@@ -1,7 +1,7 @@
 # ============================================================
 # Hugo 站点配置
 # ============================================================
-baseURL: "https://www.genuine-knowledge.com/haitun/"
+baseURL: "https://www.genuineknowledge.cn/haitun/"
 locale: "zh-CN"
 title: "Haitun Agent"
 
