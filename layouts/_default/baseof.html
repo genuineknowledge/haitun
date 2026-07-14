@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.LanguageCode | default "zh-CN" }}">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ .Title }} | {{ .Site.Title }}</title>
-  <meta name="description" content="{{ .Site.Params.description }}">
+  <title>HaiTun 本地AI智能体</title>
+  <meta name="description" content="真知智能出品的全场景本地AI智能体，自主执行任务、交付落地成果">
   <link rel="icon" href="{{ "favicon.ico" | relURL }}" type="image/x-icon">
   <!-- 科技感字体 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,13 +13,12 @@
   {{ $style := resources.Get "css/main.css" | resources.Minify }}
   <link rel="stylesheet" href="{{ $style.RelPermalink }}">
 </head>
-<!-- 新增：body类插槽，下载页可单独注入样式类 -->
-<body class="{{ block "body-class" . }}{{ end }}">
-  <header class="nav fixed-dark-nav">
+<body class="is-download-page" id="top">
+  <header class="nav">
     <div class="container nav-inner">
-      <a class="logo" href="http://www.genuine-knowledge.com/haitun/">
-        <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
-        <span class="logo-text">{{ .Site.Params.brand }}</span>
+      <a class="logo" href="#top">
+        <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="HaiTun">
+        <span class="logo-text">HaiTun</span>
       </a>
 
       <!-- 汉堡按钮（仅移动端显示） -->
@@ -31,22 +30,21 @@
 
       <!-- PC端导航 -->
       <nav class="nav-links">
-        <a href="{{ "/haitun/detail/" | relURL }}#features">功能</a>
-        <a href="{{ "/haitun/detail/" | relURL }}#requirements">配置要求</a>
-        <a href="{{ "/haitun/detail/" | relURL }}#faq">常见问题</a>
-        <button id="themeToggle" class="theme-toggle" aria-label="切换明暗主题">
-          <span class="icon-sun">☀️</span>
-          <span class="icon-moon">🌙</span>
+        <a href="#features" data-zh="功能" data-en="Features">功能</a>
+        <a href="#requirements" data-zh="配置要求" data-en="Requirements">配置要求</a>
+        <a href="#faq" data-zh="常见问题" data-en="FAQ">常见问题</a>
+        <button id="langToggle" class="lang-toggle" aria-label="切换语言">
+          <span class="lang-zh">中</span> / <span class="lang-en">Eng</span>
         </button>
-        <a class="btn btn-sm" href="{{ "/haitun" | relURL }}">下载中心</a>
+        <a class="btn btn-sm" href="#top" data-zh="下载中心" data-en="Download">下载中心</a>
       </nav>
     </div>
 
     <!-- 移动端下拉菜单 -->
     <div id="mobileMenu" class="mobile-menu">
-      <a href="{{ "/haitun/detail/" | relURL }}#features">功能</a>
-      <a href="{{ "/haitun/detail/" | relURL }}#requirements">配置要求</a>
-      <a href="{{ "/haitun/detail/" | relURL }}#faq">常见问题</a>
+      <a href="#features" data-zh="功能" data-en="Features">功能</a>
+      <a href="#requirements" data-zh="配置要求" data-en="Requirements">配置要求</a>
+      <a href="#faq" data-zh="常见问题" data-en="FAQ">常见问题</a>
     </div>
   </header>
 
@@ -55,50 +53,53 @@
   </main>
 
   <footer class="footer">
-  <div class="container">
-    <div class="footer-inner">
-      <div>
-        <div class="logo">
-          <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="{{ .Site.Params.brand }}">
-          <span class="logo-text">{{ .Site.Params.brand }}</span>
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <a class="logo footer-logo" href="#top">
+            <img class="logo-mark" src="{{ "logo.png" | relURL }}" alt="HaiTun">
+            <span class="logo-text">HaiTun</span>
+          </a>
+          <p data-zh="真知智能 融合打造的AI智能体。不是聊天机器人、不止辅助编码，是可自主执行任务、交付落地成果的可靠数字搭档；安全可控、持续自进化、使用成本更低，越用越聪明。"
+             data-en="Co-created by Genuine Knowledge. Not just a chatbot, not just a coding assistant — a reliable digital partner that autonomously executes tasks and delivers tangible results. Secure & controllable, continuously self-evolving, lower cost, and gets smarter with use.">
+            真知智能 融合打造的AI智能体。不是聊天机器人、不止辅助编码，是可自主执行任务、交付落地成果的可靠数字搭档；安全可控、持续自进化、使用成本更低，越用越聪明。
+          </p>
         </div>
-        <p>
-          <a class="brand-link" href="http://www.genuine-knowledge.com/" target="_blank" rel="noopener">真知智能</a>
-          出品的全场景本地 AI 智能体<br>
-          交流、执行、交付，从你的目标开始
-        </p>
-      </div>
 
-      <div class="footer-links">
-        <a href="https://github.com/genuineknowledge/psi-agent" target="_blank" rel="noopener">GitHub 仓库</a>
-        <a href="http://www.genuine-knowledge.com/" target="_blank" rel="noopener">真知官网</a>
+        <div class="footer-links">
+          <a href="https://github.com/genuineknowledge/psi-agent" target="_blank" rel="noopener" data-zh="GitHub 仓库" data-en="GitHub Repository">GitHub 仓库</a>
+          <a href="http://www.genuine-knowledge.com/" target="_blank" rel="noopener" data-zh="真知官网" data-en="Official Site">真知官网</a>
+        </div>
+      </div>
+      <div class="copyright">
+        © 2026 合肥真知人工智能应用软件有限公司 保留所有权利。
       </div>
     </div>
-    <div class="copyright">
-      © 2026 合肥真知人工智能应用软件有限公司 保留所有权利。
-    </div>
-  </div>
-</footer>
+  </footer>
+
   <script>
-    // 明暗主题持久化
-    const themeToggle = document.getElementById('themeToggle');
-    const savedTheme = localStorage.getItem('haitun-theme');
-    if (savedTheme === 'light') {
-      document.body.setAttribute('data-theme', 'light');
+    // ========== 中英文切换 ==========
+    const langToggle = document.getElementById('langToggle');
+    const savedLang = localStorage.getItem('haitun-lang') || 'zh';
+
+    function switchLang(lang) {
+      document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+      document.querySelectorAll('[data-zh]').forEach(el => {
+        el.textContent = lang === 'zh' ? el.dataset.zh : el.dataset.en;
+      });
+      localStorage.setItem('haitun-lang', lang);
     }
-    themeToggle.addEventListener('click', () => {
-      const current = document.body.getAttribute('data-theme');
-      
-      if (current === 'light') {
-        document.body.removeAttribute('data-theme');
-        localStorage.setItem('haitun-theme', 'dark');
-      } else {
-        document.body.setAttribute('data-theme', 'light');
-        localStorage.setItem('haitun-theme', 'light');
-      }
+
+    // 初始化语言
+    switchLang(savedLang);
+
+    langToggle.addEventListener('click', () => {
+      const current = document.documentElement.lang.startsWith('zh') ? 'zh' : 'en';
+      const next = current === 'zh' ? 'en' : 'zh';
+      switchLang(next);
     });
 
-    // 系统自动识别
+    // ========== 系统识别与主按钮适配 ==========
     function detectOS() {
       const ua = navigator.userAgent.toLowerCase();
       if (/windows|win/.test(ua)) return 'windows';
@@ -109,74 +110,54 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       const os = detectOS();
-
-      // 下拉菜单标记当前设备
-      document.querySelectorAll('.download-option').forEach(item => {
-        if (item.dataset.os === os) {
-          item.classList.add('current');
-          const badge = document.createElement('span');
-          badge.className = 'badge';
-          badge.textContent = '当前设备';
-          item.appendChild(badge);
-        }
-      });
-
-      // 主下载按钮自动匹配系统下载链接（详情页）
-      const heroDownloadBtn = document.getElementById('hero-download-main');
-      if (heroDownloadBtn) {
-        heroDownloadBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          const target = document.querySelector(`.download-option[data-os="${os}"]`);
-          if (target) window.open(target.href, '_blank');
-        });
-      }
-
-      // ========== 下载页：主按钮与平台按钮系统自适应 ==========
       const mainBtn = document.getElementById('mainDownloadBtn');
-      const platformItems = document.querySelectorAll('.platform-item');
+      const btnText = mainBtn.querySelector('.btn-text');
+      const windowsUrl = mainBtn.dataset.windowsUrl;
       const versionInfo = document.querySelector('.download-version-info');
-      
-      if (mainBtn && platformItems.length) {
-        const btnText = mainBtn.querySelector('.btn-text');
-        const windowsUrl = mainBtn.dataset.windowsUrl;
 
-        // 根据系统更新主按钮文案与行为
-        if (os === 'windows') {
-          btnText.textContent = 'Windows 版一键安装';
-          if (versionInfo) versionInfo.textContent = '一键安装，免费可用';
-          mainBtn.addEventListener('click', () => {
-            window.open(windowsUrl, '_blank');
-          });
-          // 隐藏Windows平台项，显示mac和Linux
-          document.querySelector('.platform-windows').style.display = 'none';
-        } else if (os === 'mac') {
-          btnText.textContent = 'macOS 版一键安装';
-          if (versionInfo) versionInfo.textContent = '一键安装，免费可用';
-          mainBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            document.getElementById('terminal-install').scrollIntoView({ behavior: 'smooth' });
-          });
-          // 隐藏macOS平台项，显示Windows和Linux
-          document.querySelector('.platform-macos').style.display = 'none';
-        } else if (os === 'linux') {
-          btnText.textContent = 'Linux 版一键安装';
-          if (versionInfo) versionInfo.textContent = '一键安装，免费可用';
-          mainBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            document.getElementById('terminal-install').scrollIntoView({ behavior: 'smooth' });
-          });
-          // 隐藏Linux平台项，显示Windows和mac
-          document.querySelector('.platform-linux').style.display = 'none';
-        }
-
-        // mac和Linux平台按钮点击平滑滚动到终端安装
-        document.querySelectorAll('.platform-macos, .platform-linux').forEach(item => {
-          item.addEventListener('click', (e) => {
-            e.preventDefault();
-            document.getElementById('terminal-install').scrollIntoView({ behavior: 'smooth' });
-          });
+      // 根据系统更新主按钮文案与行为
+      if (os === 'windows') {
+        btnText.dataset.zh = 'Windows 版一键安装';
+        btnText.dataset.en = 'One-click Install for Windows';
+        versionInfo.dataset.zh = '一键安装，免费可用';
+        versionInfo.dataset.en = 'One-click install, free to use';
+        mainBtn.addEventListener('click', () => {
+          window.open(windowsUrl, '_blank');
         });
+        document.querySelector('.platform-windows').style.display = 'none';
+      } else if (os === 'mac') {
+        btnText.dataset.zh = 'macOS 版一键安装';
+        btnText.dataset.en = 'One-click Install for macOS';
+        versionInfo.dataset.zh = '一键安装，免费可用';
+        versionInfo.dataset.en = 'One-click install, free to use';
+        mainBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          document.getElementById('terminal-install').scrollIntoView({ behavior: 'smooth' });
+        });
+        document.querySelector('.platform-macos').style.display = 'none';
+      } else if (os === 'linux') {
+        btnText.dataset.zh = 'Linux 版一键安装';
+        btnText.dataset.en = 'One-click Install for Linux';
+        versionInfo.dataset.zh = '一键安装，免费可用';
+        versionInfo.dataset.en = 'One-click install, free to use';
+        mainBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          document.getElementById('terminal-install').scrollIntoView({ behavior: 'smooth' });
+        });
+        document.querySelector('.platform-linux').style.display = 'none';
       }
+
+      // 重新应用当前语言
+      const currentLang = document.documentElement.lang.startsWith('zh') ? 'zh' : 'en';
+      switchLang(currentLang);
+
+      // mac和Linux平台按钮点击滚动到终端安装
+      document.querySelectorAll('.platform-macos, .platform-linux').forEach(item => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          document.getElementById('terminal-install').scrollIntoView({ behavior: 'smooth' });
+        });
+      });
 
       // 终端命令切换逻辑
       const tabs = document.querySelectorAll('.terminal-tab');
@@ -217,11 +198,14 @@
         });
       }
 
-      // 大标题文字滚动切换
+      // 标题文字滚动切换
       const rotator = document.getElementById('heroWordRotator');
       if (rotator) {
-        const words = ['写报告', '做分析', '写代码', '做项目'];
+        const wordsZh = ['写报告', '做分析', '写代码', '处理数据'];
+        const wordsEn = ['reports', 'analysis', 'code', 'data'];
         let current = 0;
+        const isZh = document.documentElement.lang.startsWith('zh');
+        const words = isZh ? wordsZh : wordsEn;
         rotator.textContent = words[current];
 
         function rotateWord() {
@@ -256,6 +240,17 @@
           });
         });
       }
+
+      // 平滑滚动锚点
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
     });
   </script>
 </body>

@@ -1,40 +1,18 @@
 /* ============================================================
-   Haitun Agent 落地页样式 —— 支持明暗双主题切换
-   导航栏与下载页首屏固定深色，其余区域随主题切换
+   Haitun Agent 落地页样式 —— 统一浅色主题 + 科技蓝
    ============================================================ */
 :root {
-  /* 深色主题（默认） */
-  --bg: #0a0b14;
-  --bg-alt: #0f111d;
-  --card: #151826;
-  --border: #232838;
-  --text: #e8eaf2;
-  --muted: #9aa3b8;
-  --accent: #6d5efc;
-  --accent-2: #00d4ff;
-  --radius: 14px;
-  --maxw: 1100px;
-  --hero-title-gradient: linear-gradient(180deg, #fff, #b9bfd6);
-  --hero-glow-color: rgba(109,94,252,0.25);
-  --card-shadow: none;
-  /* 背景图变量，方便统一修改 */
-  --download-hero-bg: url('../images/hero-bg.png');
-}
-
-/* 亮色主题（仅作用于内容区域，导航与下载首屏固定深色） */
-body[data-theme="light"] {
+  /* 统一浅色主题变量 */
   --bg: #ffffff;
   --bg-alt: #f8fafc;
   --card: #ffffff;
   --border: #e2e8f0;
   --text: #0f172a;
   --muted: #64748b;
-  --accent: #6d5efc;
-  --accent-2: #0ea5e9;
+  --accent: #165DFF;
+  --accent-2: #00b4ff;
   --radius: 14px;
   --maxw: 1100px;
-  --hero-title-gradient: linear-gradient(180deg, #0f172a, #334155);
-  --hero-glow-color: rgba(109,94,252,0.12);
   --card-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
 }
 
@@ -48,7 +26,6 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .container { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
@@ -58,84 +35,59 @@ body {
 
 a { color: inherit; text-decoration: none; }
 
-/* —— 导航栏：默认纯黑暗，下载页自动变白 —— */
+/* —— 导航栏：白色固定 —— */
 .nav {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: #0a0b14 !important;
+  background: #ffffff;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(35, 40, 56, 0.72);
-}
-/* 下载页白色导航栏适配 */
-body.is-download-page .nav {
-  background: #ffffff !important;
   border-bottom: 1px solid rgba(226, 232, 240, 0.9);
 }
-body.is-download-page .logo-text {
-  color: #0f172a !important;
-}
-body.is-download-page .nav-links a {
-  color: #334155;
-  font-weight: 600;
-}
-body.is-download-page .nav-links a:hover {
-  color: #0f172a;
-}
-body.is-download-page .theme-toggle {
-  background: #f1f5f9;
-  border: 1px solid #e2e8f0;
-  color: #334155;
-}
-body.is-download-page .theme-toggle:hover {
-  border-color: var(--accent);
-}
-
 .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
 .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; }
 .logo-mark {
   width: 26px; height: 26px; border-radius: 7px;
   object-fit: contain;
-  filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5)) !important;
-  opacity: 1 !important;
+  filter: drop-shadow(0 0 8px rgba(22, 93, 255, 0.3));
 }
 .logo-text {
-  color: #e8eaf2 !important;
-  /* 科技感字体 */
+  color: #0f172a;
   font-family: 'Orbitron', 'Rajdhani', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   letter-spacing: 1px;
   font-weight: 700;
 }
 .nav-links { display: flex; align-items: center; gap: 28px; font-size: 15px; }
 .nav-links a { 
-  color: #e2e8f0; 
-  font-weight: 800; 
+  color: #334155; 
+  font-weight: 600; 
   transition: color .2s; 
 }
-.nav-links a:hover { color: #ffffff; }
-/* 主题切换按钮：固定深色样式 */
-.theme-toggle {
-  background: #151826;
-  border: 1px solid #232838;
-  color: #e8eaf2;
-  width: 36px;
+.nav-links a:hover { color: var(--accent); }
+
+/* 语言切换按钮 */
+.lang-toggle {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #334155;
+  width: auto;
   height: 36px;
+  padding: 0 12px;
   border-radius: 8px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 13px;
+  font-weight: 600;
   transition: all 0.2s ease;
+  font-family: inherit;
 }
-.theme-toggle:hover {
+.lang-toggle:hover {
   border-color: var(--accent);
-  transform: translateY(-1px);
+  color: var(--accent);
 }
-.theme-toggle .icon-moon { display: none; }
-body[data-theme="light"] .theme-toggle .icon-sun { display: none; }
-body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
 
 /* —— 按钮 —— */
 .btn {
@@ -144,134 +96,297 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   color: #fff; font-weight: 600;
   padding: 10px 20px; border-radius: 10px;
   transition: transform .15s, box-shadow .2s;
-  box-shadow: 0 6px 20px rgba(109, 94, 252, 0.35);
+  box-shadow: 0 6px 20px rgba(22, 93, 255, 0.3);
 }
-.btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(109, 94, 252, 0.5); }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(22, 93, 255, 0.4); }
 .btn-sm { padding: 7px 16px; font-size: 14px; }
 .btn-lg { padding: 15px 32px; font-size: 17px; border-radius: 12px; }
 .btn-ghost {
   background: transparent; color: var(--text);
   border: 1px solid var(--border); box-shadow: none;
 }
-.btn-ghost:hover { border-color: var(--accent); box-shadow: none; }
+.btn-ghost:hover { border-color: var(--accent); box-shadow: none; color: var(--accent); }
 .btn:not(.btn-ghost) {
   color: #ffffff !important;
   font-weight: 600;
 }
 
-/* —— Hero（详情页首页，随主题切换） —— */
-.hero { position: relative; padding: 110px 0 90px; overflow: visible; text-align: center; }
-.hero-inner { position: relative; z-index: 2; }
-.hero-logo {
-  width: 120px;
-  height: 120px;
-  object-fit: contain;
-  margin-bottom: 30px;
-  filter: drop-shadow(0 6px 24px rgba(0, 212, 255, 0.45));
-  animation: float 3.5s ease-in-out infinite;
-}
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-.badge {
-  display: inline-block; font-size: 13px; color: var(--accent-2);
-  border: 1px solid var(--border); border-radius: 999px;
-  padding: 6px 16px; margin-bottom: 28px; background: var(--bg-alt);
-  transition: background 0.3s ease, border-color 0.3s ease;
-}
-.hero-title {
-  font-size: clamp(34px, 6vw, 60px); font-weight: 800; line-height: 1.15;
-  letter-spacing: -0.02em; margin-bottom: 22px;
-  background: var(--hero-title-gradient);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-  transition: background 0.3s ease;
-  line-height: 1.3;
-}
-.hero-title .brand-name {
-  font-family: 'Orbitron', 'Rajdhani', sans-serif;
-  letter-spacing: 1.5px;
-}
-.hero-sub { font-size: clamp(16px, 2.4vw, 20px); color: var(--muted); max-width: 640px; margin: 0 auto 38px; }
-.hero-sub p { line-height: 1.6; }
-.hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-.hero-meta { margin-top: 24px; font-size: 14px; }
-.hero-glow {
-  position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
-  width: 800px; height: 600px; pointer-events: none; z-index: 1;
-  background: radial-gradient(circle, var(--hero-glow-color), transparent 60%);
-  filter: blur(40px);
-  transition: background 0.3s ease;
-}
-
-/* —— Hero 下拉菜单 —— */
-.hero,
-.hero-inner,
-.hero-cta,
-.hero-glow {
-  overflow: visible !important;
-}
-.download-dropdown {
+/* ============================================================
+   下载页首屏 —— 流动波纹线+渐变底背景
+   ============================================================ */
+.download-page-hero {
   position: relative;
-  display: inline-block;
-  z-index: 99999 !important;
-}
-.download-dropdown-menu {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
-  min-width: 320px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: all 0.2s ease;
-  z-index: 99999 !important;
-  overflow: hidden;
-}
-.download-dropdown:hover .download-dropdown-menu {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-.download-option {
+  min-height: calc(100vh - 64px);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 14px 18px;
-  color: var(--text);
-  text-decoration: none;
-  font-size: 15px;
-  line-height: 1.4;
-  transition: background 0.15s;
-  width: 100%;
-  box-sizing: border-box;
+  justify-content: center;
+  overflow: hidden;
+  /* 流动波纹线 + 渐变底 */
+  background-color: #f8fafc;
+  background-image: 
+    linear-gradient(180deg, rgba(22, 93, 255, 0.08) 0%, transparent 60%),
+    repeating-linear-gradient(
+      135deg,
+      transparent,
+      transparent 80px,
+      rgba(22, 93, 255, 0.06) 80px,
+      rgba(22, 93, 255, 0.06) 81px
+    );
+}
+/* 细网格叠加层 */
+.download-page-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  pointer-events: none;
+}
+/* 底部蓝色光带 */
+.download-page-hero::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120%;
+  height: 40%;
+  background: linear-gradient(to top, rgba(0, 180, 255, 0.1), transparent 70%);
+  pointer-events: none;
+}
+
+.download-page-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #0f172a;
+  padding: 40px 20px;
+}
+
+.hero-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 56px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.download-page-logo {
+  width: 140px;
+  height: 140px;
+  filter: drop-shadow(0 4px 16px rgba(22, 93, 255, 0.15));
+  object-fit: contain;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.title-group {
   text-align: left;
 }
-.download-option:hover {
-  background: var(--bg-alt);
+
+.download-page-title {
+  font-size: 56px;
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: left;
+  margin: 0;
+  color: #0f172a;
 }
-.download-option.current {
+/* 仅HaiTun为蓝色 */
+.download-page-title .brand-name {
+  font-family: 'Orbitron', 'Rajdhani', sans-serif;
+  letter-spacing: 2px;
+  font-weight: 800;
+  color: var(--accent);
+  -webkit-text-fill-color: var(--accent);
+}
+.download-page-title .title-rest {
+  color: #0f172a;
+  font-weight: 700;
+  margin: 0 8px;
+}
+
+/* 一级副标题 */
+.download-page-subtitle-primary {
+  font-size: 22px;
+  font-weight: 500;
+  color: #334155;
+  margin: 12px 0 0;
+  line-height: 1.3;
+  letter-spacing: 0.5px;
+}
+
+/* 二级副标题 */
+.download-page-subtitle {
+  font-size: 17px;
+  color: #475569;
+  margin: 0 auto 40px;
+  max-width: 720px;
+  line-height: 1.8;
+  text-align: center;
+}
+.download-page-subtitle .brand-link {
   color: var(--accent);
   font-weight: 600;
 }
-.download-option .badge {
-  flex-shrink: 0;
-  font-size: 12px;
-  padding: 4px 10px;
-  border-radius: 6px;
-  background: rgba(109, 94, 252, 0.1);
-  color: var(--accent);
-  margin-left: 16px;
-  font-weight: 500;
-  margin-bottom: 0;
+.download-page-subtitle .brand-link:hover {
+  color: #0e42c9;
+  text-decoration: underline;
 }
 
-/* —— 终端快速安装模块 —— */
+/* 主下载按钮 */
+.main-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 24px 80px;
+  font-size: 26px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 0 8px 28px rgba(22, 93, 255, 0.3);
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+.main-download-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(22, 93, 255, 0.4);
+}
+.main-download-btn svg {
+  width: 30px;
+  height: 30px;
+}
+
+/* 版本信息 */
+.download-version-info {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #475569;
+  font-weight: 500;
+}
+/* 历史版本链接 */
+.download-more-link {
+  display: inline-block;
+  margin-top: 12px;
+  color: var(--accent);
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(22, 93, 255, 0.3);
+  transition: all 0.2s;
+}
+.download-more-link:hover {
+  color: #0e42c9;
+  border-bottom-color: rgba(14, 66, 201, 0.8);
+}
+
+/* 平台按钮区域 */
+.platform-list {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 48px;
+  margin-top: 60px;
+  flex-wrap: wrap;
+}
+
+.platform-item {
+  position: relative;  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+  padding-bottom: 4px;
+  cursor: pointer;
+}
+
+.platform-item:hover {
+  transform: translateY(-4px);
+}
+
+.platform-img {
+  display: block;
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  border-radius: 12px;
+  /* 浅灰图标转深灰色 */
+  filter: brightness(0.25) saturate(0.5);
+  transition: filter 0.2s, box-shadow 0.2s;
+}
+.platform-item:hover .platform-img {
+  filter: brightness(0.15) saturate(0.8);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.platform-item span:not(.tooltip) {
+  color: #334155;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+/* 平台悬停弹窗 */
+.platform-item .tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff;
+  color: #334155;
+  padding: 22px 18px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.6;
+  min-width: 200px;
+  max-width: 360px;
+  white-space: normal;
+  text-align: center;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.12);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.platform-item .tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 8px solid transparent;
+  border-top-color: #ffffff;
+}
+
+.platform-item:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+  bottom: calc(100% + 14px);
+}
+
+.platform-item .tooltip strong {
+  color: var(--accent);
+  font-weight: 700;
+  display: block;
+  margin-top: 6px;
+  font-size: 16px;
+}
+
+/* —— 终端安装模块 —— */
 .hero-terminal {
   margin-top: 36px;
   width: 100%;
@@ -290,7 +405,6 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   font-size: 14px;
   font-weight: 600;
   color: var(--text);
-  letter-spacing: 0.3px;
 }
 .terminal-tip {
   font-size: 12px;
@@ -311,11 +425,11 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   cursor: pointer;
   border-radius: 6px 6px 0 0;
   transition: all 0.15s;
-  font-weight: 400;
+  font-family: inherit;
 }
 .terminal-tab.active {
   color: var(--accent);
-  background: rgba(109, 94, 252, 0.08);
+  background: rgba(22, 93, 255, 0.08);
   font-weight: 500;
 }
 .terminal-code-box {
@@ -352,7 +466,7 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
 }
 .copy-btn:hover {
   color: var(--accent);
-  background: rgba(109, 94, 252, 0.1);
+  background: rgba(22, 93, 255, 0.1);
 }
 .terminal-footer {
   margin: 10px 0 0;
@@ -371,29 +485,12 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
 
 /* —— 通用区块 —— */
 .section { padding: 90px 0; }
-.section-alt { background: var(--bg-alt); transition: background 0.3s ease; }
+.section-alt { background: var(--bg-alt); }
 .section-title {
   font-size: clamp(26px, 4vw, 40px); font-weight: 700;
   text-align: center; letter-spacing: -0.01em; margin-bottom: 14px;
 }
 .section-sub { text-align: center; color: var(--muted); font-size: 17px; margin-bottom: 54px; }
-
-/* —— 功能卡片 —— */
-.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-.card {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 28px;
-  box-shadow: var(--card-shadow);
-  transition: transform .2s, border-color .2s, box-shadow .2s, background .3s ease;
-}
-.card:hover { transform: translateY(-4px); border-color: var(--accent); }
-.card-icon {
-  font-size: 26px; width: 52px; height: 52px; border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--bg-alt); margin-bottom: 18px;
-  transition: background 0.3s ease;
-}
-.card h3 { font-size: 19px; margin-bottom: 10px; }
 
 /* —— 核心能力卡片 —— */
 .feature-grid {
@@ -434,7 +531,7 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   color: var(--muted);
 }
 
-/* —— 运行配置板块 —— */
+/* —— 运行配置 —— */
 .requirements-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -503,56 +600,7 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   font-weight: 500;
 }
 
-/* —— 步骤 —— */
-.steps { display: flex; flex-direction: column; gap: 24px; max-width: 720px; margin: 0 auto 54px; }
-.step { display: flex; gap: 22px; align-items: flex-start; }
-.step-num {
-  flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 700; font-size: 18px; color: #fff;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-}
-.step h3 { font-size: 19px; margin-bottom: 4px; }
-
-/* —— 横向紧凑三步流程 —— */
-.steps-compact {
-  display: flex;
-  gap: 32px;
-  margin-bottom: 32px;
-}
-.step-compact {
-  flex: 1;
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-}
-.step-compact-num {
-  flex-shrink: 0;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 14px;
-  margin-top: 2px;
-}
-.step-compact h4 {
-  margin: 0 0 4px;
-  font-size: 16px;
-  color: var(--text);
-}
-.step-compact p {
-  margin: 0;
-  font-size: 13px;
-  line-height: 1.5;
-  color: var(--muted);
-}
-
-/* —— FAQ 样式 —— */
+/* —— FAQ —— */
 .faq {
   display: flex;
   flex-direction: column;
@@ -597,7 +645,7 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   padding-bottom: 4px;
 }
 
-/* —— 开发者社群板块 —— */
+/* —— 开发者社群 —— */
 .community-wrap {
   display: flex;
   flex-direction: column;
@@ -619,340 +667,47 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   justify-content: center;
 }
 
-/* —— 下载专区三卡片（首页底部） —— */
-#download {
-  padding: 48px 0;
-}
-#download .section-title {
-  margin-bottom: 8px;
-  font-size: 28px;
-}
-#download .section-sub {
-  margin-bottom: 28px;
-  font-size: 15px;
-}
-.download-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr 1fr;
-  gap: 18px;
-  margin-top: 40px;
-  align-items: stretch;
-}
-.download-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 24px 20px;
-  text-align: center;
-  transition: all 0.2s;
+/* —— 紧凑三步流程 —— */
+.steps-compact {
   display: flex;
-  flex-direction: column;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+.step-compact {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.step-compact-num {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+  display: flex;
   align-items: center;
-  justify-content: space-between;
-  box-shadow: var(--card-shadow);
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  margin-top: 2px;
 }
-.download-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent);
-}
-.download-card.featured {
-  border-color: var(--accent);
-  box-shadow: 0 4px 16px rgba(109, 94, 252, 0.15);
-}
-.download-card-icon {
-  font-size: 40px;
-  margin-bottom: 12px;
-}
-.download-card h3 {
-  font-size: 20px;
-  margin: 0 0 6px;
+.step-compact h4 {
+  margin: 0 0 4px;
+  font-size: 16px;
   color: var(--text);
 }
-.download-card .system-note {
-  color: var(--muted);
+.step-compact p {
+  margin: 0;
   font-size: 13px;
-  margin-bottom: 18px;
-  line-height: 1.4;
-}
-.download-card .btn,
-.download-card .btn-ghost {
-  width: 100%;
-  justify-content: center;
-  font-size: 14px;
-  padding: 10px 16px;
+  line-height: 1.5;
+  color: var(--muted);
 }
 
-/* ============================================================
-   下载中心页面专属样式 —— 浅色背景 + 流动波纹线方案
-   ============================================================ */
-.download-page-hero {
-  position: relative;
-  min-height: calc(100vh - 64px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  /* ===== 流动波纹线 + 渐变底 背景方案 ===== */
-  background-color: #f8fafc;
-  background-image: 
-    linear-gradient(180deg, rgba(59, 130, 246, 0.08) 0%, transparent 60%),
-    repeating-linear-gradient(
-      135deg,
-      transparent,
-      transparent 80px,
-      rgba(59, 130, 246, 0.06) 80px,
-      rgba(59, 130, 246, 0.06) 81px
-    );
-}
-/* 细网格叠加层，增强科技感（可注释掉关闭） */
-.download-page-hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: 
-    linear-gradient(rgba(15, 23, 42, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-  mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
-  pointer-events: none;
-}
-/* 底部蓝色渐变光带 */
-.download-page-hero::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 120%;
-  height: 40%;
-  background: linear-gradient(to top, rgba(0, 212, 255, 0.1), transparent 70%);
-  pointer-events: none;
-}
-
-.download-page-content {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  color: #0f172a;
-  padding: 40px 20px;
-}
-
-/* Logo + 标题 左右并列 */
-.hero-header-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 56px;
-  margin-bottom: 32px;
-  flex-wrap: wrap;
-}
-
-.download-page-logo {
-  width: 140px;
-  height: 140px;
-  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.1));
-  object-fit: contain;
-  flex-shrink: 0;
-  margin: 0;
-}
-
-.title-group {
-  text-align: left;
-}
-
-.download-page-title {
-  font-size: 56px;
-  font-weight: 800;
-  line-height: 1.25;
-  text-align: left;
-  margin: 0;
-  /* 深色标题渐变，适配白色背景 */
-  background: linear-gradient(180deg, #0f172a, #3b82f6);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.download-page-title .brand-name {
-  font-family: 'Orbitron', 'Rajdhani', sans-serif;
-  letter-spacing: 2px;
-  font-weight: 800;
-}
-
-/* 一级副标题：与logo高度适配 */
-.download-page-subtitle-primary {
-  font-size: 22px;
-  font-weight: 500;
-  color: #334155;
-  margin: 12px 0 0;
-  line-height: 1.3;
-  letter-spacing: 0.5px;
-}
-
-/* 二级副标题：优化排版，避免语义中途换行 */
-.download-page-subtitle {
-  font-size: 17px;
-  color: #475569;
-  margin: 0 auto 40px;
-  max-width: 720px;
-  line-height: 1.8;
-  opacity: 1;
-  text-align: center;
-}
-.download-page-subtitle .brand-link {
-  color: #2563eb;
-  font-weight: 600;
-}
-.download-page-subtitle .brand-link:hover {
-  color: #1d4ed8;
-  text-decoration: underline;
-}
-
-/* 主下载按钮 */
-.main-download-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  padding: 24px 80px;
-  font-size: 26px;
-  font-weight: 600;
-  color: #fff;
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
-  border-radius: 999px;
-  text-decoration: none;
-  box-shadow: 0 8px 28px rgba(109, 94, 252, 0.3);
-  transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
-}
-.main-download-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 36px rgba(109, 94, 252, 0.4);
-}
-.main-download-btn svg {
-  width: 30px;
-  height: 30px;
-}
-
-/* 版本信息：字号放大，颜色加深 */
-.download-version-info {
-  margin-top: 20px;
-  font-size: 16px;
-  color: #475569;
-  font-weight: 500;
-}
-/* 历史版本链接：颜色醒目 */
-.download-more-link {
-  display: inline-block;
-  margin-top: 12px;
-  color: #2563eb;
-  font-size: 15px;
-  font-weight: 500;
-  text-decoration: none;
-  border-bottom: 1px solid rgba(37, 99, 235, 0.3);
-  transition: all 0.2s;
-}
-.download-more-link:hover {
-  color: #1d4ed8;
-  border-bottom-color: rgba(29, 78, 216, 0.8);
-}
-
-/* 平台按钮区域 */
-.platform-list {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  gap: 48px;
-  margin-top: 60px;
-  flex-wrap: wrap;
-}
-
-.platform-item {
-  position: relative;  
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  transition: transform 0.2s ease;
-  padding-bottom: 4px;
-  cursor: pointer;
-}
-
-.platform-item:hover {
-  transform: translateY(-4px);
-}
-
-.platform-img {
-  display: block;
-  width: 140px;
-  height: 140px;
-  object-fit: contain;
-  border-radius: 12px;
-  /* 核心：浅灰透明图标转深灰色，适配白色背景 */
-  filter: brightness(0.25) saturate(0.5);
-  transition: filter 0.2s, box-shadow 0.2s;
-}
-.platform-item:hover .platform-img {
-  filter: brightness(0.15) saturate(0.8);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-}
-
-.platform-item span:not(.tooltip) {
-  color: #334155;
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 1;
-}
-
-/* 平台按钮悬停弹窗（浅色版） */
-.platform-item .tooltip {
-  position: absolute;
-  bottom: calc(100% + 10px);
-  left: 50%;
-  transform: translateX(-50%);
-  background: #ffffff;
-  color: #334155;
-  padding: 22px 18px;
-  border-radius: 12px;
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 1.6;
-  min-width: 200px;
-  max-width: 360px;
-  white-space: normal;
-  text-align: center;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.12);
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.2s ease;
-  pointer-events: none;
-  z-index: 20;
-}
-
-.platform-item .tooltip::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 8px solid transparent;
-  border-top-color: #ffffff;
-}
-
-.platform-item:hover .tooltip {
-  opacity: 1;
-  visibility: visible;
-  bottom: calc(100% + 14px);
-}
-
-.platform-item .tooltip strong {
-  color: #2563eb;
-  font-weight: 700;
-  display: block;
-  margin-top: 6px;
-  font-size: 16px;
+/* —— 底部下载CTA —— */
+.download-cta-section {
+  background: linear-gradient(180deg, #ffffff 0%, #f0f7ff 100%);
 }
 
 /* —— 页脚 —— */
@@ -960,7 +715,6 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
   border-top: 1px solid var(--border);
   padding: 50px 0 30px;
   background: var(--bg);
-  transition: background 0.3s ease;
 }
 
 .footer-inner {
@@ -976,30 +730,16 @@ body[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
 .footer-inner > div:first-child {
   flex: 1 1 auto;
   min-width: 260px;
-  max-width: 420px;
+  max-width: 520px;
 }
 
-.footer .logo {
+.footer-logo {
   margin-bottom: 12px;
-}
-
-/* 页脚 Logo 保持清晰 */
-.footer .logo-mark {
-  filter: none;
-}
-
-.footer .logo-text {
-  color: var(--text);
-  font-weight: 700;
-   transition: color 0.3s ease;
-}
-body[data-theme="light"] .footer .logo-text {
-  color: #0f172a !important;
-  opacity: 1 !important;
+  display: inline-flex;
 }
 
 .footer-inner p {
-  max-width: 420px;
+  max-width: 520px;
   margin-top: 12px;
   font-size: 14px;
   color: var(--muted);
@@ -1031,7 +771,8 @@ body[data-theme="light"] .footer .logo-text {
   color: var(--muted);
   text-align: left;
 }
-/* 品牌链接样式（真知智能跳转官网） */
+
+/* 品牌链接 */
 .brand-link {
   color: var(--accent);
   font-weight: 700;
@@ -1042,16 +783,9 @@ body[data-theme="light"] .footer .logo-text {
   color: var(--accent-2);
   text-decoration: underline;
 }
-/* 下载页首屏的品牌链接特殊适配 */
-.download-page-subtitle .brand-link {
-  color: #2563eb;
-}
-.download-page-subtitle .brand-link:hover {
-  color: #1d4ed8;
-}
 
 /* ==========================================
-   标题文字滚动动画（下载页“帮你”后面的三字词）
+   标题文字滚动动画
    ========================================== */
 .word-rotator {
   display: inline-block;
@@ -1059,11 +793,8 @@ body[data-theme="light"] .footer .logo-text {
   text-align: center;
   vertical-align: bottom;
   position: relative;
-  overflow: visible;
-  -webkit-text-fill-color: inherit;
-  background: inherit;
-  -webkit-background-clip: inherit;
-  background-clip: inherit;
+  color: #0f172a;
+  font-weight: 700;
 }
 
 .word-rotator.animating {
@@ -1106,12 +837,9 @@ body[data-theme="light"] .footer .logo-text {
   display: block;
   width: 22px;
   height: 2px;
-  background: #e8eaf2;
+  background: #0f172a;
   border-radius: 2px;
   transition: all 0.3s ease;
-}
-body.is-download-page .menu-toggle span {
-  background: #0f172a;
 }
 
 .mobile-menu {
@@ -1120,29 +848,21 @@ body.is-download-page .menu-toggle span {
   top: 64px;
   left: 0;
   right: 0;
-  background: rgba(10, 11, 20, 0.92);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(35, 40, 56, 0.8);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
   padding: 12px 24px 20px;
   flex-direction: column;
   gap: 4px;
   z-index: 40;
 }
-body.is-download-page .mobile-menu {
-  background: rgba(255, 255, 255, 0.95);
-  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
-}
-body.is-download-page .mobile-menu a {
-  color: #334155;
-  border-bottom-color: #e2e8f0;
-}
 
 .mobile-menu a {
-  color: #e8eaf2;
+  color: #334155;
   font-size: 15px;
   padding: 12px 0;
-  border-bottom: 1px solid rgba(35, 40, 56, 0.6);
+  border-bottom: 1px solid #e2e8f0;
   text-decoration: none;
 }
 
@@ -1155,17 +875,15 @@ body.is-download-page .mobile-menu a {
 }
 
 /* ==========================================
-   响应式设计（移动端适配）
+   响应式适配
    ========================================== */
 @media (max-width: 960px) {
   .feature-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 900px) {
-  .grid { grid-template-columns: 1fr 1fr; }
   .requirements-grid { grid-template-columns: 1fr; }
   .steps-compact { flex-direction: column; gap: 16px; }
-  .download-grid { grid-template-columns: 1fr; }
   .download-page-title { font-size: 32px; }
   .main-download-btn { padding: 16px 40px; font-size: 18px; }
   .platform-list { gap: 24px; }
@@ -1173,35 +891,17 @@ body.is-download-page .mobile-menu a {
 }
 
 @media (max-width: 768px) {
-  /* 汉堡菜单显示 */
-  .menu-toggle {
-    display: flex;
-  }
+  .menu-toggle { display: flex; }
+  .nav-links a:not(.btn):not(#langToggle) { display: none; }
+  .nav-links { gap: 10px; }
 
-  /* 隐藏PC端文字导航，保留主题按钮和下载按钮 */
-  .nav-links a:not(.btn):not(#themeToggle) {
-    display: none;
-  }
-
-  .nav-links {
-    gap: 10px;
-  }
-
-  /* 下载页首屏适配 */
   .download-page-hero {
     min-height: auto;
     padding: 60px 0 80px;
   }
-  .download-page-logo {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-  }
-  /* 手机端主标题放大 */
+  .download-page-logo { width: 100px; height: 100px; }
   .download-page-title {
     font-size: 42px;
-    font-weight: 800;
-    line-height: 1.25;
     text-align: center;
   }
   .download-page-subtitle-primary {
@@ -1209,9 +909,8 @@ body.is-download-page .mobile-menu a {
     text-align: center;
   }
   .download-page-subtitle {
-    font-size: 17px;
+    font-size: 16px;
     line-height: 1.6;
-    opacity: 0.85;
     margin-bottom: 32px;
   }
   .hero-header-row {
@@ -1220,9 +919,7 @@ body.is-download-page .mobile-menu a {
     flex-direction: column;
     text-align: center;
   } 
-  .title-group {
-    text-align: center;
-  }
+  .title-group { text-align: center; }
   .main-download-btn {
     width: 100%;
     max-width: 320px;
@@ -1231,7 +928,6 @@ body.is-download-page .mobile-menu a {
     justify-content: center;
   }
 
-  /* 手机端平台图标：一行两个，网格布局 */
   .platform-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1249,12 +945,8 @@ body.is-download-page .mobile-menu a {
     gap: 8px;
     text-align: center;
   }
-  .platform-img {
-    width: 120px;
-    height: 120px;
-  }
+  .platform-img { width: 120px; height: 120px; }
 
-  /* 手机端页脚：纵向排列，左对齐 */
   .footer-inner {
     flex-direction: column;
     align-items: flex-start;
@@ -1274,32 +966,17 @@ body.is-download-page .mobile-menu a {
     padding: 10px 0;
     border-bottom: 1px solid var(--border);
   }
-  .footer-links a:last-child {
-    border-bottom: none;
-  }
-  .copyright {
-    text-align: left;
-    padding-top: 16px;
-  }
+  .footer-links a:last-child { border-bottom: none; }
+  .copyright { text-align: left; padding-top: 16px; }
 
-  /* 移动端关闭hover提示 */
-  .platform-item .tooltip {
-    display: none;
-  }
+  .platform-item .tooltip { display: none; }
 }
-/* 页脚强制左右分栏修复 */
+
+/* 页脚分栏修复 */
 .footer-inner {
   display: flex !important;
   justify-content: space-between !important;
   align-items: flex-start !important;
 }
-
-.footer-inner > div:first-child {
-  order: 1;
-  text-align: left;
-}
-
-.footer-links {
-  order: 2;
-  text-align: right;
-}
+.footer-inner > div:first-child { order: 1; text-align: left; }
+.footer-links { order: 2; text-align: right; }
