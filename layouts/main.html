@@ -66,22 +66,7 @@
   <div class="hero-glow"></div>
 </section>
 
-<!-- 核心能力区块 -->
-<section class="section" id="features">
-  <div class="container">
-    <h2 class="section-title">{{ .Site.Data.features.title }}</h2>
-    <p class="section-sub">{{ .Site.Data.features.subtitle }}</p>
-    <div class="feature-grid">
-      {{ range .Site.Data.features.items }}
-      <div class="feature-card">
-        <div class="feature-icon">{{ .icon }}</div>
-        <h3>{{ .title }}</h3>
-        <p class="muted">{{ .desc }}</p>
-      </div>
-      {{ end }}
-    </div>
-  </div>
-</section>
+
 
 <!-- 运行配置要求 -->
 <section class="section section-alt" id="requirements">
