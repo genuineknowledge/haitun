@@ -68,7 +68,7 @@
 
         <div class="footer-links">
           <a href="https://github.com/genuineknowledge/psi-agent" target="_blank" rel="noopener" data-zh="GitHub 仓库" data-en="GitHub Repository">GitHub 仓库</a>
-          <a href="http://www.genuine-knowledge.com/" target="_blank" rel="noopener" data-zh="真知官网" data-en="Official Site">真知官网</a>
+          <a href="https://www.genuineknowledge.cn/" target="_blank" rel="noopener" data-zh="真知官网" data-en="Official Site">真知官网</a>
         </div>
       </div>
       <div class="copyright">
@@ -81,6 +81,7 @@
     // ========== 中英文切换 ==========
     const langToggle = document.getElementById('langToggle');
     const savedLang = localStorage.getItem('haitun-lang') || 'zh';
+    let rotatorTimer = null;
 
     function switchLang(lang) {
       document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
@@ -88,6 +89,11 @@
         el.textContent = lang === 'zh' ? el.dataset.zh : el.dataset.en;
       });
       localStorage.setItem('haitun-lang', lang);
+      
+      // 切换语言后同步刷新标题滚动词
+      if (window.updateRotator) {
+        window.updateRotator();
+      }
     }
 
     // 初始化语言
@@ -147,7 +153,7 @@
         document.querySelector('.platform-linux').style.display = 'none';
       }
 
-      // 重新应用当前语言
+      // 重新应用当前语言，刷新按钮文案
       const currentLang = document.documentElement.lang.startsWith('zh') ? 'zh' : 'en';
       switchLang(currentLang);
 
@@ -198,23 +204,32 @@
         });
       }
 
-      // 标题文字滚动切换
+      // 标题文字滚动切换（支持语言同步）
       const rotator = document.getElementById('heroWordRotator');
       if (rotator) {
         const wordsZh = ['写报告', '做分析', '写代码', '处理数据'];
         const wordsEn = ['reports', 'analysis', 'code', 'data'];
         let current = 0;
-        const isZh = document.documentElement.lang.startsWith('zh');
-        const words = isZh ? wordsZh : wordsEn;
-        rotator.textContent = words[current];
-
+        
+        function getWords() {
+          return document.documentElement.lang.startsWith('zh') ? wordsZh : wordsEn;
+        }
+        
+        // 暴露到全局，供语言切换时调用
+        window.updateRotator = function() {
+          const words = getWords();
+          // 防止索引越界
+          if (current >= words.length) current = 0;
+          rotator.textContent = words[current];
+        };
+        
         function rotateWord() {
           rotator.classList.add('animating');
           rotator.addEventListener('animationend', function onOutEnd() {
             rotator.removeEventListener('animationend', onOutEnd);
             rotator.classList.remove('animating');
-            current = (current + 1) % words.length;
-            rotator.textContent = words[current];
+            current = (current + 1) % getWords().length;
+            rotator.textContent = getWords()[current];
             void rotator.offsetWidth;
             rotator.classList.add('animating-in');
             rotator.addEventListener('animationend', function onInEnd() {
@@ -224,7 +239,8 @@
           }, { once: true });
         }
 
-        setInterval(rotateWord, 1300);
+        window.updateRotator();
+        rotatorTimer = setInterval(rotateWord, 1300);
       }
 
       // 移动端汉堡菜单
