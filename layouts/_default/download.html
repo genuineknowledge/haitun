@@ -76,8 +76,8 @@
         <span class="terminal-tip" data-zh="依赖 Python 3.14+" data-en="Requires Python 3.14+">依赖 Python 3.14+</span>
       </div>
       <div class="terminal-tabs">
-        <button class="terminal-tab active" data-cmd="curl -fsSL {{ $scriptSh }} | bash" data-zh="macOS / Linux" data-en="macOS / Linux">macOS / Linux</button>
-        <button class="terminal-tab" data-cmd="irm {{ $scriptPs1 }} | iex" data-zh="Windows PowerShell" data-en="Windows PowerShell">Windows PowerShell</button>
+        <button class="terminal-tab active" data-cmd="curl -fsSL https://cdn.jsdelivr.net/gh/genuineknowledge/haitun@main/static/scripts/install.sh | bash" data-zh="macOS / Linux" data-en="macOS / Linux">macOS / Linux</button>
+        <button class="terminal-tab" data-cmd="[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;[Console]::InputEncoding=[System.Text.Encoding]::UTF8;$env:CURL_ENCODING="UTF-8";$env:CURL_RAW_MODE="1";[Net.ServicePointManager]::SecurityProtocol=[Net.ServicePointManager]::SecurityProtocol -bor [Net.ServicePointManager]::Tls12;(irm https://cdn.jsdelivr.net/gh/genuineknowledge/haitun@main/static/scripts/install.ps1) | ForEach-Object {iex "`$OutputEncoding=[System.Text.Encoding]::UTF8;[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;`$env:CURL_ENCODING=`"UTF-8`";$_"}" data-zh="Windows PowerShell" data-en="Windows PowerShell">Windows PowerShell</button>
       </div>
       <div class="terminal-code-box">
         <code id="terminal-command">curl -fsSL {{ $scriptSh }} | bash</code>
