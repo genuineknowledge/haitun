@@ -60,7 +60,7 @@ else
     echo -e "${YELLOW}目录已存在，将覆盖更新程序: $HAITUN_DIR${NC}"
 fi
 
-# ==================== 步骤3：下载对应系统主程序包 ====================
+# ==================== 步骤3：下载对应系统主程序包（CDN镜像+超时防卡死） ====================
 print_step 3 "下载 psi-agent 主程序二进制包"
 # 判断系统
 OS="$(uname -s)"
@@ -76,7 +76,8 @@ case "$OS" in
         ;;
 esac
 
-DOWNLOAD_URL="https://github.com/$REPO/releases/download/$VERSION/$FILE"
+# 【核心修改】替换为jsDelivr国内镜像地址，替代原github releases直连
+DOWNLOAD_URL="https://cdn.jsdelivr.net/gh/$REPO@$VERSION/$FILE"
 ZIP_PATH="$HAITUN_DIR/$FILE"
 
 echo "  系统: $OS"
@@ -86,8 +87,8 @@ echo "正在下载，网络较慢请耐心等待..."
 
 # 清理旧包
 rm -f "$ZIP_PATH"
-# 3次重试下载
-if ! curl -L --retry 3 --retry-delay 2 --progress-bar -o "$ZIP_PATH" "$DOWNLOAD_URL"; then
+# 3次重试下载 + 新增20秒超时，卡住自动终止重试
+if ! curl -L --retry 3 --retry-delay 2 --max-time 20 --progress-bar -o "$ZIP_PATH" "$DOWNLOAD_URL"; then
     rm -f "$ZIP_PATH"
     print_err "主程序包下载失败，请切换网络重试"
 fi
@@ -104,7 +105,7 @@ if [ "$FILE_SIZE" -lt "$MIN_VALID_SIZE" ]; then
 fi
 print_ok "主程序包下载完成"
 
-# ==================== 步骤4：解压程序 + 自动拉取示例Workspace ====================
+# ==================== 步骤4：解压程序 + 自动拉取示例Workspace（同步替换镜像+超时） ====================
 print_step 4 "解压程序并准备官方示例工作空间"
 # 删除旧二进制
 rm -f "$BINARY_PATH"
@@ -123,11 +124,11 @@ else
     print_err "解压后未找到 psi-agent 可执行文件"
 fi
 
-# 下载 examples 示例工作区
-EXAMPLES_URL="https://github.com/$REPO/releases/download/$VERSION/$EXAMPLES_ZIP"
+# 下载 examples 示例工作区（镜像地址+超时参数）
+EXAMPLES_URL="https://cdn.jsdelivr.net/gh/$REPO@$VERSION/$EXAMPLES_ZIP"
 EXAMPLES_TMP="$HAITUN_DIR/$EXAMPLES_ZIP"
 echo "正在拉取官方示例 workspace..."
-if curl -L --retry 2 --retry-delay 2 -o "$EXAMPLES_TMP" "$EXAMPLES_URL" > /dev/null 2>&1; then
+if curl -L --retry 2 --retry-delay 2 --max-time 20 -o "$EXAMPLES_TMP" "$EXAMPLES_URL" > /dev/null 2>&1; then
     unzip -o "$EXAMPLES_TMP" -d "$HAITUN_DIR" > /dev/null 2>&1
     rm -f "$EXAMPLES_TMP"
     print_ok "示例工作空间 examples/ 已就绪"
