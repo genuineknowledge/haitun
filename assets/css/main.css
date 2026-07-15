@@ -789,8 +789,8 @@ a { color: inherit; text-decoration: none; }
    ========================================== */
 .word-rotator {
   display: inline-block;
-  min-width: 3em;
-  text-align: center;
+  width: 140px; /* 固定宽度，足够容纳最长的中英文词汇 */
+  text-align: left; /* 与前面文字自然衔接 */
   vertical-align: bottom;
   position: relative;
   color: #0f172a;
