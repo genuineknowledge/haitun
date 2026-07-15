@@ -789,7 +789,7 @@ a { color: inherit; text-decoration: none; }
    ========================================== */
 .word-rotator {
   display: inline-block;
-  width: 140px; /* 固定宽度，足够容纳最长的中英文词汇 */
+  width: 180px; /* 固定宽度，足够容纳最长的中英文词汇 */
   text-align: left; /* 与前面文字自然衔接 */
   vertical-align: bottom;
   position: relative;
