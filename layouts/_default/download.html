@@ -76,18 +76,18 @@
         <span class="terminal-tip" data-zh="依赖 Python 3.14+" data-en="Requires Python 3.14+">依赖 Python 3.14+</span>
       </div>
       <div class="terminal-tabs">
-        <!-- macOS/Linux Tab：完整可用sh一键命令 -->
+        <!-- macOS/Linux Tab：使用 v1.0.1 稳定版安装脚本 -->
         <button class="terminal-tab active" 
-                data-cmd="curl -fsSL https://cdn.jsdelivr.net/gh/genuineknowledge/haitun@main/static/scripts/install.sh | bash" 
+                data-cmd="curl -fsSL https://cdn.jsdelivr.net/gh/genuineknowledge/haitun@v1.0.1/static/scripts/install.sh | bash" 
                 data-zh="macOS / Linux" data-en="macOS / Linux">macOS / Linux</button>
-        <!-- Windows PowerShell Tab：完整修复版一键命令，内部引号做转义适配HTML属性 -->
+        <!-- Windows PowerShell Tab：一键安装并进入 REPL -->
         <button class="terminal-tab" 
-                data-cmd="[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;[Console]::InputEncoding=[System.Text.Encoding]::UTF8;$env:CURL_ENCODING=&quot;UTF-8&quot;;$env:CURL_RAW_MODE=&quot;1&quot;;[Net.ServicePointManager]::SecurityProtocol=[Net.ServicePointManager]::SecurityProtocol -bor [Net.ServicePointManager]::Tls12;(irm https://cdn.jsdelivr.net/gh/genuineknowledge/haitun@main/static/scripts/install.ps1) | ForEach-Object {iex &quot;`$OutputEncoding=[System.Text.Encoding]::UTF8;[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;`$env:CURL_ENCODING=`&quot;UTF-8`&quot;;`_&quot;}" 
+                data-cmd="powershell -NoProfile -ExecutionPolicy Bypass -Command &quot;iwr -Uri 'https://cdn.jsdelivr.net/gh/genuineknowledge/haitun@v1.0.1/static/scripts/install.ps1' -UseBasicParsing | iex&quot;" 
                 data-zh="Windows PowerShell" data-en="Windows PowerShell">Windows PowerShell</button>
       </div>
       <div class="terminal-code-box">
-        <!-- 默认展示Linux/macOS命令，JS会根据tab切换替换code文本 -->
-        <code id="terminal-command">curl -fsSL https://cdn.jsdelivr.net/gh/genuineknowledge/haitun@main/static/scripts/install.sh | bash</code>
+        <!-- 默认展示 Linux/macOS 命令 -->
+        <code id="terminal-command">curl -fsSL https://cdn.jsdelivr.net/gh/genuineknowledge/haitun@v1.0.1/static/scripts/install.sh | bash</code>
         <button class="copy-btn" id="copyCommandBtn" title="复制命令">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
