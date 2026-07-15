@@ -73,30 +73,23 @@
     <div class="hero-terminal">
       <div class="terminal-header">
         <span class="terminal-title" data-zh="安装命令" data-en="Install Command">安装命令</span>
-        <!-- 原来的 tip 不变，也可以额外加提示 -->
-        <span class="terminal-tip" data-zh="Windows 用户推荐使用 Windows Terminal 获得最佳体验" data-en="Windows users: use Windows Terminal for best experience">
-          Windows 用户推荐使用 Windows Terminal 获得最佳体验
-        </span>
+        <span class="terminal-tip" data-zh="依赖 Python 3.14+" data-en="Requires Python 3.14+">依赖 Python 3.14+</span>
       </div>
       <div class="terminal-tabs">
-        <!-- macOS/Linux Tab：使用 main 分支，和 Windows 统一 -->
+        <!-- macOS/Linux Tab -->
         <button class="terminal-tab active" 
                 data-cmd="curl -fsSL https://cdn.jsdelivr.net/gh/genuineknowledge/haitun@main/static/scripts/install.sh | bash" 
                 data-zh="macOS / Linux" data-en="macOS / Linux">macOS / Linux</button>
-        <!-- Windows PowerShell Tab：一键安装并进入 REPL -->
+        <!-- Windows PowerShell Tab -->
         <button class="terminal-tab" 
                 data-cmd="powershell -NoProfile -ExecutionPolicy Bypass -Command &quot;iwr -Uri 'https://cdn.jsdelivr.net/gh/genuineknowledge/haitun@main/static/scripts/install.ps1' -UseBasicParsing | iex&quot;"  
                 data-zh="Windows PowerShell" data-en="Windows PowerShell">Windows PowerShell</button>
       </div>
-      <!-- 在按钮下方补充一句提示，视觉上更接近操作区 -->
-      <div class="terminal-note" style="font-size: 0.85rem; color: #888; margin-top: 0.5rem;">
-        <span data-zh="为避免乱码，请在 Windows Terminal 中执行命令（Microsoft Store 免费安装）" 
-              data-en="To avoid garbled text, run the command in Windows Terminal (free from Microsoft Store)">
-           为避免乱码，请在 Windows Terminal 中执行命令（Microsoft Store 免费安装）
-        </span>
+      <!-- 仅 Windows 用户可见的提示（默认隐藏） -->
+      <div id="windows-note" style="display: none; font-size: 0.85rem; color: #888; margin-top: 0.5rem;">
+        💡 为避免乱码，请在 Windows Terminal 中执行命令（Microsoft Store 免费安装）
       </div>
       <div class="terminal-code-box">
-        <!-- 默认展示 Linux/macOS 命令 -->
         <code id="terminal-command">curl -fsSL https://cdn.jsdelivr.net/gh/genuineknowledge/haitun@main/static/scripts/install.sh | bash</code>
         <button class="copy-btn" id="copyCommandBtn" title="复制命令">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -109,6 +102,34 @@
   </div>
 </section>
 
+<!-- 控制 Windows 提示显示/隐藏的内联脚本 -->
+<script>
+  (function() {
+    const tabs = document.querySelectorAll('#terminal-install .terminal-tab');
+    const note = document.getElementById('windows-note');
+    if (!tabs.length || !note) return;
+
+    function toggleNote() {
+      const activeTab = document.querySelector('#terminal-install .terminal-tab.active');
+      if (activeTab && activeTab.getAttribute('data-zh') === 'Windows PowerShell') {
+        note.style.display = 'block';
+      } else {
+        note.style.display = 'none';
+      }
+    }
+
+    // 页面加载时检查
+    toggleNote();
+
+    // 监听所有 tab 点击（也可复用你已有的 tab 切换逻辑，这里做安全增强）
+    tabs.forEach(btn => {
+      btn.addEventListener('click', function() {
+        // 等 active 类切换完成后再判断（微任务即可）
+        setTimeout(toggleNote, 0);
+      });
+    });
+  })();
+</script>
 
 
 <!-- 常见问题 -->
