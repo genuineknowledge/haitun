@@ -3,11 +3,15 @@
 HaiTun psi-agent Windows 一键安装脚本
 .DESCRIPTION
 自动下载、解压、配置环境、创建快捷方式，启动Gateway并输出完整初始化操作流程
+安装完成自动打开浏览器，预加载示例工作区，读取系统AI密钥，开箱即用
 #>
-# 全局编码强制修复，解决终端中文乱码（新增）
+# ========== 全局强制UTF8编码，根治所有终端&curl子进程乱码 ==========
 $OutputEncoding = [System.Text.Encoding]::UTF8
 [Console]::OutputEncoding = $OutputEncoding
 [Console]::InputEncoding = $OutputEncoding
+# curl子进程强制UTF8输出，进度条无乱码
+$env:CURL_ENCODING = "UTF-8"
+$env:CURL_RAW_MODE = "1"
 
 # 全局错误捕获
 $ErrorActionPreference = "Stop"
@@ -77,15 +81,15 @@ else {
     Write-Host "目录已存在，将覆盖更新程序：$BaseInstallDir" -ForegroundColor Yellow
 }
 
-# ==================== 步骤3：下载并校验主程序包（替换jsDelivr镜像+超时防卡死） ====================
+# ==================== 步骤3：下载并校验主程序包（国内CDN镜像+超时防卡死） ====================
 Write-StepTitle -StepIndex 3 -StepDesc "下载 psi-agent 主程序"
 $MainZipPath = Join-Path $BaseInstallDir $MainZipFileName
-# 国内CDN镜像加速Release，替代原github直连
+# jsDelivr国内镜像替代Github直连Release
 $MainDownloadUrl = "https://cdn.jsdelivr.net/gh/$Repo@$Version/$MainZipFileName"
 
 Write-Host "  系统：Windows | 版本：$Version | 下载文件：$MainZipFileName"
 Write-Host "正在下载，网络较慢请耐心等待..."
-# 新增--max-time 20，20秒无流量自动重试，解决下载卡死
+# 新增--max-time 20，20秒无流量自动中断重试，避免无限卡死
 curl.exe -L --retry 3 --retry-delay 2 --max-time 20 -o "$MainZipPath" "$MainDownloadUrl"
 
 # 文件完整性校验
@@ -113,7 +117,7 @@ Remove-Item $MainZipPath -Force
 # 校验exe是否存在
 if (-not (Test-Path $ExeFullPath)) { Write-FailExit "解压后未找到 $ExeName" }
 
-# 下载示例Workspace（镜像+超时参数同步修改）
+# 下载示例Workspace（同步替换镜像+超时参数）
 $ExamplesZipPath = Join-Path $BaseInstallDir $ExamplesZipFileName
 $ExamplesDownloadUrl = "https://cdn.jsdelivr.net/gh/$Repo@$Version/$ExamplesZipFileName"
 Write-Host "正在拉取官方示例Workspace..."
@@ -122,6 +126,11 @@ if (Test-Path $ExamplesZipPath) {
     Expand-Archive -Path $ExamplesZipPath -DestinationPath $BaseInstallDir -Force
     Remove-Item $ExamplesZipPath -Force
     Write-Success "示例工作空间 examples/ 已就绪"
+    # 持久写入默认工作区环境变量，Web自动加载
+    $DefaultWorkspace = Join-Path $BaseInstallDir "examples"
+    $env:PSI_DEFAULT_WORKSPACE = $DefaultWorkspace
+    [Environment]::SetEnvironmentVariable("PSI_DEFAULT_WORKSPACE", $DefaultWorkspace, "User")
+    Write-Success "已配置默认Agent工作空间：$DefaultWorkspace"
 }
 else {
     Write-Host "⚠ 示例工作区下载失败，可在Web控制台手动加载目录" -ForegroundColor Yellow
@@ -151,36 +160,34 @@ $Shortcut.Description = "HaiTun AI Agent Web管理控制台"
 $Shortcut.Save()
 Write-Success "桌面一键启动快捷方式已创建"
 
-# ==================== 步骤6：启动Gateway + 完整初始化操作指引 ====================
-Write-StepTitle -StepIndex 6 -StepDesc "启动Web管理网关，启动前操作指引"
+# ==================== 步骤6：启动Gateway + 完整开箱即用指引 ====================
+Write-StepTitle -StepIndex 6 -StepDesc "启动Web管理网关，安装完成可直接提问"
 Write-Host "  工作目录：$BaseInstallDir"
-Write-Host "  启动命令：$ExeName gateway --browser"
+Write-Host "  默认Agent工作区：$env:PSI_DEFAULT_WORKSPACE"
 Write-Host ""
 Write-Host "========================================" -ForegroundColor Green
-Write-Host "安装全部完成！浏览器将自动弹出Web控制台" -ForegroundColor Green
+Write-Host "安装全部完成！浏览器将自动弹出Web控制台，开箱直接对话" -ForegroundColor Green
 Write-Host "========================================" -ForegroundColor White
-Write-Host "【从打开网页 → 输入提问 完整标准流程（参照README）】" -ForegroundColor Cyan
-Write-Host "1. 绑定大模型（左侧菜单：AI模型管理）"
-Write-Host "   · 新建AI实例，选择模型厂商"
-Write-Host "   · 填写模型名称、API Key、中转BaseURL（官方接口留空）"
-Write-Host "   · 点击测试连接，提示成功后保存实例"
+Write-Host "【Web端快速流程（无需手动配置工作区）】" -ForegroundColor Cyan
+Write-Host "1. 模型自动预填充（系统提前设置PSI_AI_*环境变量则无需手动填Key）"
+Write-Host "2. 自动加载examples示例Agent工具集"
+Write-Host "3. 新建会话即可输入问题，支持文件上传、代码工具调用、LaTeX渲染"
 Write-Host ""
-Write-Host "2. 加载Agent工作空间 Workspace"
-Write-Host "   · 左侧「工作空间管理」→ 浏览目录"
-Write-Host "   · 选中安装目录下 examples 示例文件夹，加载工作空间"
-Write-Host ""
-Write-Host "3. 创建对话会话"
-Write-Host "   · 左侧「会话管理」→ 新建会话"
-Write-Host "   · 下拉选择已创建AI实例、加载完成的Workspace"
-Write-Host "   · 自定义会话ID（可选），确认创建会话"
-Write-Host ""
-Write-Host "4. 进入聊天页面，输入自定义问题开始对话"
-Write-Host "   · 支持SSE流式输出、Markdown/LaTeX渲染、图片/文件上传"
+Write-Host "【终端离线对话命令（新开PowerShell直接执行）】" -ForegroundColor Cyan
+Write-Host "交互式持续对话：psi-agent channel repl"
+Write-Host "单次提问直接返回结果：psi-agent channel cli --message \"你的问题\""
 Write-Host "========================================" -ForegroundColor Yellow
-Write-Host "提示：关闭当前终端窗口会停止Gateway服务；新开终端可直接输入 psi-agent 调用命令"
+Write-Host "提示：关闭当前终端窗口会停止Gateway服务；新开终端可直接输入 psi-agent 调用全部命令"
 Write-Host "========================================" -ForegroundColor Green
 Write-Host ""
 
-# 切换目录并启动网关，自动打开浏览器
+# 组装网关启动参数，自动携带系统AI环境变量，Web页面预填模型信息
 Set-Location $BaseInstallDir
-& $ExeFullPath gateway --browser
+$gatewayArgs = @("gateway", "--browser")
+if ($env:PSI_AI_PROVIDER) { $gatewayArgs += "--provider"; $gatewayArgs += $env:PSI_AI_PROVIDER }
+if ($env:PSI_AI_MODEL) { $gatewayArgs += "--model"; $gatewayArgs += $env:PSI_AI_MODEL }
+if ($env:PSI_AI_API_KEY) { $gatewayArgs += "--api-key"; $gatewayArgs += $env:PSI_AI_API_KEY }
+if ($env:PSI_AI_BASE_URL) { $gatewayArgs += "--base-url"; $gatewayArgs += $env:PSI_AI_BASE_URL }
+
+# 启动网关自动打开浏览器
+& $ExeFullPath @gatewayArgs
