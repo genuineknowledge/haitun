@@ -4,6 +4,11 @@ HaiTun psi-agent Windows 一键安装脚本
 .DESCRIPTION
 自动下载、解压、配置环境、创建快捷方式，启动Gateway并输出完整初始化操作流程
 #>
+# 全局编码强制修复，解决终端中文乱码（新增）
+$OutputEncoding = [System.Text.Encoding]::UTF8
+[Console]::OutputEncoding = $OutputEncoding
+[Console]::InputEncoding = $OutputEncoding
+
 # 全局错误捕获
 $ErrorActionPreference = "Stop"
 
@@ -72,14 +77,16 @@ else {
     Write-Host "目录已存在，将覆盖更新程序：$BaseInstallDir" -ForegroundColor Yellow
 }
 
-# ==================== 步骤3：下载并校验主程序包 ====================
+# ==================== 步骤3：下载并校验主程序包（替换jsDelivr镜像+超时防卡死） ====================
 Write-StepTitle -StepIndex 3 -StepDesc "下载 psi-agent 主程序"
 $MainZipPath = Join-Path $BaseInstallDir $MainZipFileName
-$MainDownloadUrl = "https://github.com/$Repo/releases/download/$Version/$MainZipFileName"
+# 国内CDN镜像加速Release，替代原github直连
+$MainDownloadUrl = "https://cdn.jsdelivr.net/gh/$Repo@$Version/$MainZipFileName"
 
 Write-Host "  系统：Windows | 版本：$Version | 下载文件：$MainZipFileName"
 Write-Host "正在下载，网络较慢请耐心等待..."
-curl.exe -L --retry 3 --retry-delay 2 -o "$MainZipPath" "$MainDownloadUrl"
+# 新增--max-time 20，20秒无流量自动重试，解决下载卡死
+curl.exe -L --retry 3 --retry-delay 2 --max-time 20 -o "$MainZipPath" "$MainDownloadUrl"
 
 # 文件完整性校验
 if (-not (Test-Path $MainZipPath)) { Write-FailExit "主程序压缩包下载失败" }
@@ -106,11 +113,11 @@ Remove-Item $MainZipPath -Force
 # 校验exe是否存在
 if (-not (Test-Path $ExeFullPath)) { Write-FailExit "解压后未找到 $ExeName" }
 
-# 下载示例Workspace（带重试兜底）
+# 下载示例Workspace（镜像+超时参数同步修改）
 $ExamplesZipPath = Join-Path $BaseInstallDir $ExamplesZipFileName
-$ExamplesDownloadUrl = "https://github.com/$Repo/releases/download/$Version/$ExamplesZipFileName"
+$ExamplesDownloadUrl = "https://cdn.jsdelivr.net/gh/$Repo@$Version/$ExamplesZipFileName"
 Write-Host "正在拉取官方示例Workspace..."
-curl.exe -L --retry 3 --retry-delay 2 -o "$ExamplesZipPath" "$ExamplesDownloadUrl"
+curl.exe -L --retry 3 --retry-delay 2 --max-time 20 -o "$ExamplesZipPath" "$ExamplesDownloadUrl"
 if (Test-Path $ExamplesZipPath) {
     Expand-Archive -Path $ExamplesZipPath -DestinationPath $BaseInstallDir -Force
     Remove-Item $ExamplesZipPath -Force
@@ -144,7 +151,7 @@ $Shortcut.Description = "HaiTun AI Agent Web管理控制台"
 $Shortcut.Save()
 Write-Success "桌面一键启动快捷方式已创建"
 
-# ==================== 步骤6：启动Gateway + 完整初始化操作指引（匹配README） ====================
+# ==================== 步骤6：启动Gateway + 完整初始化操作指引 ====================
 Write-StepTitle -StepIndex 6 -StepDesc "启动Web管理网关，启动前操作指引"
 Write-Host "  工作目录：$BaseInstallDir"
 Write-Host "  启动命令：$ExeName gateway --browser"
