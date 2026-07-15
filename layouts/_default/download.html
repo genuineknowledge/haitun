@@ -100,36 +100,73 @@
     <h2 class="section-title" data-zh="常见问题" data-en="FAQ">常见问题</h2>
     <p class="section-sub" data-zh="你可能关心的问题都在这里" data-en="Answers to common questions">你可能关心的问题都在这里</p>
     <div class="faq">
+      <!-- 1. 自定义工具、自动化与模板复用 -->
       <details class="faq-item">
-        <summary data-zh="支持哪些操作系统？" data-en="Which operating systems are supported?">支持哪些操作系统？</summary>
-        <p data-zh="目前提供 Windows 10/11 安装包。其他平台正在规划中。" data-en="Windows 10/11 installers are available now. Other platforms are on the roadmap.">
-          目前提供 Windows 10/11 安装包。其他平台正在规划中。
+        <summary data-zh="是否支持自定义工具、自动化工作流与模板分享？" data-en="Custom tools, workflows & template sharing support?">是否支持自定义工具、自动化工作流与模板分享？</summary>
+        <p data-zh="支持接入本地Python脚本、API、数据库，可集成自有自动化流程；支持导出Agent流程、提示词模板，实现跨设备复用、团队共享。"
+           data-en="It supports local Python scripts, APIs, databases and custom workflows. Agent flows & prompt templates can be exported for cross-device reuse and team sharing.">
+          支持接入本地Python脚本、API、数据库，可集成自有自动化流程；支持导出Agent流程、提示词模板，实现跨设备复用、团队共享。
+        </p>
+      </details>
+      <!-- 2. 百万字长文档上下文处理 -->
+      <details class="faq-item">
+        <summary data-zh="百万字长文档如何处理上下文，会丢失前文信息吗？" data-en="Context handling for million-word docs, any information loss?">百万字长文档如何处理上下文，会丢失前文信息吗？</summary>
+        <p data-zh="通过文本压缩+分层记忆优化上下文窗口限制；极端超长文本场景下少量细节仍可能丢失。"
+           data-en="Text compression and layered memory optimize context limits. Minor details may be lost with extremely long documents.">
+          通过文本压缩+分层记忆优化上下文窗口限制；极端超长文本场景下少量细节仍可能丢失。
+        </p>
+      </details>
+      <!-- 3. Agent代码执行安全 -->
+      <details class="faq-item">
+        <summary data-zh="Agent代码执行是否存在本地文件、高危指令安全风险？" data-en="Security risks of Agent code execution on local system?">Agent代码执行是否存在本地文件、高危指令安全风险？</summary>
+        <p data-zh="内置高危指令拦截机制，但无法完全隔离本地系统权限，仍存在一定安全隐患。"
+           data-en="Built-in dangerous command filters exist, yet full isolation from local system access cannot be guaranteed, with inherent security risks remaining.">
+          内置高危指令拦截机制，但无法完全隔离本地系统权限，仍存在一定安全隐患。
+        </p>
+      </details>
+      <!-- 4. 本地运行硬件适配 -->
+      <details class="faq-item">
+        <summary data-zh="低配笔记本能否流畅本地运行？硬件占用情况如何？" data-en="Can low-spec laptops run it smoothly locally? Hardware resource usage?">低配笔记本能否流畅本地运行？硬件占用情况如何？</summary>
+        <p data-zh="暂未完成低配设备完整性能测试，低配设备运行复杂Agent任务易出现卡顿延迟。"
+           data-en="Full performance tests on low-end hardware are incomplete. Complex Agent tasks will lag on low-spec laptops.">
+          暂未完成低配设备完整性能测试，低配设备运行复杂Agent任务易出现卡顿延迟。
+        </p>
+      </details>
+      <!-- 5. 跨平台与macOS客户端进度 -->
+      <details class="faq-item">
+        <summary data-zh="跨平台规划进度如何？macOS安装包何时上线？" data-en="Cross-platform roadmap & macOS installer release schedule?">跨平台规划进度如何？macOS安装包何时上线？</summary>
+        <p data-zh="多系统适配为长期规划，macOS版本开发中；受合规手续影响，暂无明确上线时间。当前仅提供Windows 10/11安装包。"
+           data-en="Multi-OS support is a long-term plan; macOS version is under development. No confirmed release date pending compliance procedures. Only Windows 10/11 installers are available now.">
+          多系统适配为长期规划，macOS版本开发中；受合规手续影响，暂无明确上线时间。当前仅提供Windows 10/11安装包。
+        </p>
+      </details>
+      <!-- 6. 收费模式 -->
+      <details class="faq-item">
+        <summary data-zh="产品是否免费？后续收费方案规划？" data-en="Is it free? What’s the future pricing plan?">产品是否免费？后续收费方案规划？</summary>
+        <p data-zh="现阶段完全免费使用；商业化收费方案仍在内部调研，如有调整将在本页面与GitHub仓库同步公告。"
+           data-en="The product is fully free for now. Commercial pricing plans are still under internal review. Any changes will be announced on this page and GitHub.">
+          现阶段完全免费使用；商业化收费方案仍在内部调研，如有调整将在本页面与GitHub仓库同步公告。
+        </p>
+      </details>
+      <!-- 原有保留3条：联网需求 / 数据安全 / 更新方式 -->
+      <details class="faq-item">
+        <summary data-zh="使用产品需要全程联网吗？" data-en="Is internet required all the time?">使用产品需要全程联网吗？</summary>
+        <p data-zh="智能体本体本地运行；仅调用在线模型、网络资源的功能需联网，其余功能支持离线使用。"
+           data-en="The agent runs locally. Only features relying on online models require internet; all other functions work offline.">
+          智能体本体本地运行；仅调用在线模型、网络资源的功能需联网，其余功能支持离线使用。
         </p>
       </details>
       <details class="faq-item">
-        <summary data-zh="需要联网吗？" data-en="Is internet required?">需要联网吗？</summary>
-        <p data-zh="智能体本身在本地运行；部分需要调用在线模型或网络资源的功能会用到网络，其余功能可离线使用。"
-           data-en="The agent runs locally. Some features require internet for online models; others work fully offline.">
-          智能体本身在本地运行；部分需要调用在线模型或网络资源的功能会用到网络，其余功能可离线使用。
+        <summary data-zh="本地运行时我的数据安全吗？" data-en="Is my local data secure?">本地运行时我的数据安全吗？</summary>
+        <p data-zh="所有数据默认保存在你的本地设备，不会上传至官方服务器。" data-en="All data stays on your device by default and will never be uploaded to our servers.">
+          所有数据默认保存在你的本地设备，不会上传至官方服务器。
         </p>
       </details>
       <details class="faq-item">
-        <summary data-zh="我的数据安全吗？" data-en="Is my data secure?">我的数据安全吗？</summary>
-        <p data-zh="数据默认全部保留在你的设备本地，不会上传到我们的服务器。" data-en="All data stays on your device by default, never uploaded to our servers.">
-          数据默认全部保留在你的设备本地，不会上传到我们的服务器。
-        </p>
-      </details>
-      <details class="faq-item">
-        <summary data-zh="如何获取更新？" data-en="How do I get updates?">如何获取更新？</summary>
-        <p data-zh="新版本会发布到 GitHub Releases，网站的下载按钮始终指向最新版本，重新下载安装即可。"
-           data-en="New versions are on GitHub Releases. The download button always points to the latest version — just reinstall.">
-          新版本会发布到 GitHub Releases，网站的下载按钮始终指向最新版本，重新下载安装即可。
-        </p>
-      </details>
-      <details class="faq-item">
-        <summary data-zh="收费吗？" data-en="Is it free?">收费吗？</summary>
-        <p data-zh="当前免费提供。如有变动会在本页面和 GitHub 仓库说明。" data-en="Currently free. Any changes will be announced on this page and GitHub.">
-          当前免费提供。如有变动会在本页面和 GitHub 仓库说明。
+        <summary data-zh="如何获取新版本更新？" data-en="How to install new updates?">如何获取新版本更新？</summary>
+        <p data-zh="新版本发布于GitHub Releases，官网下载按钮始终指向最新版，直接下载覆盖安装即可。"
+           data-en="New versions are released on GitHub Releases. The official download button always links to the latest installer, just reinstall to update.">
+          新版本发布于GitHub Releases，官网下载按钮始终指向最新版，直接下载覆盖安装即可。
         </p>
       </details>
     </div>
