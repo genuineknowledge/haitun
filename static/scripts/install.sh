@@ -1,6 +1,12 @@
 #!/bin/bash
 set -euo pipefail
 
+# ====================== 全局UTF8编码，彻底解决终端&curl乱码 ======================
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export CURL_ENCODING=UTF-8
+export CURL_RAW_MODE=1
+
 # ====================== 颜色常量 ======================
 GREEN='\033[32m'
 CYAN='\033[36m'
@@ -76,7 +82,7 @@ case "$OS" in
         ;;
 esac
 
-# 【核心修改】替换为jsDelivr国内镜像地址，替代原github releases直连
+# 国内jsDelivr镜像地址
 DOWNLOAD_URL="https://cdn.jsdelivr.net/gh/$REPO@$VERSION/$FILE"
 ZIP_PATH="$HAITUN_DIR/$FILE"
 
@@ -87,7 +93,7 @@ echo "正在下载，网络较慢请耐心等待..."
 
 # 清理旧包
 rm -f "$ZIP_PATH"
-# 3次重试下载 + 新增20秒超时，卡住自动终止重试
+# 3次重试下载 + 20秒超时，卡住自动终止重试
 if ! curl -L --retry 3 --retry-delay 2 --max-time 20 --progress-bar -o "$ZIP_PATH" "$DOWNLOAD_URL"; then
     rm -f "$ZIP_PATH"
     print_err "主程序包下载失败，请切换网络重试"
@@ -105,7 +111,7 @@ if [ "$FILE_SIZE" -lt "$MIN_VALID_SIZE" ]; then
 fi
 print_ok "主程序包下载完成"
 
-# ==================== 步骤4：解压程序 + 自动拉取示例Workspace（同步替换镜像+超时） ====================
+# ==================== 步骤4：解压程序 + 自动拉取示例Workspace ====================
 print_step 4 "解压程序并准备官方示例工作空间"
 # 删除旧二进制
 rm -f "$BINARY_PATH"
@@ -132,6 +138,19 @@ if curl -L --retry 2 --retry-delay 2 --max-time 20 -o "$EXAMPLES_TMP" "$EXAMPLES
     unzip -o "$EXAMPLES_TMP" -d "$HAITUN_DIR" > /dev/null 2>&1
     rm -f "$EXAMPLES_TMP"
     print_ok "示例工作空间 examples/ 已就绪"
+    # 写入默认工作区环境变量，持久化到shell配置
+    DEFAULT_WORKSPACE="$HAITUN_DIR/examples"
+    export PSI_DEFAULT_WORKSPACE="$DEFAULT_WORKSPACE"
+    SHELL_RC=""
+    if [[ "$SHELL" == *zsh ]]; then
+        SHELL_RC="$HOME/.zshrc"
+    elif [[ "$SHELL" == *bash ]]; then
+        SHELL_RC="$HOME/.bashrc"
+    fi
+    if [ -n "$SHELL_RC" ] && ! grep -q "PSI_DEFAULT_WORKSPACE" "$SHELL_RC"; then
+        echo "export PSI_DEFAULT_WORKSPACE=\"$DEFAULT_WORKSPACE\"" >> "$SHELL_RC"
+        print_ok "已持久配置默认Agent工作空间：$DEFAULT_WORKSPACE"
+    fi
 else
     print_warn "示例工作区下载失败，可在Web控制台手动加载目录"
 fi
@@ -158,34 +177,32 @@ else
     print_warn "未识别到 bash/zsh，需手动添加 PATH: export PATH=\"$HAITUN_DIR:\$PATH\""
 fi
 
-# ==================== 步骤6：启动Gateway + 完整初始化操作指引（对齐README） ====================
+# ==================== 步骤6：启动Gateway + 完整开箱即用指引 ====================
 print_step 6 "启动 Web 管理网关 Gateway"
 echo "  工作目录: $HAITUN_DIR"
-echo "  启动命令: ./psi-agent gateway"
+echo "  默认Agent工作区: $PSI_DEFAULT_WORKSPACE"
 echo -e "\n${GREEN}========================================${NC}"
-echo -e "${GREEN}安装全部完成！接下来按以下流程操作（参照官方README）${NC}"
+echo -e "${GREEN}安装全部完成！浏览器自动弹出Web控制台，开箱直接对话${NC}"
 echo -e "${GREEN}========================================${NC}"
-echo -e "${CYAN}【从打开网页到输入自定义问题完整流程】${NC}"
-echo "1. 绑定大模型（左侧菜单：AI模型管理）"
-echo "   · 新建AI实例，选择模型厂商（OpenAI/DeepSeek/通义千问等50+）"
-echo "   · 填写模型名称、API Key、中转BaseURL（官方接口留空）"
-echo "   · 点击测试连接，提示成功后保存实例"
+echo -e "${CYAN}【Web端快速流程（无需手动配置工作区）】${NC}"
+echo "1. 模型自动预填充（系统提前设置PSI_AI_*环境变量则无需手动填Key）"
+echo "2. 自动加载examples示例Agent工具集"
+echo "3. 新建会话即可输入问题，支持文件上传、代码工具调用、LaTeX渲染"
 echo ""
-echo "2. 加载Agent工作空间 Workspace"
-echo "   · 左侧「工作空间管理」→ 浏览目录"
-echo "   · 选中安装目录下 examples 示例文件夹，加载工作空间"
-echo ""
-echo "3. 创建对话会话"
-echo "   · 左侧「会话管理」→ 新建会话"
-echo "   · 下拉选择已创建AI实例、加载完成的Workspace"
-echo "   · 自定义会话ID（可选），确认创建会话"
-echo ""
-echo "4. 进入聊天页面，输入自定义问题开始对话"
-echo "   · 支持SSE流式输出、Markdown/LaTeX渲染、图片/文件上传"
+echo -e "${CYAN}【终端离线对话命令（新开终端直接执行）】${NC}"
+echo "交互式持续对话：psi-agent channel repl"
+echo "单次提问直接返回结果：psi-agent channel cli --message \"你的问题\""
 echo -e "${YELLOW}========================================${NC}"
-echo "提示：关闭当前终端窗口会停止Gateway服务；新开终端可直接输入 psi-agent 调用命令"
+echo "提示：关闭当前终端窗口会停止Gateway服务；新开终端可直接输入 psi-agent 调用全部命令"
 echo -e "${GREEN}========================================${NC}\n${NC}"
 
-# 切换目录并启动网关
+# 组装网关启动参数，自动携带系统AI环境变量
 cd "$HAITUN_DIR"
-./psi-agent gateway
+gateway_args=("gateway" "--browser")
+if [ -n "${PSI_AI_PROVIDER:-}" ]; then gateway_args+=("--provider" "$PSI_AI_PROVIDER"); fi
+if [ -n "${PSI_AI_MODEL:-}" ]; then gateway_args+=("--model" "$PSI_AI_MODEL"); fi
+if [ -n "${PSI_AI_API_KEY:-}" ]; then gateway_args+=("--api-key" "$PSI_AI_API_KEY"); fi
+if [ -n "${PSI_AI_BASE_URL:-}" ]; then gateway_args+=("--base-url" "$PSI_AI_BASE_URL"); fi
+
+# 启动网关自动打开浏览器
+./psi-agent "${gateway_args[@]}"
