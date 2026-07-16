@@ -1,11 +1,11 @@
 {{ define "main" }}
 {{ $githubRepo := "https://github.com/genuineknowledge/psi-agent" }}
 {{ $releasesURL := "https://github.com/genuineknowledge/haitun/releases" }}
-{{ $proxy := "shturl.cc/pIFP1qXeODa" }}
-{{ $exeDownloadURL := printf "%shttps://github.com/genuineknowledge/haitun/releases/latest/download/haitun-agent-setup.exe" $proxy }}
-{{ $scriptSh := printf "%shttps://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.sh" $proxy }}
-{{ $scriptPs1 := printf "%shttps://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.ps1" $proxy }}
-
+{{/* 移除代理，直接使用 OSS 永久链接 */}}
+{{ $exeDownloadURL := "https://haitun-agent.oss-cn-hangzhou.aliyuncs.com/HaiTun_Agent_Setup.exe" }}
+{{/* 脚本改为 GitHub raw 链接（或你也可以改为 OSS 链接，这里保持 raw 更简单） */}}
+{{ $scriptSh := "https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.sh" }}
+{{ $scriptPs1 := "https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.ps1" }}
 <!-- 首屏下载区 -->
 <section class="download-page-hero">
   <div class="download-page-content">
@@ -76,21 +76,20 @@
         <span class="terminal-tip" data-zh="依赖 Python 3.14+" data-en="Requires Python 3.14+">依赖 Python 3.14+</span>
       </div>
       <div class="terminal-tabs">
-        <!-- macOS/Linux Tab -->
+        <!-- macOS/Linux Tab：命令改为 raw 链接 -->
         <button class="terminal-tab active" 
-                data-cmd="curl -fsSL https://cdn.jsdelivr.net/gh/genuineknowledge/haitun@main/static/scripts/install.sh | bash" 
+                data-cmd="curl -fsSL https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.sh | bash" 
                 data-zh="macOS / Linux" data-en="macOS / Linux">macOS / Linux</button>
-        <!-- Windows PowerShell Tab -->
+        <!-- Windows PowerShell Tab：命令改为 raw 链接 -->
         <button class="terminal-tab" 
-                data-cmd="powershell -NoProfile -ExecutionPolicy Bypass -Command &quot;iwr -Uri 'https://cdn.jsdelivr.net/gh/genuineknowledge/haitun@main/static/scripts/install.ps1' -UseBasicParsing | iex&quot;"  
+                data-cmd="powershell -NoProfile -ExecutionPolicy Bypass -Command &quot;iwr -Uri 'https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.ps1' -UseBasicParsing | iex&quot;"  
                 data-zh="Windows PowerShell" data-en="Windows PowerShell">Windows PowerShell</button>
       </div>
-      <!-- 仅 Windows 用户可见的提示（默认隐藏） -->
       <div id="windows-note" style="display: none; font-size: 0.85rem; color: #888; margin-top: 0.5rem;">
         💡 为避免乱码，请在 Windows Terminal 中执行命令（Microsoft Store 免费安装）
       </div>
       <div class="terminal-code-box">
-        <code id="terminal-command">curl -fsSL https://cdn.jsdelivr.net/gh/genuineknowledge/haitun@main/static/scripts/install.sh | bash</code>
+        <code id="terminal-command">curl -fsSL https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.sh | bash</code>
         <button class="copy-btn" id="copyCommandBtn" title="复制命令">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
@@ -101,6 +100,7 @@
     </div>
   </div>
 </section>
+
 
 <!-- 控制 Windows 提示显示/隐藏的内联脚本 -->
 <script>
