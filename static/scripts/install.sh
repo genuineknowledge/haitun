@@ -17,12 +17,18 @@ NC='\033[0m'
 
 # ====================== 全局配置 ======================
 HAITUN_DIR="$HOME/.haitun"
-VERSION="v1.0.1"
-REPO="genuineknowledge/haitun"
 BINARY_PATH="$HAITUN_DIR/psi-agent"
 EXAMPLES_ZIP="examples-workspace.zip"
 MIN_VALID_SIZE=$((10 * 1024 * 1024)) # 10MB
 TOTAL_STEP=6
+
+# ====================== 下载链接（阿里云 OSS） ======================
+# 将下面的 Bucket 域名替换为你的实际 OSS 外网域名
+OSS_BASE_URL="https://haitun-agent.oss-cn-hangzhou.aliyuncs.com"
+# 主程序包名，根据系统动态选择
+# macOS: psi-agent-pyinstaller-macos-latest.zip
+# Linux: psi-agent-pyinstaller-ubuntu-latest.zip
+# ==================================================================
 
 # 工具函数：打印步骤标题
 print_step() {
@@ -64,7 +70,7 @@ else
     echo -e "${YELLOW}目录已存在，将覆盖更新程序: $HAITUN_DIR${NC}"
 fi
 
-# ==================== 步骤3：下载对应系统主程序包（CDN镜像+超时防卡死） ====================
+# ==================== 步骤3：下载对应系统主程序包（OSS） ====================
 print_step 3 "下载 psi-agent 主程序二进制包"
 OS="$(uname -s)"
 case "$OS" in
@@ -79,13 +85,12 @@ case "$OS" in
         ;;
 esac
 
-DOWNLOAD_URL="https://cdn.jsdelivr.net/gh/$REPO@$VERSION/$FILE"
+DOWNLOAD_URL="$OSS_BASE_URL/$FILE"
 ZIP_PATH="$HAITUN_DIR/$FILE"
 
 echo "  系统: $OS"
-echo "  版本: $VERSION"
 echo "  压缩包: $FILE"
-echo "正在下载，网络较慢请耐心等待..."
+echo "正在从 OSS 下载，网络较慢请耐心等待..."
 
 rm -f "$ZIP_PATH"
 if ! curl -L --retry 3 --retry-delay 2 --max-time 20 --progress-bar -o "$ZIP_PATH" "$DOWNLOAD_URL"; then
@@ -120,7 +125,7 @@ else
     print_err "解压后未找到 psi-agent 可执行文件"
 fi
 
-EXAMPLES_URL="https://cdn.jsdelivr.net/gh/$REPO@$VERSION/$EXAMPLES_ZIP"
+EXAMPLES_URL="$OSS_BASE_URL/$EXAMPLES_ZIP"
 EXAMPLES_TMP="$HAITUN_DIR/$EXAMPLES_ZIP"
 echo "正在拉取官方示例 workspace..."
 if curl -L --retry 2 --retry-delay 2 --max-time 20 -o "$EXAMPLES_TMP" "$EXAMPLES_URL" > /dev/null 2>&1; then
@@ -188,20 +193,18 @@ cat > "$CONFIG_FILE" << EOF
   session_socket: ./channel.sock
 EOF
 
-# 将空值替换为注释
-if [[ -z "${PSI_AI_PROVIDER:-}" ]]; then
-    sed -i.bak 's/^  provider: \s*$/  # provider:/' "$CONFIG_FILE"
+# 将空值替换为注释（兼容 macOS sed）
+if [[ "$OS" == "Darwin" ]]; then
+    sed -i '' 's/^  provider: \s*$/  # provider:/' "$CONFIG_FILE" 2>/dev/null || true
+    sed -i '' 's/^  model: \s*$/  # model:/' "$CONFIG_FILE" 2>/dev/null || true
+    sed -i '' 's/^  api_key: \s*$/  # api_key:/' "$CONFIG_FILE" 2>/dev/null || true
+    sed -i '' 's/^  base_url: \s*$/  # base_url:/' "$CONFIG_FILE" 2>/dev/null || true
+else
+    sed -i 's/^  provider: \s*$/  # provider:/' "$CONFIG_FILE"
+    sed -i 's/^  model: \s*$/  # model:/' "$CONFIG_FILE"
+    sed -i 's/^  api_key: \s*$/  # api_key:/' "$CONFIG_FILE"
+    sed -i 's/^  base_url: \s*$/  # base_url:/' "$CONFIG_FILE"
 fi
-if [[ -z "${PSI_AI_MODEL:-}" ]]; then
-    sed -i.bak 's/^  model: \s*$/  # model:/' "$CONFIG_FILE"
-fi
-if [[ -z "${PSI_AI_API_KEY:-}" ]]; then
-    sed -i.bak 's/^  api_key: \s*$/  # api_key:/' "$CONFIG_FILE"
-fi
-if [[ -z "${PSI_AI_BASE_URL:-}" ]]; then
-    sed -i.bak 's/^  base_url: \s*$/  # base_url:/' "$CONFIG_FILE"
-fi
-rm -f "$CONFIG_FILE.bak"
 
 echo "  工作目录: $HAITUN_DIR"
 echo "  默认Agent工作区: $WORKSPACE"
