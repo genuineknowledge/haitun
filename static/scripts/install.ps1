@@ -16,8 +16,6 @@ $env:CURL_RAW_MODE = "1"
 $ErrorActionPreference = "Stop"
 
 # ====================== 全局配置区（仅此处修改版本/仓库） ======================
-$Version = "v1.0.1"
-$Repo = "genuineknowledge/haitun"
 $BaseInstallDir = Join-Path $env:USERPROFILE ".haitun"
 $ExeName = "psi-agent.exe"
 $ExeFullPath = Join-Path $BaseInstallDir $ExeName
@@ -26,6 +24,12 @@ $MainZipFileName = "psi-agent-pyinstaller-windows-latest.zip"
 $ExamplesZipFileName = "examples-workspace.zip"
 $MinValidZipSize = 10 * 1024 * 1024 # 10MB
 $TotalStepCount = 6
+
+# ====================== 下载链接（阿里云 OSS） ======================
+# 将下面的 Bucket 域名替换为你的实际 OSS 外网域名
+$OSS_BASE_URL = "https://haitun-agent.oss-cn-hangzhou.aliyuncs.com"
+$MainDownloadUrl = "$OSS_BASE_URL/$MainZipFileName"
+$ExamplesDownloadUrl = "$OSS_BASE_URL/$ExamplesZipFileName"
 # ==============================================================================
 
 # 工具函数：统一打印步骤标题
@@ -78,13 +82,12 @@ else {
     Write-Host "目录已存在，将覆盖更新程序：$BaseInstallDir" -ForegroundColor Yellow
 }
 
-# ==================== 步骤3：下载并校验主程序包（国内CDN镜像+超时防卡死） ====================
+# ==================== 步骤3：下载并校验主程序包（OSS） ====================
 Write-StepTitle -StepIndex 3 -StepDesc "下载 psi-agent 主程序"
 $MainZipPath = Join-Path $BaseInstallDir $MainZipFileName
-$MainDownloadUrl = "https://cdn.jsdelivr.net/gh/$Repo@$Version/$MainZipFileName"
 
-Write-Host "  系统：Windows | 版本：$Version | 下载文件：$MainZipFileName"
-Write-Host "正在下载，网络较慢请耐心等待..."
+Write-Host "  系统：Windows | 下载文件：$MainZipFileName"
+Write-Host "正在从 OSS 下载，网络较慢请耐心等待..."
 curl.exe -L --retry 3 --retry-delay 2 --max-time 20 -o "$MainZipPath" "$MainDownloadUrl"
 
 if (-not (Test-Path $MainZipPath)) { Write-FailExit "主程序压缩包下载失败" }
@@ -109,7 +112,6 @@ Remove-Item $MainZipPath -Force
 if (-not (Test-Path $ExeFullPath)) { Write-FailExit "解压后未找到 $ExeName" }
 
 $ExamplesZipPath = Join-Path $BaseInstallDir $ExamplesZipFileName
-$ExamplesDownloadUrl = "https://cdn.jsdelivr.net/gh/$Repo@$Version/$ExamplesZipFileName"
 Write-Host "正在拉取官方示例Workspace..."
 curl.exe -L --retry 3 --retry-delay 2 --max-time 20 -o "$ExamplesZipPath" "$ExamplesDownloadUrl"
 if (Test-Path $ExamplesZipPath) {
