@@ -986,22 +986,40 @@ a { color: inherit; text-decoration: none; }
   margin-top: 20px;
   text-align: center;
 }
-.free-badge {
+/* 免费可用：艺术字渐变描边，不使用气泡 */
+.free-text {
   display: inline-block;
-  padding: 6px 20px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #ffffff;
-  /* 和主按钮统一蓝紫渐变 */
-  background: linear-gradient(135deg, #165DFF, #00b4ff);
-  border-radius: 999px;
-  /* 柔和发光特效 */
-  box-shadow: 0 0 12px rgba(22, 93, 255, 0.4);
-  letter-spacing: 0.4px;
-  /* 呼吸闪烁动画 */
-  animation: badgePulse 2.6s ease-in-out infinite;
+  margin-top: 8px;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+
+  /* 蓝紫渐变文字 */
+  background: linear-gradient(135deg, #165DFF, #00b4ff, #6d5efc);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  /* 细线描边增强识别 */
+  -webkit-text-stroke: 0.55px rgba(22, 93, 255, 0.35);
+
+  /* 轻微发光，不做气泡 */
+  filter: drop-shadow(0 0 8px rgba(22, 93, 255, 0.45));
+
+  /* 微妙流动渐变 */
+  animation: freeTextFlow 3.5s ease-in-out infinite;
 }
-@keyframes badgePulse {
-  0%,100% { box-shadow: 0 0 12px rgba(22, 93, 255, 0.4); }
-  50% { box-shadow: 0 0 22px rgba(22, 93, 255, 0.7); }
+
+@keyframes freeTextFlow {
+  0% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+  100% {
+    background-position: 0% center;
+  }
 }
