@@ -120,12 +120,13 @@
       const windowsUrl = mainBtn.dataset.windowsUrl;
       const versionInfo = document.querySelector('.download-version-info');
 
-      // 根据系统更新主按钮文案与行为
+  // 根据系统更新主按钮文案与行为
       if (os === 'windows') {
         btnText.dataset.zh = 'Windows 版一键安装';
         btnText.dataset.en = 'One-click Install for Windows';
-        versionInfo.dataset.zh = '一键安装，免费可用';
-        versionInfo.dataset.en = 'One-click install, free to use';
+    // 移除这两行旧文案赋值
+    // versionInfo.dataset.zh = '一键安装，免费可用';
+    // versionInfo.dataset.en = 'One-click install, free to use';
         mainBtn.addEventListener('click', () => {
           window.open(windowsUrl, '_blank');
         });
@@ -133,8 +134,9 @@
       } else if (os === 'mac') {
         btnText.dataset.zh = 'macOS 版一键安装';
         btnText.dataset.en = 'One-click Install for macOS';
-        versionInfo.dataset.zh = '一键安装，免费可用';
-        versionInfo.dataset.en = 'One-click install, free to use';
+    // 移除这两行旧文案赋值
+    // versionInfo.dataset.zh = '一键安装，免费可用';
+    // versionInfo.dataset.en = 'One-click install, free to use';
         mainBtn.addEventListener('click', (e) => {
           e.preventDefault();
           document.getElementById('terminal-install').scrollIntoView({ behavior: 'smooth' });
@@ -143,8 +145,9 @@
       } else if (os === 'linux') {
         btnText.dataset.zh = 'Linux 版一键安装';
         btnText.dataset.en = 'One-click Install for Linux';
-        versionInfo.dataset.zh = '一键安装，免费可用';
-        versionInfo.dataset.en = 'One-click install, free to use';
+    // 移除这两行旧文案赋值
+    // versionInfo.dataset.zh = '一键安装，免费可用';
+    // versionInfo.dataset.en = 'One-click install, free to use';
         mainBtn.addEventListener('click', (e) => {
           e.preventDefault();
           document.getElementById('terminal-install').scrollIntoView({ behavior: 'smooth' });
@@ -152,7 +155,7 @@
         document.querySelector('.platform-linux').style.display = 'none';
       }
 
-      // 重新应用当前语言，刷新按钮文案
+  // 重新应用当前语言，刷新按钮文案
       const currentLang = document.documentElement.lang.startsWith('zh') ? 'zh' : 'en';
       switchLang(currentLang);
 
