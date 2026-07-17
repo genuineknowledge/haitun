@@ -987,28 +987,31 @@ a { color: inherit; text-decoration: none; }
   text-align: center;
 }
 /* 免费可用：艺术字渐变描边，不使用气泡 */
+.download-version-info {
+  margin-top: 18px;
+  text-align: center;
+}
 .free-text {
   display: inline-block;
   margin-top: 8px;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 800;
   letter-spacing: 1px;
-  text-transform: uppercase;
 
-  /* 蓝紫渐变文字 */
+  /* 蓝紫渐变文字，高饱和清晰配色 */
   background: linear-gradient(135deg, #165DFF, #00b4ff, #6d5efc);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 
-  /* 细线描边增强识别 */
-  -webkit-text-stroke: 0.55px rgba(22, 93, 255, 0.35);
+  /* 极细淡描边，仅增强轮廓，不会糊字 */
+  -webkit-text-stroke: 0.3px rgba(22, 93, 255, 0.2);
 
-  /* 轻微发光，不做气泡 */
-  filter: drop-shadow(0 0 8px rgba(22, 93, 255, 0.45));
+  /* 移除强模糊，仅极淡一层提亮，保证字体清晰锐利 */
+  filter: drop-shadow(0 0 2px rgba(22, 93, 255, 0.2));
 
-  /* 微妙流动渐变 */
+  /* 微妙流动渐变动画 */
   animation: freeTextFlow 3.5s ease-in-out infinite;
 }
 
