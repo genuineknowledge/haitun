@@ -6,6 +6,7 @@
 {{ $downloadURL := printf "%shttps://github.com/%s/%s/releases/latest/download/%s" $proxy $owner $repo $asset }}
 {{ $githubRepo := "https://github.com/genuineknowledge/psi-agent" }}
 {{ $releasesURL := "https://github.com/genuineknowledge/psi-agent/releases" }}
+{{ $dmgDownloadURL := "https://haitun-agent.oss-cn-hangzhou.aliyuncs.com/HaiTun_Agent.dmg" }}
 
 <!-- Hero 首屏 -->
 <section class="hero">
@@ -25,7 +26,7 @@
           免费开始使用
         </a>
         <div class="download-dropdown-menu">
-          <a class="download-option" data-os="mac" href="{{ $githubRepo }}" target="_blank">
+          <a class="download-option" data-os="mac" href="{{ $dmgDownloadURL }}" target="_blank">
             <span>macOS</span>
           </a>
           <a class="download-option" data-os="windows" href="{{ $downloadURL }}" target="_blank">
@@ -152,7 +153,7 @@
         <div class="download-card-icon">🍎</div>
         <h3>macOS</h3>
         <p class="system-note">macOS 12.0+</p>
-        <a class="btn btn-ghost" href="{{ $githubRepo }}" target="_blank">前往 GitHub 获取</a>
+        <a class="btn btn-ghost" href="{{ $dmgDownloadURL }}" target="_blank">立即下载</a>
       </div>
       <div class="download-card featured">
         <div class="download-card-icon">🪟</div>

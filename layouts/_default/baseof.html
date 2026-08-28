@@ -121,6 +121,7 @@
       const mainBtn = document.getElementById('mainDownloadBtn');
       const btnText = mainBtn.querySelector('.btn-text');
       const windowsUrl = mainBtn.dataset.windowsUrl;
+      const macosUrl = mainBtn.dataset.macosUrl;
       const versionInfo = document.querySelector('.download-version-info');
 
   // 根据系统更新主按钮文案与行为
@@ -140,9 +141,8 @@
     // 移除这两行旧文案赋值
     // versionInfo.dataset.zh = '一键安装，免费可用';
     // versionInfo.dataset.en = 'One-click install, free to use';
-        mainBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          document.getElementById('terminal-install').scrollIntoView({ behavior: 'smooth' });
+        mainBtn.addEventListener('click', () => {
+          window.open(macosUrl, '_blank');
         });
         document.querySelector('.platform-macos').style.display = 'none';
       } else if (os === 'linux') {
@@ -162,8 +162,8 @@
       const currentLang = document.documentElement.lang.startsWith('zh') ? 'zh' : 'en';
       switchLang(currentLang);
 
-      // mac和Linux平台按钮点击滚动到终端安装
-      document.querySelectorAll('.platform-macos, .platform-linux').forEach(item => {
+      // Linux平台按钮点击滚动到终端安装
+      document.querySelectorAll('.platform-linux').forEach(item => {
         item.addEventListener('click', (e) => {
           e.preventDefault();
           document.getElementById('terminal-install').scrollIntoView({ behavior: 'smooth' });

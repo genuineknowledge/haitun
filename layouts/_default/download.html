@@ -3,6 +3,7 @@
 {{ $releasesURL := "https://github.com/genuineknowledge/haitun/releases" }}
 {{/* 移除代理，直接使用 OSS 永久链接 */}}
 {{ $exeDownloadURL := "https://haitun-agent.oss-cn-hangzhou.aliyuncs.com/HaiTun_Agent_Setup.exe" }}
+{{ $dmgDownloadURL := "https://haitun-agent.oss-cn-hangzhou.aliyuncs.com/HaiTun_Agent.dmg" }}
 {{/* 脚本改为 GitHub raw 链接（或你也可以改为 OSS 链接，这里保持 raw 更简单） */}}
 {{ $scriptSh := "https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.sh" }}
 {{ $scriptPs1 := "https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.ps1" }}
@@ -31,7 +32,7 @@
       </span>
     </p>
 
-    <button class="main-download-btn" id="mainDownloadBtn" data-windows-url="{{ $exeDownloadURL }}">
+    <button class="main-download-btn" id="mainDownloadBtn" data-windows-url="{{ $exeDownloadURL }}" data-macos-url="{{ $dmgDownloadURL }}">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
         <polyline points="7 10 12 15 17 10"></polyline>
@@ -50,9 +51,9 @@
         <img src="{{ "images/platform-windows.png" | relURL }}" alt="Windows" class="platform-img">
         
       </a>
-      <a class="platform-item platform-macos" href="#terminal-install" data-os="mac">
-        <span class="tooltip" data-zh="暂未上线App Store，建议选择命令行安装" data-en="Not on App Store yet. <strong>Command-line install</strong> recommended">
-          暂未上线App Store，建议选择<strong>命令行安装</strong>
+      <a class="platform-item platform-macos" href="{{ $dmgDownloadURL }}" target="_blank" rel="noopener" data-os="mac">
+        <span class="tooltip" data-zh="下载 macOS 版" data-en="Download for macOS">
+          下载 macOS 版
         </span>
         <img src="{{ "images/platform-macos.png" | relURL }}" alt="macOS" class="platform-img">
         
