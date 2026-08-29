@@ -27,7 +27,7 @@
     <p class="download-page-subtitle">
       <a class="brand-link" href="http://www.genuineknowledge.cn/" target="_blank" rel="noopener" data-zh="真知智能" data-en="Genuine Knowledge">真知智能</a>
       <span data-zh="融合打造的AI智能体。不是聊天机器人、不止辅助编码，是可自主执行任务、交付落地成果的可靠数字搭档；安全可控、持续自进化、使用成本更低，越用越聪明。"
-            data-en="co-created AI agent. Not just a chatbot, not just a coding assistant — a reliable digital partner that autonomously executes tasks and delivers tangible results. Secure & controllable, continuously self-evolving, lower cost, and gets smarter with use.">
+            data-en="An AI agent co-created by Genuine Knowledge. Not just a chatbot, not just a coding assistant — a reliable digital partner that autonomously executes tasks and delivers tangible results. Secure & controllable, continuously self-evolving, lower cost, and gets smarter with use.">
         融合打造的AI智能体。不是聊天机器人、不止辅助编码，是可自主执行任务、交付落地成果的可靠数字搭档；安全可控、持续自进化、使用成本更低，越用越聪明。
       </span>
     </p>
@@ -88,7 +88,7 @@
                 data-cmd="powershell -NoProfile -ExecutionPolicy Bypass -Command &quot;iwr -Uri 'https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.ps1' -UseBasicParsing | iex&quot;"  
                 data-zh="Windows PowerShell" data-en="Windows PowerShell">Windows PowerShell</button>
       </div>
-      <div id="windows-note" style="display: none; font-size: 0.85rem; color: #888; margin-top: 0.5rem;">
+      <div id="windows-note" style="display: none; font-size: 0.85rem; color: #888; margin-top: 0.5rem;" data-zh="💡 为避免乱码，请在 Windows Terminal 中执行命令（Microsoft Store 免费安装）" data-en="To avoid garbled text, run the command in Windows Terminal (free install from Microsoft Store)">
         💡 为避免乱码，请在 Windows Terminal 中执行命令（Microsoft Store 免费安装）
       </div>
       <div class="terminal-code-box">
@@ -169,7 +169,7 @@
     <div class="faq">
       <!-- 1. 自定义工具、自动化与模板复用 -->
       <details class="faq-item">
-        <summary data-zh="是否支持自定义工具、自动化工作流与模板分享？" data-en="Custom tools, workflows & template sharing support?">是否支持自定义工具、自动化工作流与模板分享？</summary>
+        <summary data-zh="是否支持自定义工具、自动化工作流与模板分享？" data-en="Does it support custom tools, automated workflows, and template sharing?">是否支持自定义工具、自动化工作流与模板分享？</summary>
         <p data-zh="支持接入本地Python脚本、API、数据库，可集成自有自动化流程；支持导出Agent流程、提示词模板，实现跨设备复用、团队共享。"
            data-en="It supports local Python scripts, APIs, databases and custom workflows. Agent flows & prompt templates can be exported for cross-device reuse and team sharing.">
           支持接入本地Python脚本、API、数据库，可集成自有自动化流程；支持导出Agent流程、提示词模板，实现跨设备复用、团队共享。
@@ -177,7 +177,7 @@
       </details>
       <!-- 2. 百万字长文档上下文处理 -->
       <details class="faq-item">
-        <summary data-zh="百万字长文档如何处理上下文，会丢失前文信息吗？" data-en="Context handling for million-word docs, any information loss?">百万字长文档如何处理上下文，会丢失前文信息吗？</summary>
+        <summary data-zh="百万字长文档如何处理上下文，会丢失前文信息吗？" data-en="How does it handle context in million-word documents? Will earlier information be lost?">百万字长文档如何处理上下文，会丢失前文信息吗？</summary>
         <p data-zh="通过文本压缩+分层记忆优化上下文窗口限制；极端超长文本场景下少量细节仍可能丢失。"
            data-en="Text compression and layered memory optimize context limits. Minor details may be lost with extremely long documents.">
           通过文本压缩+分层记忆优化上下文窗口限制；极端超长文本场景下少量细节仍可能丢失。
@@ -185,7 +185,7 @@
       </details>
       <!-- 3. Agent代码执行安全 -->
       <details class="faq-item">
-        <summary data-zh="Agent代码执行是否存在本地文件、高危指令安全风险？" data-en="Security risks of Agent code execution on local system?">Agent代码执行是否存在本地文件、高危指令安全风险？</summary>
+        <summary data-zh="Agent代码执行是否存在本地文件、高危指令安全风险？" data-en="Are there security risks when the agent executes code on my local system?">Agent代码执行是否存在本地文件、高危指令安全风险？</summary>
         <p data-zh="内置高危指令拦截机制，但无法完全隔离本地系统权限，仍存在一定安全隐患。"
            data-en="Built-in dangerous command filters exist, yet full isolation from local system access cannot be guaranteed, with inherent security risks remaining.">
           内置高危指令拦截机制，但无法完全隔离本地系统权限，仍存在一定安全隐患。
@@ -195,7 +195,7 @@
       <details class="faq-item">
         <summary data-zh="低配笔记本能否流畅本地运行？硬件占用情况如何？" data-en="Can low-spec laptops run it smoothly locally? Hardware resource usage?">低配笔记本能否流畅本地运行？硬件占用情况如何？</summary>
         <p data-zh="暂未完成低配设备完整性能测试，低配设备运行复杂Agent任务易出现卡顿延迟。"
-           data-en="Full performance tests on low-end hardware are incomplete. Complex Agent tasks will lag on low-spec laptops.">
+           data-en="Full performance tests on low-end hardware are incomplete. Complex Agent tasks may lag on low-spec laptops.">
           暂未完成低配设备完整性能测试，低配设备运行复杂Agent任务易出现卡顿延迟。
         </p>
       </details>
@@ -253,7 +253,7 @@
         <ul class="spec-list">
           <li class="spec-item">
             <span class="spec-label" data-zh="操作系统" data-en="OS">操作系统</span>
-            <span class="spec-value">Windows 10/11、macOS 13+、主流 Linux</span>
+            <span class="spec-value" data-zh="Windows 10/11、macOS 13+、主流 Linux" data-en="Windows 10/11, macOS 13+, mainstream Linux">Windows 10/11、macOS 13+、主流 Linux</span>
           </li>
           <li class="spec-item">
             <span class="spec-label">CPU</span>
@@ -265,7 +265,7 @@
           </li>
           <li class="spec-item">
             <span class="spec-label" data-zh="存储空间" data-en="Storage">存储空间</span>
-            <span class="spec-value">2GB 可用空间</span>
+            <span class="spec-value" data-zh="2GB 可用空间" data-en="2GB free space">2GB 可用空间</span>
           </li>
           <li class="spec-item">
             <span class="spec-label" data-zh="显卡" data-en="Graphics">显卡</span>
@@ -286,11 +286,11 @@
           </li>
           <li class="spec-item">
             <span class="spec-label" data-zh="内存" data-en="Memory">内存</span>
-            <span class="spec-value">16GB RAM 或更高</span>
+            <span class="spec-value" data-zh="16GB RAM 或更高" data-en="16GB RAM or more">16GB RAM 或更高</span>
           </li>
           <li class="spec-item">
             <span class="spec-label" data-zh="存储空间" data-en="Storage">存储空间</span>
-            <span class="spec-value">5GB 以上，建议 SSD</span>
+            <span class="spec-value" data-zh="5GB 以上，建议 SSD" data-en="5GB+ free space, SSD recommended">5GB 以上，建议 SSD</span>
           </li>
           <li class="spec-item">
             <span class="spec-label" data-zh="网络" data-en="Network">网络</span>
