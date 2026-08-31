@@ -91,6 +91,9 @@
       document.querySelectorAll('[data-zh]').forEach(el => {
         el.textContent = lang === 'zh' ? el.dataset.zh : el.dataset.en;
       });
+      document.querySelectorAll('[data-zh-href]').forEach(el => {
+        el.href = lang === 'zh' ? el.dataset.zhHref : el.dataset.enHref;
+      });
       localStorage.setItem('haitun-lang', lang);
       
       // 切换语言后同步刷新标题滚动词
