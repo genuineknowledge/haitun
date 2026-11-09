@@ -165,7 +165,7 @@
     // versionInfo.dataset.en = 'One-click install, free to use';
         mainBtn.addEventListener('click', (e) => {
           e.preventDefault();
-          document.getElementById('terminal-install').scrollIntoView({ behavior: 'smooth' });
+          document.getElementById('terminal-install')?.scrollIntoView({ behavior: 'smooth' });
         });
         document.querySelector('.platform-linux').style.display = 'none';
       }
@@ -178,7 +178,7 @@
       document.querySelectorAll('.platform-linux').forEach(item => {
         item.addEventListener('click', (e) => {
           e.preventDefault();
-          document.getElementById('terminal-install').scrollIntoView({ behavior: 'smooth' });
+          document.getElementById('terminal-install')?.scrollIntoView({ behavior: 'smooth' });
         });
       });
 
