@@ -4,9 +4,9 @@
 {{/* 移除代理，直接使用 OSS 永久链接 */}}
 {{ $exeDownloadURL := "https://haitun-agent.oss-cn-hangzhou.aliyuncs.com/HaiTun_Agent_Setup.exe" }}
 {{ $dmgDownloadURL := "https://haitun-agent.oss-cn-hangzhou.aliyuncs.com/HaiTun_Agent.dmg" }}
-{{/* 脚本改为 GitHub raw 链接（或你也可以改为 OSS 链接，这里保持 raw 更简单） */}}
-{{ $scriptSh := "https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.sh" }}
-{{ $scriptPs1 := "https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.ps1" }}
+{{/* 脚本走本站 static/scripts，国内无需访问 GitHub */}}
+{{ $scriptSh := "https://www.genuineknowledge.cn/haitun/scripts/install.sh" }}
+{{ $scriptPs1 := "https://www.genuineknowledge.cn/haitun/scripts/install.ps1" }}
 <!-- 首屏下载区 -->
 <section class="download-page-hero">
   <div class="download-page-content">
@@ -66,75 +66,6 @@
   </div>
 </section>
 
-<!-- 开发者终端一键安装 -->
-<section class="section section-alt" id="terminal-install">
-  <div class="container container-narrow">
-    <h2 class="section-title" data-zh="开发者终端一键安装" data-en="One-click Terminal Installation">开发者终端一键安装</h2>
-    <p class="section-sub" data-zh="一行命令快速部署，适配Python开发者与服务器环境" data-en="Deploy with one command, for Python developers and server environments">
-      一行命令快速部署，适配Python开发者与服务器环境
-    </p>
-    <div class="hero-terminal">
-      <div class="terminal-header">
-        <span class="terminal-title" data-zh="安装命令" data-en="Install Command">安装命令</span>
-        <span class="terminal-tip" data-zh="依赖 Python 3.14+" data-en="Requires Python 3.14+">依赖 Python 3.14+</span>
-      </div>
-      <div class="terminal-tabs">
-        <!-- macOS/Linux Tab：命令改为 raw 链接 -->
-        <button class="terminal-tab active" 
-                data-cmd="curl -fsSL https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.sh | bash" 
-                data-zh="macOS / Linux" data-en="macOS / Linux">macOS / Linux</button>
-        <!-- Windows PowerShell Tab：命令改为 raw 链接 -->
-        <button class="terminal-tab" 
-                data-cmd="powershell -NoProfile -ExecutionPolicy Bypass -Command &quot;iwr -Uri 'https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.ps1' -UseBasicParsing | iex&quot;"  
-                data-zh="Windows PowerShell" data-en="Windows PowerShell">Windows PowerShell</button>
-      </div>
-      <div id="windows-note" style="display: none; font-size: 0.85rem; color: #888; margin-top: 0.5rem;" data-zh="💡 为避免乱码，请在 Windows Terminal 中执行命令（Microsoft Store 免费安装）" data-en="To avoid garbled text, run the command in Windows Terminal (free install from Microsoft Store)">
-        💡 为避免乱码，请在 Windows Terminal 中执行命令（Microsoft Store 免费安装）
-      </div>
-      <div class="terminal-code-box">
-        <code id="terminal-command">curl -fsSL https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.sh | bash</code>
-        <button class="copy-btn" id="copyCommandBtn" title="复制命令">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-          </svg>
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- 控制 Windows 提示显示/隐藏的内联脚本 -->
-<script>
-  (function() {
-    const tabs = document.querySelectorAll('#terminal-install .terminal-tab');
-    const note = document.getElementById('windows-note');
-    if (!tabs.length || !note) return;
-
-    function toggleNote() {
-      const activeTab = document.querySelector('#terminal-install .terminal-tab.active');
-      if (activeTab && activeTab.getAttribute('data-zh') === 'Windows PowerShell') {
-        note.style.display = 'block';
-      } else {
-        note.style.display = 'none';
-      }
-    }
-
-    // 页面加载时检查
-    toggleNote();
-
-    // 监听所有 tab 点击（也可复用你已有的 tab 切换逻辑，这里做安全增强）
-    tabs.forEach(btn => {
-      btn.addEventListener('click', function() {
-        // 等 active 类切换完成后再判断（微任务即可）
-        setTimeout(toggleNote, 0);
-      });
-    });
-  })();
-</script>
-
-
 <!-- 用户社区 -->
 <section class="section" id="community">
   <div class="container container-narrow">
@@ -167,6 +98,30 @@
     <h2 class="section-title" data-zh="常见问题" data-en="FAQ">常见问题</h2>
     <p class="section-sub" data-zh="你可能关心的问题都在这里" data-en="Answers to common questions">你可能关心的问题都在这里</p>
     <div class="faq">
+      <!-- 与普通 AI 聊天助手的区别 -->
+      <details class="faq-item">
+        <summary data-zh="HaiTun 与普通 AI 聊天助手有什么区别？" data-en="How is HaiTun different from a regular AI chat assistant?">HaiTun 与普通 AI 聊天助手有什么区别？</summary>
+        <p data-zh="普通 AI 聊天助手主要通过对话回答问题、给出建议，具体操作仍需你自己动手。HaiTun 是运行在你本地设备上的 AI 智能体：你只需用自然语言描述目标，它会自行规划步骤、调用工具并直接完成操作，例如整理文件、处理数据、编写代码和生成报告。它交付的是结果，而不只是答案。"
+           data-en="A regular AI chat assistant mainly answers questions and gives suggestions through conversation, leaving the actual work to you. HaiTun is an AI agent that runs on your local device: describe your goal in natural language, and it plans the steps, calls the right tools, and carries out the work itself, such as organizing files, processing data, writing code, and generating reports. It delivers results, not just answers.">
+          普通 AI 聊天助手主要通过对话回答问题、给出建议，具体操作仍需你自己动手。HaiTun 是运行在你本地设备上的 AI 智能体：你只需用自然语言描述目标，它会自行规划步骤、调用工具并直接完成操作，例如整理文件、处理数据、编写代码和生成报告。它交付的是结果，而不只是答案。
+        </p>
+      </details>
+      <!-- 可完成的实际任务 -->
+      <details class="faq-item">
+        <summary data-zh="HaiTun 可以帮助我完成哪些实际任务？" data-en="What real tasks can HaiTun help me with?">HaiTun 可以帮助我完成哪些实际任务？</summary>
+        <p data-zh="HaiTun 可以协助完成日常办公、开发和数据处理中的多种任务，例如：" data-en="HaiTun can help with a wide range of tasks in everyday office work, development, and data processing, for example:">HaiTun 可以协助完成日常办公、开发和数据处理中的多种任务，例如：</p>
+        <ul>
+          <li data-zh="文件管理：批量重命名、按规则分类整理、归档项目资料。" data-en="File management: batch renaming, rule-based sorting, and archiving project materials.">文件管理：批量重命名、按规则分类整理、归档项目资料。</li>
+          <li data-zh="数据处理：清洗 Excel 表格、提取关键信息、转换文件格式。" data-en="Data processing: cleaning Excel sheets, extracting key information, and converting file formats.">数据处理：清洗 Excel 表格、提取关键信息、转换文件格式。</li>
+          <li data-zh="文档写作：基于已有资料生成日报、周报、工作总结和说明文档。" data-en="Document writing: producing daily and weekly reports, work summaries, and documentation from existing materials.">文档写作：基于已有资料生成日报、周报、工作总结和说明文档。</li>
+          <li data-zh="编程开发：阅读和修改代码、运行命令、辅助排查问题。" data-en="Programming: reading and modifying code, running commands, and helping troubleshoot issues.">编程开发：阅读和修改代码、运行命令、辅助排查问题。</li>
+          <li data-zh="重复性工作：自动执行批量操作和多步骤工作流程。" data-en="Repetitive work: automating batch operations and multi-step workflows.">重复性工作：自动执行批量操作和多步骤工作流程。</li>
+        </ul>
+        <p data-zh="你无需掌握复杂的操作指令，像和同事沟通一样描述需求即可，例如：“帮我把这个文件夹里的资料按项目分类，并生成一份文件清单。”HaiTun 会围绕目标完成任务，帮你减少重复操作，把时间留给更重要的工作。"
+           data-en="No complex commands needed. Just describe what you need as you would to a colleague, for example: “Sort the files in this folder by project and generate a file list.” HaiTun works toward your goal, cutting down repetitive work so you can focus on what matters.">
+          你无需掌握复杂的操作指令，像和同事沟通一样描述需求即可，例如：“帮我把这个文件夹里的资料按项目分类，并生成一份文件清单。”HaiTun 会围绕目标完成任务，帮你减少重复操作，把时间留给更重要的工作。
+        </p>
+      </details>
       <!-- 1. 自定义工具、自动化与模板复用 -->
       <details class="faq-item">
         <summary data-zh="是否支持自定义工具、自动化工作流与模板分享？" data-en="Does it support custom tools, automated workflows, and template sharing?">是否支持自定义工具、自动化工作流与模板分享？</summary>
@@ -199,14 +154,6 @@
           暂未完成低配设备完整性能测试，低配设备运行复杂Agent任务易出现卡顿延迟。
         </p>
       </details>
-      <!-- 5. 跨平台与macOS客户端进度 -->
-      <details class="faq-item">
-        <summary data-zh="跨平台规划进度如何？macOS安装包何时上线？" data-en="Cross-platform roadmap & macOS installer release schedule?">跨平台规划进度如何？macOS安装包何时上线？</summary>
-        <p data-zh="多系统适配为长期规划，macOS版本开发中；受合规手续影响，暂无明确上线时间。当前仅提供Windows 10/11安装包。"
-           data-en="Multi-OS support is a long-term plan; macOS version is under development. No confirmed release date pending compliance procedures. Only Windows 10/11 installers are available now.">
-          多系统适配为长期规划，macOS版本开发中；受合规手续影响，暂无明确上线时间。当前仅提供Windows 10/11安装包。
-        </p>
-      </details>
       <!-- 6. 收费模式 -->
       <details class="faq-item">
         <summary data-zh="产品是否免费？后续收费方案规划？" data-en="Is it free? What’s the future pricing plan?">产品是否免费？后续收费方案规划？</summary>
@@ -229,11 +176,17 @@
           所有数据默认保存在你的本地设备，不会上传至官方服务器。
         </p>
       </details>
+      <!-- 问题反馈与功能建议 -->
       <details class="faq-item">
-        <summary data-zh="如何获取新版本更新？" data-en="How to install new updates?">如何获取新版本更新？</summary>
-        <p data-zh="新版本发布于GitHub Releases，官网下载按钮始终指向最新版，直接下载覆盖安装即可。"
-           data-en="New versions are released on GitHub Releases. The official download button always links to the latest installer, just reinstall to update.">
-          新版本发布于GitHub Releases，官网下载按钮始终指向最新版，直接下载覆盖安装即可。
+        <summary data-zh="如何反馈问题或提出新功能建议？" data-en="How can I report issues or suggest new features?">如何反馈问题或提出新功能建议？</summary>
+        <p data-zh="我们重视每一条反馈。使用中遇到问题或希望增加新功能，可以通过以下方式告诉我们：" data-en="We value every piece of feedback. If you run into a problem or would like a new feature, let us know through:">我们重视每一条反馈。使用中遇到问题或希望增加新功能，可以通过以下方式告诉我们：</p>
+        <ul>
+          <li><span data-zh="GitHub Issues：在 " data-en="GitHub Issues: submit bugs, usage questions, or feature requests on the ">GitHub Issues：在 </span><a href="{{ $githubRepo }}/issues" target="_blank" rel="noopener" data-zh="问题反馈页面" data-en="issue tracker">问题反馈页面</a><span data-zh=" 提交 Bug、使用问题或功能建议。" data-en="."> 提交 Bug、使用问题或功能建议。</span></li>
+          <li><span data-zh="用户社区：扫描" data-en="User community: scan the Feishu or WeChat QR code in the ">用户社区：扫描</span><a href="#community" data-zh="用户社区" data-en="User Community">用户社区</a><span data-zh="中的飞书或微信群二维码，与开发团队和其他用户交流使用经验、分享想法；也可以填写反馈问卷。" data-en=" section to chat with the team and other users, or fill out the feedback survey.">中的飞书或微信群二维码，与开发团队和其他用户交流使用经验、分享想法；也可以填写反馈问卷。</span></li>
+        </ul>
+        <p data-zh="反馈问题时，请尽量附上操作系统及版本、HaiTun 版本号、复现步骤，以及相关截图或日志，便于我们更快定位和解决问题。"
+           data-en="When reporting an issue, please include your OS and version, HaiTun version, steps to reproduce, and any relevant screenshots or logs so we can locate and fix it faster.">
+          反馈问题时，请尽量附上操作系统及版本、HaiTun 版本号、复现步骤，以及相关截图或日志，便于我们更快定位和解决问题。
         </p>
       </details>
     </div>

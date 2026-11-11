@@ -93,7 +93,7 @@ echo "  压缩包: $FILE"
 echo "正在从 OSS 下载，网络较慢请耐心等待..."
 
 rm -f "$ZIP_PATH"
-if ! curl -L --retry 3 --retry-delay 2 --max-time 20 --progress-bar -o "$ZIP_PATH" "$DOWNLOAD_URL"; then
+if ! curl --fail -L --retry 5 --retry-delay 3 --connect-timeout 20 --max-time 1800 --progress-bar -o "$ZIP_PATH" "$DOWNLOAD_URL"; then
     rm -f "$ZIP_PATH"
     print_err "主程序包下载失败，请切换网络重试"
 fi
@@ -128,8 +128,8 @@ fi
 EXAMPLES_URL="$OSS_BASE_URL/$EXAMPLES_ZIP"
 EXAMPLES_TMP="$HAITUN_DIR/$EXAMPLES_ZIP"
 echo "正在拉取官方示例 workspace..."
-if curl -L --retry 2 --retry-delay 2 --max-time 20 -o "$EXAMPLES_TMP" "$EXAMPLES_URL" > /dev/null 2>&1; then
-    unzip -o "$EXAMPLES_TMP" -d "$HAITUN_DIR" > /dev/null 2>&1
+if curl --fail -L --retry 2 --retry-delay 2 --connect-timeout 20 --max-time 300 -o "$EXAMPLES_TMP" "$EXAMPLES_URL" > /dev/null 2>&1 \
+    && unzip -o "$EXAMPLES_TMP" -d "$HAITUN_DIR" > /dev/null 2>&1; then
     rm -f "$EXAMPLES_TMP"
     print_ok "示例工作空间 examples/ 已就绪"
     DEFAULT_WORKSPACE="$HAITUN_DIR/examples"
@@ -145,6 +145,7 @@ if curl -L --retry 2 --retry-delay 2 --max-time 20 -o "$EXAMPLES_TMP" "$EXAMPLES
         print_ok "已持久配置默认Agent工作空间：$DEFAULT_WORKSPACE"
     fi
 else
+    rm -f "$EXAMPLES_TMP"
     print_warn "示例工作区下载失败，可在Web控制台手动加载目录"
 fi
 print_ok "程序解压完成"

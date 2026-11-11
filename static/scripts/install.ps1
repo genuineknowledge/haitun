@@ -88,7 +88,21 @@ $MainZipPath = Join-Path $BaseInstallDir $MainZipFileName
 
 Write-Host "  系统：Windows | 下载文件：$MainZipFileName"
 Write-Host "正在从 OSS 下载，网络较慢请耐心等待..."
-curl.exe -L --retry 3 --retry-delay 2 --max-time 20 -o "$MainZipPath" "$MainDownloadUrl"
+# curl.exe -L --retry 3 --retry-delay 2 --max-time 20 -o "$MainZipPath" "$MainDownloadUrl"
+# 修改-cjy
+curl.exe `
+    --fail `
+    --location `
+    --retry 5 `
+    --retry-delay 3 `
+    --connect-timeout 20 `
+    --max-time 1800 `
+    --output "$MainZipPath" `
+    "$MainDownloadUrl"
+
+if ($LASTEXITCODE -ne 0) {
+    Write-FailExit "主程序下载失败，请检查网络连接或 OSS 地址"
+}
 
 if (-not (Test-Path $MainZipPath)) { Write-FailExit "主程序压缩包下载失败" }
 $ZipFileSize = (Get-Item $MainZipPath).Length
@@ -111,22 +125,42 @@ catch {
 Remove-Item $MainZipPath -Force
 if (-not (Test-Path $ExeFullPath)) { Write-FailExit "解压后未找到 $ExeName" }
 
-$ExamplesZipPath = Join-Path $BaseInstallDir $ExamplesZipFileName
-Write-Host "正在拉取官方示例Workspace..."
-curl.exe -L --retry 3 --retry-delay 2 --max-time 20 -o "$ExamplesZipPath" "$ExamplesDownloadUrl"
-if (Test-Path $ExamplesZipPath) {
-    Expand-Archive -Path $ExamplesZipPath -DestinationPath $BaseInstallDir -Force
-    Remove-Item $ExamplesZipPath -Force
-    Write-Success "示例工作空间 examples/ 已就绪"
-    $DefaultWorkspace = Join-Path $BaseInstallDir "examples"
-    $env:PSI_DEFAULT_WORKSPACE = $DefaultWorkspace
-    [Environment]::SetEnvironmentVariable("PSI_DEFAULT_WORKSPACE", $DefaultWorkspace, "User")
-    Write-Success "已配置默认Agent工作空间：$DefaultWorkspace"
-}
-else {
-    Write-Host "⚠ 示例工作区下载失败，可在Web控制台手动加载目录" -ForegroundColor Yellow
-}
-Write-Success "程序解压完成"
+# $ExamplesZipPath = Join-Path $BaseInstallDir $ExamplesZipFileName
+# Write-Host "正在拉取官方示例Workspace..."
+# # curl.exe -L --retry 3 --retry-delay 2 --max-time 20 -o "$ExamplesZipPath" "$ExamplesDownloadUrl"
+# # 修改-cjy
+# curl.exe `
+#     --fail `
+#     --location `
+#     --retry 3 `
+#     --retry-delay 2 `
+#     --connect-timeout 20 `
+#     --max-time 300 `
+#     --output "$ExamplesZipPath" `
+#     "$ExamplesDownloadUrl"
+#
+# if ($LASTEXITCODE -ne 0) {
+#     Write-Host "示例工作区下载失败，跳过该步骤" -ForegroundColor Yellow
+#     Remove-Item $ExamplesZipPath -Force -ErrorAction SilentlyContinue
+# }
+#
+#
+# if (Test-Path $ExamplesZipPath) {
+#     Expand-Archive -Path $ExamplesZipPath -DestinationPath $BaseInstallDir -Force
+#     Remove-Item $ExamplesZipPath -Force
+#     Write-Success "示例工作空间 examples/ 已就绪"
+#     $DefaultWorkspace = Join-Path $BaseInstallDir "examples"
+#     $env:PSI_DEFAULT_WORKSPACE = $DefaultWorkspace
+#     [Environment]::SetEnvironmentVariable("PSI_DEFAULT_WORKSPACE", $DefaultWorkspace, "User")
+#     Write-Success "已配置默认Agent工作空间：$DefaultWorkspace"
+# }
+# else {
+#     Write-Host "⚠ 示例工作区下载失败，可在Web控制台手动加载目录" -ForegroundColor Yellow
+# }
+# Write-Success "程序解压完成"
+
+# 示例工作区暂未上传 OSS，安装测试期间先跳过
+Write-Host "示例工作区暂不可用，跳过下载" -ForegroundColor Yellow
 
 # ==================== 步骤5：配置全局PATH + 桌面快捷方式 ====================
 Write-StepTitle -StepIndex 5 -StepDesc "配置全局命令与桌面快捷启动"

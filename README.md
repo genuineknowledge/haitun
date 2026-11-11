@@ -21,7 +21,7 @@ Windows 用户可以直接下载安装包：
 当然也可以通过终端安装开发者版本：
 
 ```bash
-irm https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.ps1 | iex
+iex ([Text.Encoding]::UTF8.GetString((iwr -Uri 'https://www.genuineknowledge.cn/haitun/scripts/install.ps1' -UseBasicParsing).RawContentStream.ToArray()))
 ```
 
 安装后打开 HaiTun Agent，用自然语言告诉它你想完成什么，例如：
@@ -43,7 +43,7 @@ irm https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/script
 macOS 和 Linux 用户可以通过终端安装开发者版本：
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.sh | bash
+curl -fsSL https://www.genuineknowledge.cn/haitun/scripts/install.sh | bash
 ```
 
 安装完成后会自启动 Web 管理面板，下次自己启动可以输入：

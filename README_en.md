@@ -21,7 +21,7 @@ HaiTun Agent supports Windows 10 and Windows 11 on x64 systems, with ARM64 compa
 Developers can alternatively install the command-line build from PowerShell:
 
 ```powershell
-irm https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.ps1 | iex
+iex ([Text.Encoding]::UTF8.GetString((iwr -Uri 'https://www.genuineknowledge.cn/haitun/scripts/install.ps1' -UseBasicParsing).RawContentStream.ToArray()))
 ```
 
 After installation, open HaiTun Agent and describe the result you want. For example:
@@ -43,7 +43,7 @@ Prepare a daily report from these materials.
 A developer build is available through the terminal:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/genuineknowledge/haitun/main/static/scripts/install.sh | bash
+curl -fsSL https://www.genuineknowledge.cn/haitun/scripts/install.sh | bash
 ```
 
 The installation script launches the web console automatically. To start it again later, run:

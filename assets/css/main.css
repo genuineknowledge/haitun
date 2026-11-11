@@ -645,6 +645,18 @@ a { color: inherit; text-decoration: none; }
   line-height: 1.7;
   padding-bottom: 4px;
 }
+.faq-item ul {
+  margin: 10px 0 0;
+  padding-left: 20px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.faq-item li + li {
+  margin-top: 4px;
+}
+.faq-item a {
+  color: var(--accent);
+}
 
 /* —— 开发者社群 —— */
 .community-wrap {
