@@ -131,7 +131,6 @@
       const ua = navigator.userAgent.toLowerCase();
       if (/windows|win/.test(ua)) return 'windows';
       if (/mac|macintosh/.test(ua)) return 'mac';
-      if (/linux|x11|ubuntu/.test(ua)) return 'linux';
       return 'windows';
     }
 
@@ -164,30 +163,11 @@
           window.open(macosUrl, '_blank');
         });
         document.querySelector('.platform-macos').style.display = 'none';
-      } else if (os === 'linux') {
-        btnText.dataset.zh = 'Linux 版一键安装';
-        btnText.dataset.en = 'One-click Install for Linux';
-    // 移除这两行旧文案赋值
-    // versionInfo.dataset.zh = '一键安装，免费可用';
-    // versionInfo.dataset.en = 'One-click install, free to use';
-        mainBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          document.getElementById('terminal-install')?.scrollIntoView({ behavior: 'smooth' });
-        });
-        document.querySelector('.platform-linux').style.display = 'none';
       }
 
   // 重新应用当前语言，刷新按钮文案
       const currentLang = document.documentElement.lang.startsWith('zh') ? 'zh' : 'en';
       switchLang(currentLang);
-
-      // Linux平台按钮点击滚动到终端安装
-      document.querySelectorAll('.platform-linux').forEach(item => {
-        item.addEventListener('click', (e) => {
-          e.preventDefault();
-          document.getElementById('terminal-install')?.scrollIntoView({ behavior: 'smooth' });
-        });
-      });
 
       // 终端命令切换逻辑
       const tabs = document.querySelectorAll('.terminal-tab');
