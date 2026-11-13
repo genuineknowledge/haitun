@@ -6,10 +6,6 @@
   <title data-zh="HaiTun 本地AI智能体" data-en="HaiTun Local AI Agent">HaiTun 本地AI智能体</title>
   <meta name="description" content="真知智能出品的全场景本地AI智能体，自主执行任务、交付落地成果">
   <link rel="icon" href="{{ "favicon.ico" | relURL }}" type="image/x-icon">
-  <!-- 科技感字体 -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&display=swap" rel="stylesheet">
   {{ $style := resources.Get "css/main.css" | resources.Minify }}
   <link rel="stylesheet" href="{{ $style.RelPermalink }}">
   {{ partial "analytics.html" . }}
